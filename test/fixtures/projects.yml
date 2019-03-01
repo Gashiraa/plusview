@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invoice: one
+  quotation: one
+  customer: one
+  status: 1
+  wielding: 1
+  machining: 1
+  karcher: 1
+
+two:
+  invoice: two
+  quotation: two
+  customer: two
+  status: 1
+  wielding: 1
+  machining: 1
+  karcher: 1

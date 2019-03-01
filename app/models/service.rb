@@ -1,0 +1,6 @@
+class Service < ApplicationRecord
+  belongs_to :project, optional: true
+  belongs_to :invoice, optional: true
+  belongs_to :customer, optional: true
+  belongs_to :quotation, optional: true
+end

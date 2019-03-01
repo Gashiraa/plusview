@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  invoice: one
+  customer: one
+  quotation: one
+  name: MyString
+  comment: MyString
+  quantity: 1
+  provider_discount: 1.5
+  margin: 1.5
+  unit_price: 1.5
+  status: 1
+  tva_rate: 1.5
+  total_cost: 1.5
+
+two:
+  project: two
+  invoice: two
+  customer: two
+  quotation: two
+  name: MyString
+  comment: MyString
+  quantity: 1
+  provider_discount: 1.5
+  margin: 1.5
+  unit_price: 1.5
+  status: 1
+  tva_rate: 1.5
+  total_cost: 1.5

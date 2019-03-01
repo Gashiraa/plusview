@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Invoice:</strong>
+  <%= @project.invoice %>
+</p>
+
+<p>
+  <strong>Quotation:</strong>
+  <%= @project.quotation %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @project.customer %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @project.status %>
+</p>
+
+<p>
+  <strong>Wielding:</strong>
+  <%= @project.wielding %>
+</p>
+
+<p>
+  <strong>Machining:</strong>
+  <%= @project.machining %>
+</p>
+
+<p>
+  <strong>Karcher:</strong>
+  <%= @project.karcher %>
+</p>
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

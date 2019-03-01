@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2019-02-28
+  status: 1
+  total: 1.5
+
+two:
+  date: 2019-02-28
+  status: 1
+  total: 1.5

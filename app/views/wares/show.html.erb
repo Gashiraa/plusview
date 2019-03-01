@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @ware.project %>
+</p>
+
+<p>
+  <strong>Invoice:</strong>
+  <%= @ware.invoice %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @ware.customer %>
+</p>
+
+<p>
+  <strong>Quotation:</strong>
+  <%= @ware.quotation %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ware.name %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @ware.comment %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @ware.quantity %>
+</p>
+
+<p>
+  <strong>Provider discount:</strong>
+  <%= @ware.provider_discount %>
+</p>
+
+<p>
+  <strong>Margin:</strong>
+  <%= @ware.margin %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @ware.unit_price %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @ware.status %>
+</p>
+
+<p>
+  <strong>Tva rate:</strong>
+  <%= @ware.tva_rate %>
+</p>
+
+<p>
+  <strong>Total cost:</strong>
+  <%= @ware.total_cost %>
+</p>
+
+<%= link_to 'Edit', edit_ware_path(@ware) %> |
+<%= link_to 'Back', wares_path %>

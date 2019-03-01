@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  invoice: one
+  customer: one
+  quotation: one
+  name: MyString
+  comment: MyString
+  hourly_rate: 1.5
+  coefficient: 1.5
+  date: 2019-02-28
+  duration: 2019-02-28 11:49:13
+  status: 1
+  tva_rate: 1.5
+  total_cost: 1.5
+
+two:
+  project: two
+  invoice: two
+  customer: two
+  quotation: two
+  name: MyString
+  comment: MyString
+  hourly_rate: 1.5
+  coefficient: 1.5
+  date: 2019-02-28
+  duration: 2019-02-28 11:49:13
+  status: 1
+  tva_rate: 1.5
+  total_cost: 1.5

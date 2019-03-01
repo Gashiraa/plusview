@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Services</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Invoice</th>
+      <th>Customer</th>
+      <th>Quotation</th>
+      <th>Name</th>
+      <th>Comment</th>
+      <th>Hourly rate</th>
+      <th>Coefficient</th>
+      <th>Date</th>
+      <th>Duration</th>
+      <th>Status</th>
+      <th>Tva rate</th>
+      <th>Total cost</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @services.each do |service| %>
+      <tr>
+        <td><%= service.project %></td>
+        <td><%= service.invoice %></td>
+        <td><%= service.customer %></td>
+        <td><%= service.quotation %></td>
+        <td><%= service.name %></td>
+        <td><%= service.comment %></td>
+        <td><%= service.hourly_rate %></td>
+        <td><%= service.coefficient %></td>
+        <td><%= service.date %></td>
+        <td><%= service.duration %></td>
+        <td><%= service.status %></td>
+        <td><%= service.tva_rate %></td>
+        <td><%= service.total_cost %></td>
+        <td><%= link_to 'Show', service %></td>
+        <td><%= link_to 'Edit', edit_service_path(service) %></td>
+        <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Service', new_service_path %>

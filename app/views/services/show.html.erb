@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @service.project %>
+</p>
+
+<p>
+  <strong>Invoice:</strong>
+  <%= @service.invoice %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @service.customer %>
+</p>
+
+<p>
+  <strong>Quotation:</strong>
+  <%= @service.quotation %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @service.name %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @service.comment %>
+</p>
+
+<p>
+  <strong>Hourly rate:</strong>
+  <%= @service.hourly_rate %>
+</p>
+
+<p>
+  <strong>Coefficient:</strong>
+  <%= @service.coefficient %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @service.date %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @service.duration %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @service.status %>
+</p>
+
+<p>
+  <strong>Tva rate:</strong>
+  <%= @service.tva_rate %>
+</p>
+
+<p>
+  <strong>Total cost:</strong>
+  <%= @service.total_cost %>
+</p>
+
+<%= link_to 'Edit', edit_service_path(@service) %> |
+<%= link_to 'Back', services_path %>
