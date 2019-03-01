@@ -1,0 +1,27 @@
+@import "bootstrap";
+.navbar {
+  margin-bottom: 1em;
+}
+
+.body {
+  max-width: 98%;
+  margin: auto;
+}
+#notice {
+  position: absolute;
+  text-align: center;
+  width: 98%;
+}
+
+.form-control {
+  width:100%;
+}
+
+.createButton {
+  text-align: center;
+  top: 2rem;
+}
+
+.table tr {
+  cursor: pointer;
+}
