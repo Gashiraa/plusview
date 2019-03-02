@@ -30,12 +30,17 @@
   <% @wares.each do |ware| %>
     <tr data-link="<%= edit_ware_path ware %>">
       <td><%= if ware.project
-              '#' + ware.project.id.to_s
+                link_to '#' + ware.project.id.to_s, project_path(ware.project.id)
               end %></td>
       <td><%= ware.invoice %></td>
-      <td><%= if ware.customer
-                ware.customer.name
-              end %></td>
+      <td>
+        <%= if ware.customer
+              ware.customer.name
+            elsif ware.project
+              ware.project.customer.name
+            end
+        %>
+      </td>
       <td><%= ware.quotation %></td>
       <td><%= ware.name %></td>
       <td><%= ware.comment %></td>
@@ -48,7 +53,9 @@
       <td><%= ware.total_cost %></td>
       <td>
         <button type="button" class="close" aria-label="Close">
-          <span aria-hidden="true"><%= link_to 'X', ware, method: :delete, data: {confirm: 'Are you sure?'} %></span>
+          <span aria-hidden="true">
+            <%= link_to 'X', ware, method: :delete, data: {confirm: 'Are you sure?'} %>
+          </span>
         </button>
       </td>
     </tr>
