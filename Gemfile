@@ -61,3 +61,4 @@ gem 'execjs'
 gem 'autoprefixer-rails'
 gem 'jquery-rails'
 gem "smart_listing"
+gem 'devise'

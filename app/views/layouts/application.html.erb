@@ -39,6 +39,12 @@
     </ul>
   </div>
 </nav>
+  <% if notice %>
+    <p id="notice" class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p id="notice" class="alert alert-danger"><%= alert %></p>
+  <% end %>
 <body>
 <div class="body" id="primary-content">
   <%= yield %>

@@ -9,10 +9,19 @@
   margin: auto;
 }
 
-#notice {
-  position: absolute;
+.loginScreen {
+  margin-top: 5%;
   text-align: center;
-  width: 98%;
+}
+
+#notice {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%
 }
 
 .form-control {
@@ -44,4 +53,8 @@
 
 .picker-container {
   display: -webkit-box;
+}
+
+.form-group {
+  margin: auto;
 }
