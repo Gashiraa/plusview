@@ -1,57 +1,49 @@
 <%= form_with(model: customer, local: true) do |form| %>
-  <% if customer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+  <div class="form">
+    <div class="row">
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Name') %>
+        <%= form.text_field :name , class: "form-control" %>
+      </div>
 
-      <ul>
-      <% customer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Mail') %>
+        <%= form.text_field :mail , class: "form-control" %>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('TVA record') %>
+        <%= form.number_field :tva_record , class: "form-control" %>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Street') %>
+        <%= form.text_field :street , class: "form-control" %>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Number') %>
+        <%= form.number_field :number , class: "form-control" %>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Cp') %>
+        <%= form.number_field :cp , class: "form-control" %>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Locality') %>
+        <%= form.text_field :locality , class: "form-control" %>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Country') %>
+        <%= form.text_field :country , class: "form-control" %>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2 createButton">
+        <%= form.submit t('Create'), :class => "btn btn-dark form-group" %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :mail %>
-    <%= form.text_field :mail %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tva_record %>
-    <%= form.number_field :tva_record %>
-  </div>
-
-  <div class="field">
-    <%= form.label :street %>
-    <%= form.text_field :street %>
-  </div>
-
-  <div class="field">
-    <%= form.label :number %>
-    <%= form.number_field :number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :cp %>
-    <%= form.number_field :cp %>
-  </div>
-
-  <div class="field">
-    <%= form.label :locality %>
-    <%= form.text_field :locality %>
-  </div>
-
-  <div class="field">
-    <%= form.label :country %>
-    <%= form.text_field :country %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
   </div>
 <% end %>

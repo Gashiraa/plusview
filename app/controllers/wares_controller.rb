@@ -56,7 +56,7 @@ class WaresController < ApplicationController
   def destroy
     @ware.destroy
     respond_to do |format|
-      format.html {redirect_to wares_url, notice: 'Ware was successfully destroyed.'}
+      format.html {redirect_to wares_url, notice: t('Ware was successfully destroyed.')}
       format.json {head :no_content}
     end
   end
@@ -70,11 +70,11 @@ class WaresController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ware_params
-    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, )
+    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost,)
   end
 
   def ware_params_create
-    params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, )
+    params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost,)
   end
 
 end

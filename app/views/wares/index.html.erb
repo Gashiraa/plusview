@@ -9,29 +9,32 @@
 <table class="table table-hover">
   <thead>
   <tr>
-    <th scope="col"><%= t('Project') %></th>
-    <th scope="col"><%= t('Invoice') %></th>
-    <th scope="col"><%= t('Customer') %></th>
-    <th scope="col"><%= t('Quotation') %></th>
-    <th scope="col"><%= t('Name') %></th>
-    <th scope="col"><%= t('Comment') %></th>
-    <th scope="col"><%= t('Quantity') %></th>
-    <th scope="col"><%= t('Provider discount') %></th>
-    <th scope="col"><%= t('Margin') %></th>
-    <th scope="col"><%= t('Unit price') %></th>
-    <th scope="col"><%= t('Status') %></th>
-    <th scope="col"><%= t('TVA rate') %></th>
-    <th scope="col"><%= t('Total cost') %></th>
-    <th colspan="3"></th>
+    <th><%= t('Project') %></th>
+    <th><%= t('Invoice') %></th>
+    <th><%= t('Customer') %></th>
+    <th><%= t('Quotation') %></th>
+    <th><%= t('Name') %></th>
+    <th><%= t('Comment') %></th>
+    <th><%= t('Status') %></th>
+    <th><%= t('Provider discount') %></th>
+    <th><%= t('Margin') %></th>
+    <th><%= t('Quantity') %></th>
+    <th><%= t('Unit price') %></th>
+    <th><%= t('TVA rate') %></th>
+    <th><%= t('Total cost') %></th>
+    <th></th>
   </tr>
   </thead>
 
   <tbody>
   <% @wares.each do |ware| %>
     <tr data-link="<%= edit_ware_path ware %>">
-      <td><%= if ware.project
-                link_to '#' + ware.project.id.to_s, project_path(ware.project.id)
-              end %></td>
+      <td>
+        <%= if ware.project
+              link_to '#' + ware.project.id.to_s, project_path(ware.project.id)
+            end
+        %>
+      </td>
       <td><%= ware.invoice %></td>
       <td>
         <%= if ware.customer
@@ -44,11 +47,11 @@
       <td><%= ware.quotation %></td>
       <td><%= ware.name %></td>
       <td><%= ware.comment %></td>
-      <td><%= ware.quantity %></td>
+      <td><%= ware.status %></td>
       <td><%= ware.provider_discount %></td>
       <td><%= ware.margin %></td>
+      <td><%= ware.quantity %></td>
       <td><%= ware.unit_price %></td>
-      <td><%= ware.status %></td>
       <td><%= ware.tva_rate %></td>
       <td><%= ware.total_cost %></td>
       <td>

@@ -1,51 +1,79 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Services</h1>
+<h2>Prestations</h2>
 
-<table>
+<%= render 'services/new' %>
+
+<h5>Listing</h5>
+
+<table class="table table-hover">
   <thead>
-    <tr>
-      <th>Project</th>
-      <th>Invoice</th>
-      <th>Customer</th>
-      <th>Quotation</th>
-      <th>Name</th>
-      <th>Comment</th>
-      <th>Hourly rate</th>
-      <th>Coefficient</th>
-      <th>Date</th>
-      <th>Duration</th>
-      <th>Status</th>
-      <th>Tva rate</th>
-      <th>Total cost</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th><%= t('Project') %></th>
+    <th><%= t('Invoice') %></th>
+    <th><%= t('Customer') %></th>
+    <th><%= t('Quotation') %></th>
+    <th><%= t('Name') %></th>
+    <th><%= t('Comment') %></th>
+    <th><%= t('Status') %></th>
+    <th><%=t('Coefficient')%></th>
+    <th><%=t('Date')%></th>
+    <th><%=t('Hourly rate')%></th>
+    <th><%=t('Duration')%></th>
+    <th><%= t('TVA rate') %></th>
+    <th><%= t('Total cost') %></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @services.each do |service| %>
-      <tr>
-        <td><%= service.project %></td>
-        <td><%= service.invoice %></td>
-        <td><%= service.customer %></td>
-        <td><%= service.quotation %></td>
-        <td><%= service.name %></td>
-        <td><%= service.comment %></td>
-        <td><%= service.hourly_rate %></td>
-        <td><%= service.coefficient %></td>
-        <td><%= service.date %></td>
-        <td><%= service.duration %></td>
-        <td><%= service.status %></td>
-        <td><%= service.tva_rate %></td>
-        <td><%= service.total_cost %></td>
-        <td><%= link_to 'Show', service %></td>
-        <td><%= link_to 'Edit', edit_service_path(service) %></td>
-        <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @services.each do |service| %>
+    <tr data-link="<%= edit_service_path service %>">
+      <td>
+        <%= if service.project
+              link_to '#' + service.project.id.to_s, project_path(service.project.id)
+            end
+        %>
+      </td>
+      <td>
+        <%= if service.invoice
+              link_to '#' + service.invoice.id.to_s, invoice_path(service.invoice.id)
+            end
+        %>
+      </td>
+      <td>
+        <%= if service.customer
+              service.customer.name
+            elsif service.project
+              service.project.customer.name
+            end
+        %>
+      </td>
+      <td>
+        <%= if service.quotation
+              link_to '#' + service.quotation.id.to_s, quotation_path(service.quotation.id)
+            end
+        %>
+      </td>
+      <td><%= service.name %></td>
+      <td><%= service.comment %></td>
+      <td><%= service.status %></td>
+      <td><%= service.coefficient %></td>
+      <td><%= service.date %></td>
+      <td><%= service.hourly_rate %></td>
+      <td><%= service.duration.strftime('%H:%M') %></td>
+      <td><%= service.tva_rate %></td>
+      <td><%= service.total_cost %></td>
+      <td>
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">
+            <%= link_to 'X', service, method: :delete, data: {confirm: 'Are you sure?'} %>
+          </span>
+        </button>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
-
 <br>
 
-<%= link_to 'New Service', new_service_path %>

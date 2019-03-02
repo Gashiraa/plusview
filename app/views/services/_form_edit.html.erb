@@ -12,16 +12,6 @@
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Name') %>
-        <%= form.text_field :name, class: "form-control" %>
-      </div>
-
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Comment') %>
-        <%= form.text_field :comment, class: "form-control" %>
-      </div>
-
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('Customer') %>
         <%= form.select(:customer_id, Customer.all.collect {|customer| [customer.name, customer.id]}, {:include_blank => true}, {class: 'form-control'}) %>
       </div>
@@ -31,6 +21,15 @@
         <%= form.text_field :quotation_id, class: "form-control" %>
       </div>
 
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Name') %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Comment') %>
+        <%= form.text_field :comment, class: "form-control" %>
+      </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
         <%= form.label t('Hourly rate') %>

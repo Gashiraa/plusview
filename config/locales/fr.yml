@@ -4,19 +4,43 @@ fr:
   Invoice: Facture
   Customer: Client
   Quotation: Devis
+
   Name: Nom
   Comment: Commentaire
   Quantity: Quantité
   Provider discount: Remise fournisseur
   Margin: Marge
   Unit price: Prix unitaire
+
+  Hourly rate: Taux horaire
+  Coefficient: Coefficent
+  Date: Date
+  Duration: Durée
   Status : Statut
   TVA rate: Taux TVA
   Total cost: Coût total
+
+  Mail: Email
+  TVA record: Num. TVA
+  Street: Rue
+  Number: Numéro
+  Cp: Code postal
+  Locality: Ville
+  Country: Pays
+
   Ware was successfully created: Marchandise ajoutée
-  Ware was successfully updated: Marchadise mise à jour
+  Ware was successfully updated: Marchandise mise à jour
+  Ware was successfully destroyed: Marchandise supprimée
+
+  Service was successfully created: Prestation ajoutée
+  Service was successfully updated: Prestation mise à jour
+  Service was successfully destroyed: Prestation supprimée
+
+  Customer was successfully created: Client ajouté
+  Customer was successfully updated: Client mise à jour
+  Customer was successfully destroyed: Client supprimé
+
   Create: Valider
-  En_devis: En devis
   activerecord:
     attributes:
       user:

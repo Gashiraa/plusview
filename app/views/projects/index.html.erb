@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Name</th>
       <th>Invoice</th>
       <th>Quotation</th>
       <th>Customer</th>
@@ -19,6 +20,7 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
+        <td><%= project.name %></td>
         <td><%= project.invoice %></td>
         <td><%= project.quotation %></td>
         <td><%= project.customer %></td>
