@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :invoices
   resources :payments
   resources :quotations
-  devise_for :users
 
+  devise_for :users
   root to: 'wares#index'
 end

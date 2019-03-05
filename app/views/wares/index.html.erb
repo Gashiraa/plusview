@@ -30,7 +30,7 @@
     <tr data-link="<%= edit_ware_path ware %>">
       <td>
         <%= if ware.project
-              link_to '#' + ware.project.id.to_s, project_path(ware.project.id)
+              link_to '#' + ware.project.id.to_s, edit_project_path(ware.project.id)
             end
         %>
       </td>
@@ -55,9 +55,7 @@
       <td><%= ware.total_cost %></td>
       <td>
         <button type="button" class="close" aria-label="Close">
-          <span aria-hidden="true">
             <%= link_to 'X', ware, method: :delete, data: {confirm: 'Are you sure?'} %>
-          </span>
         </button>
       </td>
     </tr>
