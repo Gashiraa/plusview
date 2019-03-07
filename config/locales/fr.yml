@@ -1,6 +1,7 @@
 fr:
   Wares: Marchandises
   Project: Projet
+  Projects: Projets
   Invoice: Facture
   Customer: Client
   Quotation: Devis
@@ -19,6 +20,10 @@ fr:
   Status : Statut
   TVA rate: Taux TVA
   Total cost: Coût total
+
+  Wielding: Soudure
+  Machining: Usinage
+  Karcher: Karcher
 
   Mail: Email
   TVA record: Num. TVA
