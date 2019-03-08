@@ -60,5 +60,5 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'execjs'
 gem 'autoprefixer-rails'
 gem 'jquery-rails'
-gem "smart_listing"
 gem 'devise'
+gem 'ransack'
