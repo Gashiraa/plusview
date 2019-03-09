@@ -4,7 +4,8 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @services = Service.all
+    @search = Service.ransack(params[:q])
+    @services = @search.result(distinct: true)
   end
 
   # GET /services/1
@@ -72,6 +73,7 @@ class ServicesController < ApplicationController
   def service_params_create
     params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :hourly_rate, :coefficient, :date, :duration, :status, :tva_rate, :total_cost)
   end
+
   def service_params
     params.require(:service).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :hourly_rate, :coefficient, :date, :duration, :status, :tva_rate, :total_cost)
   end
