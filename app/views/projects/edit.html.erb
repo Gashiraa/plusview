@@ -1,5 +1,12 @@
-<h3>Edition Projet</h3>
+<h3><%= @project.name %> - <%= if @project.customer
+                                 @project.customer.name
+                               end
+%></h3>
 
 <%= render 'form', project: @project %>
 
-<%= link_to 'Retour', project_path %>
+<%= link_to 'Retour', url_for(:back) %>
+<hr>
+
+<%= render 'show', project: @project %>
+

@@ -1,35 +1,66 @@
-<h2>Prestations</h2>
+<p id="notice"><%= notice %></p>
 
-<%= render 'services/new' %>
-
-<hr>
-
-<h5>Listing</h5>
-
-<%= search_form_for @search do |form| %>
-  <div class="form">
-    <div class="row">
-
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Project') %>
-        <%= form.collection_select :project_id_eq, Project.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
-      </div>
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Customer') %>
-        <%= form.collection_select :customer_id_or_project_customer_id_eq, Customer.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
-      </div>
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Status') %>
-        <%= form.select :status_eq, Service.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
-      </div>
-    </div>
-  </div>
-<% end %>
+<h5>Marchandises</h5>
 
 <table class="table table-hover table-striped">
   <thead class=thead-dark>
   <tr>
-    <th><%= t('Project') %></th>
+    <th><%= t('Invoice') %></th>
+    <th><%= t('Customer') %></th>
+    <th><%= t('Quotation') %></th>
+    <th><%= t('Name') %></th>
+    <th><%= t('Comment') %></th>
+    <th><%= t('Status') %></th>
+    <th><%= t('Provider discount') %></th>
+    <th><%= t('Margin') %></th>
+    <th><%= t('Quantity') %></th>
+    <th><%= t('Unit price') %></th>
+    <th><%= t('TVA rate') %></th>
+    <th><%= t('Total cost') %></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @project.wares.each do |ware| %>
+    <tr data-link="<%= edit_ware_path ware %>">
+      <td><%= ware.invoice %></td>
+      <td>
+        <%= if ware.customer
+              ware.customer.name
+            elsif ware.project
+              ware.project.customer.name
+            end
+        %>
+      </td>
+      <td><%= ware.quotation %></td>
+      <td><%= ware.name %></td>
+      <td><%= ware.comment %></td>
+      <td><%= ware.status %></td>
+      <td><%= ware.provider_discount %></td>
+      <td><%= ware.margin %></td>
+      <td><%= ware.quantity %></td>
+      <td><%= ware.unit_price %></td>
+      <td><%= ware.tva_rate %></td>
+      <td><%= ware.total_cost %></td>
+      <td>
+        <button type="button" class="close" aria-label="Close">
+          <%= link_to 'X', ware, method: :delete, data: {confirm: 'Are you sure?'} %>
+        </button>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<br>
+
+<hr>
+
+<h5>Services</h5>
+
+<table class="table table-hover table-striped">
+  <thead class=thead-dark>
+  <tr>
     <th><%= t('Invoice') %></th>
     <th><%= t('Customer') %></th>
     <th><%= t('Quotation') %></th>
@@ -47,14 +78,8 @@
   </thead>
 
   <tbody>
-  <% @services.each do |service| %>
+  <% @project.services.each do |service| %>
     <tr data-link="<%= edit_service_path service %>">
-      <td>
-        <%= if service.project
-              link_to '#' + service.project.id.to_s, project_path(service.project.id)
-            end
-        %>
-      </td>
       <td>
         <%= if service.invoice
               link_to '#' + service.invoice.id.to_s, invoice_path(service.invoice.id)
@@ -64,7 +89,7 @@
       <td>
         <%= if service.customer
               service.customer.name
-            elsif service.project
+            elsif service.project.customer
               service.project.customer.name
             end
         %>
@@ -95,5 +120,3 @@
   <% end %>
   </tbody>
 </table>
-<br>
-

@@ -29,7 +29,7 @@ class WaresController < ApplicationController
 
     respond_to do |format|
       if @ware.save
-        format.html {redirect_to wares_path, notice: t('Ware was successfully created.')}
+        format.html {redirect_to wares_url, notice: t('Ware was successfully created.')}
         format.json {render :show, status: :created, location: @ware}
       else
         format.html {render :new}
@@ -43,7 +43,7 @@ class WaresController < ApplicationController
   def update
     respond_to do |format|
       if @ware.update(ware_params)
-        format.html {redirect_to wares_path, notice: t('Ware was successfully updated.')}
+        format.html {redirect_to wares_url, notice: t('Ware was successfully updated.')}
         format.json {render :show, status: :ok, location: @ware}
       else
         format.html {render :edit}

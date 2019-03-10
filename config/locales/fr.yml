@@ -45,6 +45,10 @@ fr:
   Customer was successfully updated: Client mis à jour
   Customer was successfully destroyed: Client supprimé
 
+  Project was successfully created: Projet ajouté
+  Project was successfully updated: Projet mis à jour
+  Project was successfully destroyed: Projet supprimé
+
   Create: Valider
   activerecord:
     attributes:
