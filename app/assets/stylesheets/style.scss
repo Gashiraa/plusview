@@ -64,5 +64,7 @@
 }
 
 .table {
-  table-layout: fixed;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
 }
