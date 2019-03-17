@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   resources :quotations
 
   devise_for :users
-  root to: 'wares#index'
+  root to: 'projects#index'
+
 end
