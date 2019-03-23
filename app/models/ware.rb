@@ -3,5 +3,5 @@ class Ware < ApplicationRecord
   belongs_to :invoice, optional: true
   belongs_to :customer, optional: true
   belongs_to :quotation, optional: true
-  enum status: [:'Stock',:'En devis', :'Commandé', :'Facturé']
+  enum status: [:'Encodé',:'Atelier', :'Attribué', :'A facturer', :'Facturé', :'Payé']
 end

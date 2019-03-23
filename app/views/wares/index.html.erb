@@ -1,89 +1,92 @@
 <h2><%= t('Wares') %></h2>
 
-<%= render 'wares/new' %>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item active">
+    <a class="nav-link active" data-toggle="tab" href="#listing" role="tab">Listing</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#new" role="tab">Nouvelle marchandise</a>
+  </li>
+</ul>
 
-<hr>
-
-<div class="listing">
-
-
-  <%= search_form_for @search do |form| %>
-    <div class="form">
-      <div class="row">
-
-        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-          <%= form.label t('Project') %>
-          <%= form.collection_select :project_id_eq, Project.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
-        </div>
-        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-          <%= form.label t('Customer') %>
-          <%= form.collection_select :customer_id_or_project_customer_id_eq, Customer.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
-        </div>
-        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-          <%= form.label t('Status') %>
-          <%= form.select :status_eq, Ware.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="listing">
+    <%= search_form_for @search do |form| %>
+      <div class="form">
+        <div class="row">
+          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+            <%= form.label t('Project') %>
+            <%= form.collection_select :project_id_eq, Project.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
+          </div>
+          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+            <%= form.label t('Customer') %>
+            <%= form.collection_select :customer_id_or_project_customer_id_eq, Customer.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
+          </div>
+          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+            <%= form.label t('Status') %>
+            <%= form.select :status_eq, Ware.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-
-  <table class="table table-hover table-striped ">
-    <thead class=thead-dark>
-    <tr>
-      <th><%= t('Project') %></th>
-      <th><%= t('Invoice') %></th>
-      <th><%= t('Customer') %></th>
-      <th><%= t('Quotation') %></th>
-      <th><%= t('Name') %></th>
-      <th><%= t('Comment') %></th>
-      <th><%= t('Status') %></th>
-      <th><%= t('Provider discount') %></th>
-      <th><%= t('Margin') %></th>
-      <th><%= t('Quantity') %></th>
-      <th><%= t('Unit price') %></th>
-      <th><%= t('TVA rate') %></th>
-      <th><%= t('Total cost') %></th>
-      <th></th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @wares.each do |ware| %>
-      <tr data-link="<%= edit_ware_path ware %>">
-        <td>
-          <%= if ware.project
-                link_to '#' + ware.project.id.to_s, edit_project_path(ware.project.id)
-              end
-          %>
-        </td>
-        <td><%= ware.invoice %></td>
-        <td>
-          <%= if ware.customer
-                ware.customer.name
-              elsif ware.project
-                ware.project.customer.name
-              end
-          %>
-        </td>
-        <td><%= ware.quotation %></td>
-        <td><%= ware.name %></td>
-        <td><%= ware.comment %></td>
-        <td><%= ware.status %></td>
-        <td><%= ware.provider_discount %></td>
-        <td><%= ware.margin %></td>
-        <td><%= ware.quantity %></td>
-        <td><%= ware.unit_price %></td>
-        <td><%= ware.tva_rate %></td>
-        <td><%= ware.total_cost %></td>
-        <td>
-          <button type="button" class="close" aria-label="Close">
-            <%= link_to 'X', ware, method: :delete, data: {confirm: 'Are you sure?'} %>
-          </button>
-        </td>
-      </tr>
     <% end %>
-    </tbody>
-  </table>
-  <br>
 
+    <table class="table table-hover table-striped ">
+      <thead class=thead-dark>
+      <tr>
+        <th><%= t('Project') %></th>
+        <th><%= t('Customer') %></th>
+        <th><%= t('Ware name') %></th>
+        <th><%= t('Provider name') %></th>
+        <th><%= t('Comment') %></th>
+        <th><%= t('Status') %></th>
+        <!--      <th><%#= t('Provider discount') %></th>-->
+        <!--      <th><%#= t('Margin') %></th>-->
+        <!--      <th><%#= t('Quantity') %></th>-->
+        <!--      <th><%#= t('Unit price') %></th>-->
+        <!--      <th><%#= t('TVA rate') %></th>-->
+        <!--      <th><%#= t('Total cost') %></th>-->
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @wares.each do |ware| %>
+        <tr data-link="<%= edit_ware_path ware %>">
+          <td>
+            <%= if ware.project
+                  link_to '#' + ware.project.id.to_s, edit_project_path(ware.project.id)
+                end
+            %>
+          </td>
+          <td>
+            <%= if ware.customer
+                  ware.customer.name
+                elsif ware.project
+                  ware.project.customer.name
+                end
+            %>
+          </td>
+          <td><%= ware.ware_name %></td>
+          <td><%= ware.provider_name %></td>
+          <td><%= ware.comment %></td>
+          <td><%= ware.status %></td>
+          <!--        <td><%#= ware.provider_discount %></td>-->
+          <!--        <td><%#= ware.margin %></td>-->
+          <!--        <td><%#= ware.quantity %></td>-->
+          <!--        <td><%#= ware.unit_price %></td>-->
+          <!--        <td><%#= ware.tva_rate %></td>-->
+          <!--        <td><%#= ware.total_cost %></td>-->
+          <td>
+            <button type="button" class="close" aria-label="Close">
+              <%= link_to 'X', ware, method: :delete, data: {confirm: 'Êtes-vous certain?'} %>
+            </button>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="new">
+    <%= render 'wares/new' %>
+  </div>
 </div>

@@ -7,11 +7,16 @@ fr:
   Quotation: Devis
 
   Name: Nom
+  Ware name: Dénomination
   Comment: Commentaire
   Quantity: Quantité
-  Provider discount: Remise fournisseur
+  Provider discount: Remise
   Margin: Marge
   Unit price: Prix unitaire
+  Gross cost: Total HT
+  Provider name: Fournisseur
+  Bought price: Prix payé
+  Provider invoice: Facture fournisseur
 
   Hourly rate: Taux horaire
   Coefficient: Coefficent
@@ -24,6 +29,7 @@ fr:
   Wielding: Soudure
   Machining: Usinage
   Karcher: Karcher
+  Description: Description
 
   Mail: Email
   TVA record: Num. TVA

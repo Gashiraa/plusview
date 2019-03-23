@@ -24,9 +24,12 @@ $(document).on("turbolinks:load", function () {
         window.location = $(this).data("link")
     });
 
-    // $("tr[data-link] td a").click(function () {
-    //     event.stopPropagation();
-    // });
+    $("tr[data-link] td a").click(function () {
+        console.log(event);
+        if (event.path[0].attributes.dataset.method !== "delete") {
+            event.stopPropagation();
+        }
+    });
 
     $('th').click(function () {
         var table = $(this).parents('table').eq(0);
@@ -38,7 +41,7 @@ $(document).on("turbolinks:load", function () {
         for (var i = 0; i < rows.length; i++) {
             table.append(rows[i])
         }
-    })
+    });
 
     function comparer(index) {
         return function (a, b) {
@@ -76,31 +79,45 @@ $(document).on("turbolinks:load", function () {
         });
     });
 
-    $('#waresForm,#total_cost,#quantity,#unit_price,#tva_rate,#margin').on('keyup keypress mouseover change', function () {
-        let total_cost = document.getElementById('total_cost');
-        let quantity = document.getElementById('quantity').value || 0;
-        let unit_price = document.getElementById('unit_price').value || 0;
-        let margin = document.getElementById('margin').value || 1;
-        let tva_rate = document.getElementById('tva_rate').value || 0;
+    $('#waresForm,#total_cost,#total_gross,#quantity,#unit_price,#tva_rate,#margin')
+        .on('keyup keypress mouseover change', function () {
+            let total_cost = document.getElementById('total_cost');
+            let total_gross = document.getElementById('total_gross');
+            let quantity = document.getElementById('quantity').value || 0;
+            let unit_price = document.getElementById('unit_price').value || 0;
+            let margin = document.getElementById('margin').value || 1;
+            let tva_rate = document.getElementById('tva_rate').value || 0;
 
-        let total = ((parseInt(quantity) * parseFloat(unit_price)) * parseFloat(margin)) * (1 + parseFloat(tva_rate) / 100);
-        total_cost.value = total.toFixed(2);
-    });
+            let gross = ((parseInt(quantity) * parseFloat(unit_price)) * parseFloat(margin));
+            let total = gross * (1 + parseFloat(tva_rate) / 100);
 
-    $('#servicesForm,#total_cost_s,#hourly_rate,#tva_rate_s,#coefficient,#_duration_4i,#_duration_5i').on('keyup keypress mouseover change', function () {
-        let total_cost = document.getElementById('total_cost_s');
-        let hourly_rate = document.getElementById('hourly_rate').value || 0;
-        let coefficient = document.getElementById('coefficient').value || 1;
-        let tva_rate = document.getElementById('tva_rate_s').value || 0;
-        let hours = document.getElementById('_duration_4i').value || 0;
-        let minutes = document.getElementById('_duration_5i').value || 0;
+            total_gross.value = gross.toFixed(2);
+            total_cost.value = total.toFixed(2);
+        });
 
+    $('#servicesForm,#total_cost_s,#total_gross,#hourly_rate,#tva_rate_s,#coefficient,#_duration_4i,#_duration_5i,#service_duration_4i,#service_duration_5i')
+        .on('keyup keypress mouseover change', function () {
+            let total_cost = document.getElementById('total_cost_s');
+            let total_gross = document.getElementById('total_gross_s');
+            let hourly_rate = document.getElementById('hourly_rate').value || 0;
+            let tva_rate = document.getElementById('tva_rate_s').value || 0;
+            let hours;
+            let minutes;
 
-        let total = (((parseInt(hours) + parseFloat(minutes)/60) * parseFloat(hourly_rate)) * parseFloat(coefficient)) * (1 + parseFloat(tva_rate) / 100);
-        total_cost.value = total.toFixed(2);
-    });
+            if (document.getElementById('_duration_4i')) {
+                hours = document.getElementById('_duration_4i').value || 0;
+                minutes = document.getElementById('_duration_5i').value || 0;
+            } else {
+                hours = document.getElementById('service_duration_4i').value || 0;
+                minutes = document.getElementById('service_duration_5i').value || 0;
+            }
 
+            let gross = (((parseInt(hours) + parseFloat(minutes) / 60) * parseFloat(hourly_rate)));
+            let total = gross * (1 + parseFloat(tva_rate) / 100);
 
+            total_gross.value = gross.toFixed(2);
+            total_cost.value = total.toFixed(2);
+        });
 });
 
 $(document).ready(function () {

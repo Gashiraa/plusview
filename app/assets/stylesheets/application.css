@@ -13,6 +13,5 @@
  *= require style
  *= require_self
  */
-
 @import "style.scss";
 @import "animate.css";

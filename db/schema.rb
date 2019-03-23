@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_17_092445) do
+ActiveRecord::Schema.define(version: 2019_03_19_061210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_03_17_092445) do
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.string "mail"
-    t.integer "tva_record"
+    t.string "tva_record"
     t.string "street"
     t.integer "number"
     t.integer "cp"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2019_03_17_092445) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.text "description"
     t.index ["customer_id"], name: "index_projects_on_customer_id"
     t.index ["invoice_id"], name: "index_projects_on_invoice_id"
     t.index ["quotation_id"], name: "index_projects_on_quotation_id"
@@ -95,6 +96,7 @@ ActiveRecord::Schema.define(version: 2019_03_17_092445) do
     t.float "total_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "total_gross"
     t.index ["customer_id"], name: "index_services_on_customer_id"
     t.index ["invoice_id"], name: "index_services_on_invoice_id"
     t.index ["project_id"], name: "index_services_on_project_id"
@@ -118,7 +120,7 @@ ActiveRecord::Schema.define(version: 2019_03_17_092445) do
     t.bigint "invoice_id"
     t.bigint "customer_id"
     t.bigint "quotation_id"
-    t.string "name"
+    t.string "ware_name"
     t.string "comment"
     t.integer "quantity"
     t.float "provider_discount"
@@ -129,6 +131,11 @@ ActiveRecord::Schema.define(version: 2019_03_17_092445) do
     t.float "total_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider_name"
+    t.string "provider_invoice"
+    t.float "provider_net"
+    t.float "provider_gross"
+    t.float "total_gross"
     t.index ["customer_id"], name: "index_wares_on_customer_id"
     t.index ["invoice_id"], name: "index_wares_on_invoice_id"
     t.index ["project_id"], name: "index_wares_on_project_id"

@@ -29,7 +29,7 @@ class WaresController < ApplicationController
 
     respond_to do |format|
       if @ware.save
-        format.html {redirect_to wares_url, notice: t('Ware was successfully created.')}
+        format.html {redirect_to wares_url + '#new', notice: t('Ware was successfully created.')}
         format.json {render :show, status: :created, location: @ware}
       else
         format.html {render :new}
@@ -71,11 +71,11 @@ class WaresController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ware_params
-    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost,)
+    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :provider_net, :provider_invoice)
   end
 
   def ware_params_create
-    params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost,)
+    params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :provider_net, :provider_invoice)
   end
 
 end
