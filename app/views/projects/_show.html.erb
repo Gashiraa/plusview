@@ -2,22 +2,18 @@
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
-    <a class="nav-link active" data-toggle="tab" href="#edit" role="tab">Edition projet</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#wares" role="tab">Marchandises</a>
+    <a class="nav-link active" data-toggle="tab" href="#wares" role="tab">Marchandises</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#services" role="tab">Prestations</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#edit" role="tab">Edition projet</a>
+  </li>
 </ul>
 
-
 <div class="tab-content">
-  <div class="tab-pane fade show active" id="edit">
-    <%= render 'form', project: @project %>
-  </div>
-  <div class="tab-pane fade" id="wares">
+  <div class="tab-pane fade show active" id="wares">
 
     <h5>Marchandises</h5>
 
@@ -30,12 +26,6 @@
         <th><%= t('Provider name') %></th>
         <th><%= t('Comment') %></th>
         <th><%= t('Status') %></th>
-        <!--      <th><%#= t('Provider discount') %></th>-->
-        <!--      <th><%#= t('Margin') %></th>-->
-        <!--      <th><%#= t('Quantity') %></th>-->
-        <!--      <th><%#= t('Unit price') %></th>-->
-        <!--      <th><%#= t('TVA rate') %></th>-->
-        <!--      <th><%#= t('Total cost') %></th>-->
         <th></th>
       </tr>
       </thead>
@@ -124,5 +114,8 @@
       <% end %>
       </tbody>
     </table>
+  </div>
+  <div class="tab-pane fade" id="edit">
+    <%= render 'form', project: @project %>
   </div>
 </div>

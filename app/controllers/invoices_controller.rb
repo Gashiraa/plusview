@@ -4,7 +4,8 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @invoices = Invoice.all
+    @search = Invoice.ransack(params[:q])
+    @invoices = @search.result(distinct: true)
   end
 
   # GET /invoices/1
@@ -34,8 +35,7 @@ class InvoicesController < ApplicationController
     end
   end
 
-  private
-
+  #
   def scope
     ::Invoice.all.includes(:wares)
   end
@@ -47,11 +47,10 @@ class InvoicesController < ApplicationController
   # POST /invoices
   # POST /invoices.json
   def create
-    @invoice = Invoice.new(invoice_params)
-
+    @invoice = Invoice.new(invoice_params_create)
     respond_to do |format|
       if @invoice.save
-        format.html {redirect_to @invoice, notice: 'Invoice was successfully created.'}
+        format.html {redirect_to invoices_url, notice: 'Invoice was successfully created.'}
         format.json {render :show, status: :created, location: @invoice}
       else
         format.html {render :new}
@@ -65,7 +64,7 @@ class InvoicesController < ApplicationController
   def update
     respond_to do |format|
       if @invoice.update(invoice_params)
-        format.html {redirect_to @invoice, notice: 'Invoice was successfully updated.'}
+        format.html {redirect_to invoices_url, notice: 'Invoice was successfully updated.'}
         format.json {render :show, status: :ok, location: @invoice}
       else
         format.html {render :edit}
@@ -93,6 +92,10 @@ class InvoicesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def invoice_params
-    params.require(:invoice).permit(:payment_id, :date, :status, :total)
+    params.require(:invoice).permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], projects_ids: [])
+  end
+
+  def invoice_params_create
+    params.permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], projects_ids: [])
   end
 end

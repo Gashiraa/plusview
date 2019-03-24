@@ -2,5 +2,5 @@
 
 <%= render 'form', invoice: @invoice %>
 
-<%= link_to 'Show', @invoice %> |
+<%= link_to 'Show', invoice_path(@invoice.id,:format=>:pdf) %> |
 <%= link_to 'Retour', invoices_path %>

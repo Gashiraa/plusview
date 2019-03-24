@@ -1,5 +1,5 @@
 class WaresController < ApplicationController
-  before_action :set_ware, only: [:show, :edit, :update, :destroy]
+  before_action :set_ware, only: %i[show edit update destroy]
 
   # GET /wares
   # GET /wares.json
@@ -10,8 +10,7 @@ class WaresController < ApplicationController
 
   # GET /wares/1
   # GET /wares/1.json
-  def show
-  end
+  def show; end
 
   # GET /wares/new
   def new
@@ -19,8 +18,7 @@ class WaresController < ApplicationController
   end
 
   # GET /wares/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /wares
   # POST /wares.json
@@ -29,11 +27,11 @@ class WaresController < ApplicationController
 
     respond_to do |format|
       if @ware.save
-        format.html {redirect_to wares_url + '#new', notice: t('Ware was successfully created.')}
-        format.json {render :show, status: :created, location: @ware}
+        format.html { redirect_to wares_url + '#new', notice: t('Ware was successfully created.') }
+        format.json { render :show, status: :created, location: @ware }
       else
-        format.html {render :new}
-        format.json {render json: @ware.errors, status: :unprocessable_entity}
+        format.html { render :new }
+        format.json { render json: @ware.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,11 +41,12 @@ class WaresController < ApplicationController
   def update
     respond_to do |format|
       if @ware.update(ware_params)
-        format.html {redirect_to wares_url, notice: t('Ware was successfully updated.')}
-        format.json {render :show, status: :ok, location: @ware}
+        @ware.project.update_total(@ware.project)
+        format.html { redirect_to wares_url, notice: t('Ware was successfully updated.') }
+        format.json { render :show, status: :ok, location: @ware }
       else
-        format.html {render :edit}
-        format.json {render json: @ware.errors, status: :unprocessable_entity}
+        format.html { render :edit }
+        format.json { render json: @ware.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,8 +56,8 @@ class WaresController < ApplicationController
   def destroy
     @ware.destroy
     respond_to do |format|
-      format.html {redirect_to wares_url, notice: t('Ware was successfully destroyed.')}
-      format.json {head :no_content}
+      format.html { redirect_to wares_url, notice: t('Ware was successfully destroyed.') }
+      format.json { head :no_content }
     end
   end
 
@@ -71,11 +70,10 @@ class WaresController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ware_params
-    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :provider_net, :provider_invoice)
+    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :provider_net, :provider_invoice, :ware_name)
   end
 
   def ware_params_create
-    params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :provider_net, :provider_invoice)
+    params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :provider_net, :provider_invoice, :ware_name)
   end
-
 end

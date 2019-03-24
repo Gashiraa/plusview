@@ -37,9 +37,8 @@
         <th><%= t('Description') %></th>
         <th><%= t('Customer') %></th>
         <th><%= t('Status') %></th>
-        <th><%= t('Wielding') %></th>
-        <th><%= t('Machining') %></th>
-        <th><%= t('Karcher') %></th>
+        <th><%= t('Gross cost').to_s + ' (€)' %></th>
+        <th><%= t('Total').to_s + ' (€)'%></th>
         <th colspan="3"></th>
       </tr>
       </thead>
@@ -56,12 +55,11 @@
             %>
           </td>
           <td><%= project.status %></td>
-          <td><%= project.wielding %></td>
-          <td><%= project.machining %></td>
-          <td><%= project.karcher %></td>
+          <td><%= project.total_gross %></td>
+          <td><%= project.total %></td>
           <td>
             <%= link_to project, method: :delete, data: {confirm: 'Are you sure?'} do %>
-              <i class="glyphicon glyphicon-remove">TEST
+              <i class="glyphicon glyphicon-remove">X
               </i>
             <% end %>
           </td>
