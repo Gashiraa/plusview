@@ -50,6 +50,7 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.new(invoice_params_create)
     respond_to do |format|
       if @invoice.save
+        @invoice.update_totals_invoice(@invoice, @invoice.projects, @invoice.wares)
         format.html {redirect_to invoices_url, notice: 'Invoice was successfully created.'}
         format.json {render :show, status: :created, location: @invoice}
       else
@@ -64,6 +65,7 @@ class InvoicesController < ApplicationController
   def update
     respond_to do |format|
       if @invoice.update(invoice_params)
+        @invoice.update_totals_invoice(@invoice, @invoice.projects, @invoice.wares)
         format.html {redirect_to invoices_url, notice: 'Invoice was successfully updated.'}
         format.json {render :show, status: :ok, location: @invoice}
       else
@@ -92,10 +94,10 @@ class InvoicesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def invoice_params
-    params.require(:invoice).permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], projects_ids: [])
+    params.require(:invoice).permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], project_ids: [])
   end
 
   def invoice_params_create
-    params.permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], projects_ids: [])
+    params.permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], project_ids: [])
   end
 end

@@ -2,10 +2,9 @@
 
   <div id="container">
     <section id="memo">
-<!--      <div class="logo">-->
-<!--        <img data-logo="{company_logo}"/>-->
-<!--      </div>-->
-
+      <!--      <div class="logo">-->
+      <!--        <img data-logo="{company_logo}"/>-->
+      <!--      </div>-->
       <div class="company-info">
         <div>THOMAS GREDAY</div>
         <br/>
@@ -53,38 +52,11 @@
 
     <div class="clearfix"></div>
 
-    <section id="items">
-      <% if @invoice.projects.any? %>
-        <% @invoice.projects.each do |project| %>
+    <% if @invoice.projects.any? %>
+      <% @invoice.projects.each do |project| %>
+        <hr>
+        <section id="items" class="project">
           <h4>Projet : <%= project.name %></h4>
-          <% if project.wares.any? %>
-            <h5>Marchandises</h5>
-
-            <table class="table table-hover table-striped">
-              <thead class=thead-dark>
-              <tr>
-                <th><%= t('Name') %></th>
-                <th><%= t('Quantity') %></th>
-                <th><%= t('Unit price') %></th>
-                <th><%= t('TVA rate') %></th>
-                <th><%= t('Total cost') %></th>
-              </tr>
-              </thead>
-
-              <tbody>
-              <% project.wares.each do |ware| %>
-                <tr data-link="<%= edit_ware_path ware %>">
-                  <td><%= ware.ware_name %></td>
-                  <td><%= ware.quantity %></td>
-                  <td><%= ware.unit_price %></td>
-                  <td><%= ware.tva_rate %></td>
-                  <td><%= ware.total_cost %></td>
-                </tr>
-              <% end %>
-              </tbody>
-            </table>
-            <br>
-          <% end %>
           <% if project.services.any? %>
             <h5>Prestations</h5>
 
@@ -96,6 +68,7 @@
                 <th><%= t('Duration') %></th>
                 <th><%= t('Hourly rate') %></th>
                 <th><%= t('TVA rate') %></th>
+                <th><%= t('Total gross') %></th>
                 <th><%= t('Total cost') %></th>
               </tr>
               </thead>
@@ -103,125 +76,123 @@
               <tbody>
               <% project.services.each do |service| %>
                 <tr data-link="<%= edit_service_path service %>">
-                  <td>
-                    <%= if service.invoice
-                          link_to '#' + service.invoice.id.to_s, invoice_path(service.invoice.id)
-                        end
-                    %>
-                  </td>
-                  <td>
-                    <%= if service.customer
-                          service.customer.name
-                        elsif service.project.customer
-                          service.project.customer.name
-                        end
-                    %>
-                  </td>
-                  <td>
-                    <%= if service.quotation
-                          link_to '#' + service.quotation.id.to_s, quotation_path(service.quotation.id)
-                        end
-                    %>
-                  </td>
                   <td><%= service.name %></td>
                   <td><%= service.date %></td>
-                  <td><%= service.hourly_rate %></td>
                   <td><%= service.duration.strftime('%H:%M') %></td>
+                  <td><%= service.hourly_rate %></td>
                   <td><%= service.tva_rate %></td>
+                  <td><%= service.total_gross %></td>
                   <td><%= service.total_cost %></td>
                 </tr>
               <% end %>
               </tbody>
             </table>
           <% end %>
+          <% if project.wares.any? %>
+            <h5>Marchandises</h5>
+
+            <table class="table table-hover table-striped">
+              <thead class=thead-dark>
+              <tr>
+                <th><%= t('Name') %></th>
+                <th><%= t('Quantity') %></th>
+                <th><%= t('Unit price') %></th>
+                <th><%= t('TVA rate') %></th>
+                <th><%= t('Total gross') %></th>
+                <th><%= t('Total cost') %></th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <% project.wares.each do |ware| %>
+                <tr data-link="<%= edit_ware_path ware %>">
+                  <td><%= ware.ware_name %></td>
+                  <td><%= ware.quantity %></td>
+                  <td><%= ware.unit_price %></td>
+                  <td><%= ware.tva_rate %></td>
+                  <td><%= ware.total_gross %></td>
+                  <td><%= ware.total_cost %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </section>
+        <% if !(@invoice.projects.length == 1 && @invoice.wares.length == 0) %>
+          <section id="sums" class="sums_project">
+            <table cellpadding="0" cellspacing="0">
+              <tr class="amount-total">
+                <th>TOTAL HT</th>
+                <td><%= project.total_gross %></td>
+              </tr>
+              <tr data-hide-on-quote="true">
+                <th>Total TVA</th>
+                <td><%= number_with_precision (project.total - project.total_gross), :precision => 2 %></td>
+              </tr>
+              <tr data-hide-on-quote="true">
+                <th>TOTAL TTC</th>
+                <td><%= project.total %></td>
+              </tr>
+            </table>
+          </section>
+          <div class="clearfix"></div>
+          <hr>
         <% end %>
       <% end %>
+    <% end %>
     </section>
-    <section id="items">
-      <h4>Marchandises</h4>
-      <table class="table table-hover table-striped ">
-        <thead class=thead-dark>
-        <tr>
-          <th><%= t('Name') %></th>
-          <th><%= t('Quantity') %></th>
-          <th><%= t('Unit price') %></th>
-          <th><%= t('TVA rate') %></th>
-          <th><%= t('Total cost') %></th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <% @invoice.wares.each do |ware| %>
-          <tr data-link="<%= edit_ware_path ware %>">
-            <td><%= ware.ware_name %></td>
-            <td><%= ware.quantity %></td>
-            <td><%= ware.unit_price %></td>
-            <td><%= ware.tva_rate %></td>
-            <td><%= ware.total_cost %></td>
-          </tr>
+    <section id="items" class="wares">
+      <% if @invoice.wares.any? %>
+        <% if @invoice.projects.any? %>
+          <h4>Autre marchandises</h4>
+        <% else %>
+          <h4>Marchandises</h4>
         <% end %>
-        </tbody>
-      </table>
-    </section>
+        <table class="table table-hover table-striped ">
+          <thead class=thead-dark>
+          <tr>
+            <th><%= t('Name') %></th>
+            <th><%= t('Quantity') %></th>
+            <th><%= t('Unit price') %></th>
+            <th><%= t('TVA rate') %></th>
+            <th><%= t('Total gross') %></th>
+            <th><%= t('Total cost') %></th>
+          </tr>
+          </thead>
 
+          <tbody>
+          <% @invoice.wares.each do |ware| %>
+            <tr data-link="<%= edit_ware_path ware %>">
+              <td><%= ware.ware_name %></td>
+              <td><%= ware.quantity %></td>
+              <td><%= ware.unit_price %></td>
+              <td><%= ware.tva_rate %></td>
+              <td><%= ware.total_gross %></td>
+              <td><%= ware.total_cost %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </section>
     <section id="sums">
-
-      <table cellpadding="0" cellspacing="0">
-        <tr>
-          <th>{amount_subtotal_label}</th>
-          <td>{amount_subtotal}</td>
-        </tr>
-
-        <tr data-iterate="tax">
-          <th>{tax_name}</th>
-          <td>{tax_value}</td>
-        </tr>
-
-        <tr class="amount-total">
-          <th>{amount_total_label}</th>
-          <td>{amount_total}</td>
-        </tr>
-
-        <tr data-hide-on-quote="true">
-          <th>{amount_paid_label}</th>
-          <td>{amount_paid}</td>
-        </tr>
-
-        <tr data-hide-on-quote="true">
-          <th>{amount_due_label}</th>
-          <td>{amount_due}</td>
-        </tr>
-
-      </table>
-
+      <hr>
       <div class="clearfix"></div>
-
+      <table cellpadding="0" cellspacing="0">
+        <tr class="amount-total">
+          <th>TOTAL HT</th>
+          <td><%= @invoice.total_gross %></td>
+        </tr>
+        <tr data-hide-on-quote="true">
+          <th>Total TVA</th>
+          <td><%= number_with_precision (@invoice.total - @invoice.total_gross), :precision => 2 %></td>
+        </tr>
+        <tr data-hide-on-quote="true">
+          <th>TOTAL TTC</th>
+          <td><%= @invoice.total %></td>
+        </tr>
+      </table>
+      <div class="clearfix"></div>
     </section>
-
-    <div class="clearfix"></div>
-
-    <section id="invoice-info">
-      <div>
-        <span>{issue_date_label}</span> <span>{issue_date}</span>
-      </div>
-      <div>
-        <span>{due_date_label}</span> <span>{due_date}</span>
-      </div>
-      <br/>
-      <div>
-        <span>{currency_label}</span> <span>{currency}</span>
-      </div>
-      <div>
-        <span>{po_number_label}</span> <span>{po_number}</span>
-      </div>
-      <div>
-        <span>{net_term_label}</span> <span>{net_term}</span>
-      </div>
-    </section>
-
-    <div class="clearfix"></div>
-
-    <div class="thank-you">{terms_label}</div>
   </div>
-
 </div>

@@ -12,21 +12,19 @@ class Project < ApplicationRecord
   enum machining: [:'1', :'2', :'3', '4', '5'], _suffix: true
   enum karcher: [:'1', :'2', :'3', '4', '5'], _suffix: true
 
-  def total
-    wares.collect { |w| w.valid? ? w.total_cost : 0 }.sum +
-      services.collect { |s| s.valid? ? s.total_cost : 0 }.sum
+
+  def update_totals(project)
+    project.update(total: total)
+    project.update(total_gross: total_gross)
   end
 
-  def update_total(project)
-    project.update(total: total)
+  def total
+    wares.collect {|w| w.valid? ? w.total_cost : 0}.sum +
+        services.collect {|s| s.valid? ? s.total_cost : 0}.sum
   end
 
   def total_gross
-    wares.collect { |w| w.valid? ? w.total_gross : 0 }.sum +
-      services.collect { |s| s.valid? ? s.total_gross : 0 }.sum
-  end
-
-  def update_total_gross(project)
-    project.update(total_gross: total_gross)
+    wares.collect {|w| w.valid? ? w.total_gross : 0}.sum +
+        services.collect {|s| s.valid? ? s.total_gross : 0}.sum
   end
 end

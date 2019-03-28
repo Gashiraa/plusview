@@ -38,13 +38,13 @@
         <th><%= t('Status') %></th>
         <th><%= t('Gross cost').to_s + ' (€)' %></th>
         <th><%= t('Total').to_s + ' (€)'%></th>
+        <th></th>
       </tr>
       </thead>
 
       <tbody>
       <% @invoices.each do |invoice| %>
         <tr data-link="<%= edit_invoice_path invoice %>">
-
           <td>
             <%= if invoice.customer
                   invoice.customer.name

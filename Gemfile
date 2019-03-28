@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) {|repo| "https://github.com/#{repo}.git"}
 
 ruby '2.5.3'
 
@@ -64,3 +64,4 @@ gem 'devise'
 gem 'ransack'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+# gem 'mini_racer'

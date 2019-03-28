@@ -30,6 +30,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        @project.invoice&.update_totals_invoice(@project.invoice, @project.invoice.projects, @project.invoice.wares)
         format.html {redirect_to projects_url, notice: t('Project was successfully created.')}
         format.json {render :show, status: :created, location: @project}
       else
@@ -44,6 +45,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
+        @project.invoice&.update_totals_invoice(@project.invoice, @project.invoice.projects, @project.invoice.wares)
         format.html {redirect_to projects_url, notice: t('Project was successfully updated.')}
         format.json {render :show, status: :ok, location: @project}
       else

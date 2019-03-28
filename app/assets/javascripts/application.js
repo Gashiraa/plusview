@@ -16,7 +16,7 @@
 //= require bootstrap
 //= require activestorage
 //= require turbolinks
-//= require_tree .
+// = require_tree .
 
 
 $(document).on("turbolinks:load", function () {
@@ -70,6 +70,20 @@ $(document).on("turbolinks:load", function () {
             $('#project_id').prop("disabled", true);
         } else {
             $('#project_id').prop("disabled", false);
+        }
+    });
+    $('select[name="ware[project_id]"],html').on('focus, trigger mouseover change', function () {
+        if ($('select[name="ware[project_id]"]').val().length > 0) {
+            $('#ware_customer_id').prop("disabled", true);
+        } else {
+            $('#ware_customer_id').prop("disabled", false);
+        }
+    });
+    $('select[name="ware[customer_id]"],html').on('focus, trigger mouseover change', function () {
+        if ($('select[name="ware[customer_id]"]').val().length > 0) {
+            $('#ware_project_id').prop("disabled", true);
+        } else {
+            $('#ware_project_id').prop("disabled", false);
         }
     });
     $(document).ready(function () {

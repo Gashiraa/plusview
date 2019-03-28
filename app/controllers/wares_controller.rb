@@ -10,7 +10,8 @@ class WaresController < ApplicationController
 
   # GET /wares/1
   # GET /wares/1.json
-  def show; end
+  def show;
+  end
 
   # GET /wares/new
   def new
@@ -18,7 +19,8 @@ class WaresController < ApplicationController
   end
 
   # GET /wares/1/edit
-  def edit; end
+  def edit;
+  end
 
   # POST /wares
   # POST /wares.json
@@ -27,11 +29,13 @@ class WaresController < ApplicationController
 
     respond_to do |format|
       if @ware.save
-        format.html { redirect_to wares_url + '#new', notice: t('Ware was successfully created.') }
-        format.json { render :show, status: :created, location: @ware }
+        @ware.project&.update_totals(@ware.project)
+        @ware.invoice&.update_totals_invoice(@ware.invoice, @ware.invoice.projects, @ware.invoice.wares)
+        format.html {redirect_to wares_url + '#new', notice: t('Ware was successfully created.')}
+        format.json {render :show, status: :created, location: @ware}
       else
-        format.html { render :new }
-        format.json { render json: @ware.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @ware.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -41,12 +45,13 @@ class WaresController < ApplicationController
   def update
     respond_to do |format|
       if @ware.update(ware_params)
-        @ware.project.update_total(@ware.project)
-        format.html { redirect_to wares_url, notice: t('Ware was successfully updated.') }
-        format.json { render :show, status: :ok, location: @ware }
+        @ware.project&.update_totals(@ware.project)
+        @ware.invoice&.update_totals_invoice(@ware.invoice, @ware.invoice.projects, @ware.invoice.wares)
+        format.html {redirect_to wares_url, notice: t('Ware was successfully updated.')}
+        format.json {render :show, status: :ok, location: @ware}
       else
-        format.html { render :edit }
-        format.json { render json: @ware.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @ware.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -56,8 +61,8 @@ class WaresController < ApplicationController
   def destroy
     @ware.destroy
     respond_to do |format|
-      format.html { redirect_to wares_url, notice: t('Ware was successfully destroyed.') }
-      format.json { head :no_content }
+      format.html {redirect_to wares_url, notice: t('Ware was successfully destroyed.')}
+      format.json {head :no_content}
     end
   end
 
