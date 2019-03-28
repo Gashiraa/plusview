@@ -59,8 +59,7 @@
           <td><%= project.total %></td>
           <td>
             <%= link_to project, method: :delete, data: {confirm: 'Are you sure?'} do %>
-              <i class="glyphicon glyphicon-remove">X
-              </i>
+              <%= image_tag("delete-icon.png", size: "30x30") %>
             <% end %>
           </td>
         </tr>

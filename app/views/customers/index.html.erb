@@ -40,11 +40,9 @@
           <td><%= customer.locality %></td>
           <td><%= customer.country %></td>
           <td>
-            <button type="button" class="close" aria-label="Close">
-          <span aria-hidden="true">
-            <%= link_to 'X', customer, method: :delete, data: {confirm: 'Are you sure?'} %>
-          </span>
-            </button>
+            <%= link_to customer, method: :delete, data: {confirm: 'Are you sure?'} do %>
+              <%= image_tag("delete-icon.png", size: "30x30") %>
+            <% end %>
           </td>
         </tr>
       <% end %>

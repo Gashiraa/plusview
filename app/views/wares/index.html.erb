@@ -77,9 +77,9 @@
           <!--        <td><%#= ware.tva_rate %></td>-->
           <!--        <td><%#= ware.total_cost %></td>-->
           <td>
-            <button type="button" class="close" aria-label="Close">
-              <%= link_to 'X', ware, method: :delete, data: {confirm: 'Êtes-vous certain?'} %>
-            </button>
+            <%= link_to ware, method: :delete, data: {confirm: 'Are you sure?'} do %>
+              <%= image_tag("delete-icon.png", size: "30x30") %>
+            <% end %>
           </td>
         </tr>
       <% end %>

@@ -4,8 +4,8 @@ class Project < ApplicationRecord
   belongs_to :invoice, optional: true
   belongs_to :quotation, optional: true
   belongs_to :customer, optional: true
-  has_many :wares
-  has_many :services
+  has_many :wares, dependent: :nullify
+  has_many :services, dependent: :nullify
 
   enum status: [:Devis, :'En réalisation', :'Terminé', :'Facturé', :'Payé']
   enum wielding: [:'1', :'2', :'3', '4', '5'], _suffix: true
@@ -14,8 +14,7 @@ class Project < ApplicationRecord
 
 
   def update_totals(project)
-    project.update(total: total)
-    project.update(total_gross: total_gross)
+    project.update(total: total, total_gross: total_gross)
   end
 
   def total

@@ -37,11 +37,10 @@
         <th><%= t('Date') %></th>
         <th><%= t('Status') %></th>
         <th><%= t('Gross cost').to_s + ' (€)' %></th>
-        <th><%= t('Total').to_s + ' (€)'%></th>
+        <th><%= t('Total').to_s + ' (€)' %></th>
         <th></th>
       </tr>
       </thead>
-
       <tbody>
       <% @invoices.each do |invoice| %>
         <tr data-link="<%= edit_invoice_path invoice %>">
@@ -55,10 +54,10 @@
           <td><%= invoice.status %></td>
           <td><%= invoice.total_gross %></td>
           <td><%= invoice.total %></td>
-          <td>
+          <td style="padding: 0">
+            <%= link_to image_tag("pdf-icon.png", size: "50x50"), invoice_path(invoice.id, :format => :pdf) %>
             <%= link_to invoice, method: :delete, data: {confirm: 'Are you sure?'} do %>
-              <i class="glyphicon glyphicon-remove">X
-              </i>
+              <%= image_tag("delete-icon.png", size: "30x30") %>
             <% end %>
           </td>
         </tr>

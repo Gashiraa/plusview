@@ -23,20 +23,20 @@
         <%= form.select(:status, Project.statuses.keys{|status| [status.value,status.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Wielding') %>
-        <%= form.select(:wielding, Project.wieldings.keys{|wielding| [wielding.value,wielding.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
-      </div>
+<!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
+        <%#= form.label t('Wielding') %>
+        <%#= form.select(:wielding, Project.wieldings.keys{|wielding| [wielding.value,wielding.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
+<!--      </div>-->
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Machining') %>
-        <%= form.select(:machining, Project.machinings.keys{|machining| [machining.value,machining.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
-      </div>
+<!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
+        <%#= form.label t('Machining') %>
+        <%#= form.select(:machining, Project.machinings.keys{|machining| [machining.value,machining.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
+<!--      </div>-->
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Karcher') %>
-        <%= form.select(:karcher, Project.karchers.keys{|karcher| [karcher.value,karcher.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
-      </div>
+<!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
+        <%#= form.label t('Karcher') %>
+        <%#= form.select(:karcher, Project.karchers.keys{|karcher| [karcher.value,karcher.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
+<!--      </div>-->
 
       <div class="actions col-xs-10 col-sm-4 col-md-4 col-lg-2 createButton">
         <%= form.submit t('Create'), :class => "btn btn-dark form-group" %>

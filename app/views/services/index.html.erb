@@ -65,11 +65,9 @@
           <td><%= service.tva_rate %></td>
           <td><%= service.total_cost %></td>
           <td>
-            <button type="button" class="close" aria-label="Close">
-          <span aria-hidden="true">
-            <%= link_to 'X', service, method: :delete, data: {confirm: 'Êtes-vous certain ?'} %>
-          </span>
-            </button>
+            <%= link_to service, method: :delete, data: {confirm: 'Are you sure?'} do %>
+              <%= image_tag("delete-icon.png", size: "30x30") %>
+            <% end %>
           </td>
         </tr>
       <% end %>

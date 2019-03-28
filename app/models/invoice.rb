@@ -3,14 +3,24 @@
 class Invoice < ApplicationRecord
   belongs_to :payment, optional: true
   belongs_to :customer, optional: true
-  has_many :projects
-  has_many :wares
+  has_many :projects, dependent: :nullify
+  has_many :wares, dependent: :nullify
 
   enum status: %I[Emise Envoy\u00E9e Pay\u00E9e]
 
+  def update_content_on_destroy(invoice)
+    invoice.wares.update(status: 'A facturer')
+    invoice.projects.update(status: 'Terminé')
+  end
+
   def update_totals_invoice(invoice, projects, wares)
-    invoice.update(total: do_total(projects, wares))
-    invoice.update(total_gross: do_total_gross(projects, wares))
+    invoice.update(total: do_total(projects, wares),
+                   total_gross: do_total_gross(projects, wares))
+    invoice.wares.update(status: 'Facturé')
+    invoice.projects.update(status: 'Facturé')
+    Ware.where(status: 'Facturé', invoice_id: nil).update(status: 'A facturer')
+    Project.where(status: 'Facturé', invoice_id: nil).update(status: 'Terminé')
+
   end
 
   def do_total(projects, wares)

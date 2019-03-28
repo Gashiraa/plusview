@@ -1,6 +1,5 @@
-<h1>Editing Invoice</h1>
+<h3>Edition Facture</h3>
 
 <%= render 'form', invoice: @invoice %>
 
-<%= link_to 'Show', invoice_path(@invoice.id,:format=>:pdf) %> |
-<%= link_to 'Retour', invoices_path %>
+<%= link_to 'Retour', url_for(:back) %>
