@@ -51,10 +51,7 @@
       <% @services.each do |service| %>
         <tr data-link="<%= edit_service_path service %>">
           <td>
-            <%= if service.project
-                  link_to '#' + service.project.id.to_s, project_path(service.project.id)
-                end
-            %>
+            <%= service.project ? (link_to '#' + service.project.id.to_s, project_path(service.project.id)) : '' %>
           </td>
           <td><%= service.name %></td>
           <td><%= service.comment %></td>
@@ -63,7 +60,7 @@
           <td><%= service.hourly_rate %></td>
           <td><%= service.duration.strftime('%H:%M') %></td>
           <td><%= service.tva_rate %></td>
-          <td><%= service.total_cost %></td>
+          <td><%= number_with_precision service.total_cost, :precision => 2 %></td>
           <td>
             <%= link_to service, method: :delete, data: {confirm: 'Are you sure?'} do %>
               <%= image_tag("delete-icon.png", size: "30x30") %>

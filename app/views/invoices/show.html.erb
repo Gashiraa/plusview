@@ -1,5 +1,4 @@
 <div class="invoice">
-
   <div id="container">
     <section id="memo">
       <!--      <div class="logo">-->
@@ -16,14 +15,11 @@
         <br/>
         <span>thomas.greday@gmail.com</span>
       </div>
-
     </section>
 
     <section id="invoice-title-number">
-
       <span id="title">Facture</span>
       <span id="number"><%= '#' + @invoice.id.to_s %></span>
-
     </section>
 
     <div class="clearfix"></div>
@@ -32,29 +28,33 @@
       <div>
         <span class="bold"></span>
       </div>
-
       <div>
-        <span><%= @invoice.customer.name %></span>
+        <span>
+          <%= @invoice.customer.name %>
+        </span>
       </div>
-
       <div>
-        <span><%= @invoice.customer.street + ', ' + @invoice.customer.number.to_s %></span>
+        <span>
+          <%= @invoice.customer.street + ', ' + @invoice.customer.number.to_s %>
+        </span>
       </div>
-
       <div>
-        <span><%= @invoice.customer.cp.to_s + ' ' + @invoice.customer.locality %></span>
+        <span>
+          <%= @invoice.customer.cp.to_s + ' ' + @invoice.customer.locality %>
+        </span>
       </div>
-
       <div>
-        <span><%= @invoice.customer.mail %></span>
+        <span>
+          <%= @invoice.customer.mail %>
+        </span>
       </div>
     </section>
 
     <div class="clearfix"></div>
+    <hr>
 
     <% if @invoice.projects.any? %>
       <% @invoice.projects.each do |project| %>
-        <hr>
         <section id="items" class="project">
           <h4>Projet : <%= project.name %></h4>
           <% if project.services.any? %>
@@ -127,7 +127,8 @@
               </tr>
               <tr data-hide-on-quote="true">
                 <th>TOTAL TTC</th>
-                <td><%= project.total %></td>
+                <td><%= number_with_precision project.total, :precision => 2 %></td>
+
               </tr>
             </table>
           </section>

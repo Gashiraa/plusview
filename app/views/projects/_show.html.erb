@@ -51,12 +51,6 @@
           <td><%= ware.provider_name %></td>
           <td><%= ware.comment %></td>
           <td><%= ware.status %></td>
-          <!--        <td><%#= ware.provider_discount %></td>-->
-          <!--        <td><%#= ware.margin %></td>-->
-          <!--        <td><%#= ware.quantity %></td>-->
-          <!--        <td><%#= ware.unit_price %></td>-->
-          <!--        <td><%#= ware.tva_rate %></td>-->
-          <!--        <td><%#= ware.total_cost %></td>-->
           <td>
             <button type="button" class="close" aria-label="Close">
               <%= link_to 'X', ware, method: :delete, data: {confirm: 'Are you sure?'} %>
@@ -102,7 +96,8 @@
           <td><%= service.hourly_rate %></td>
           <td><%= service.duration.strftime('%H:%M') %></td>
           <td><%= service.tva_rate %></td>
-          <td><%= service.total_cost %></td>
+          <td><%= number_with_precision service.total_cost, :precision => 2 %></td>
+
           <td>
             <button type="button" class="close" aria-label="Close">
           <span aria-hidden="true">

@@ -16,11 +16,13 @@ class Invoice < ApplicationRecord
   def update_totals_invoice(invoice, projects, wares)
     invoice.update(total: do_total(projects, wares),
                    total_gross: do_total_gross(projects, wares))
-    invoice.wares.update(status: 'Facturé')
-    invoice.projects.update(status: 'Facturé')
+  end
+
+  def update_statuses_invoice(invoice)
     Ware.where(status: 'Facturé', invoice_id: nil).update(status: 'A facturer')
     Project.where(status: 'Facturé', invoice_id: nil).update(status: 'Terminé')
-
+    invoice.wares.update(status: 'Facturé')
+    invoice.projects.update(status: 'Facturé')
   end
 
   def do_total(projects, wares)

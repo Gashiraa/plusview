@@ -46,7 +46,7 @@ class ServicesController < ApplicationController
     respond_to do |format|
       if @service.update(service_params)
         @service.project.update_totals(@service.project)
-        @service.project.invoice&.update_totals_invoice(@service.invoice, @service.invoice.projects, @service.invoice.wares)
+        @service.project&.invoice&.update_totals_invoice(@service.project.invoice, @service.project.invoice.projects, @service.project.invoice.wares)
         format.html {redirect_to services_url, notice: t('Service was successfully updated.')}
         format.json {render :show, status: :ok, location: @service}
       else
@@ -75,10 +75,10 @@ class ServicesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def service_params_create
-    params.permit(:project_id,:total_gross, :invoice_id, :customer_id, :quotation_id, :name, :comment, :hourly_rate, :coefficient, :date, :duration, :status, :tva_rate, :total_cost)
+    params.permit(:project_id, :total_gross, :invoice_id, :customer_id, :quotation_id, :name, :comment, :hourly_rate, :coefficient, :date, :duration, :status, :tva_rate, :total_cost)
   end
 
   def service_params
-    params.require(:service).permit(:project_id,:total_gross, :invoice_id, :customer_id, :quotation_id, :name, :comment, :hourly_rate, :coefficient, :date, :duration, :status, :tva_rate, :total_cost)
+    params.require(:service).permit(:project_id, :total_gross, :invoice_id, :customer_id, :quotation_id, :name, :comment, :hourly_rate, :coefficient, :date, :duration, :status, :tva_rate, :total_cost)
   end
 end

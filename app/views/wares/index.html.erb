@@ -53,18 +53,11 @@
       <% @wares.each do |ware| %>
         <tr data-link="<%= edit_ware_path ware %>">
           <td>
-            <%= if ware.project
-                  link_to '#' + ware.project.id.to_s, edit_project_path(ware.project.id)
-                end
-            %>
+            <%= ware.project ? (link_to '#' + ware.project.id.to_s, edit_project_path(ware.project.id)) : '' %>
           </td>
           <td>
-            <%= if ware.customer
-                  ware.customer.name
-                elsif ware.project
-                  ware.project.customer.name
-                end
-            %>
+            <%= # noinspection RubyNestedTernaryOperatorsInspection
+                ware.customer ? ware.customer.name : (ware.project ? ware.project.customer.name : '') %>
           </td>
           <td><%= ware.ware_name %></td>
           <td><%= ware.provider_name %></td>

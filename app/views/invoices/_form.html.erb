@@ -22,22 +22,15 @@
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('Wares') %>
-        <%= form.select(:ware_ids, Ware.where(status: 'A facturer').or(Ware.where(customer_id: if @invoice
-                                                                                                 @invoice.customer
-                                                                                               else
-                                                                                                 -1
-                                                                                               end, project_id: nil))
+        <%= form.select(:ware_ids, Ware.where(status: 'A facturer', project_id: nil)
+            .or(Ware.where(invoice_id: @invoice ? @invoice : -1, project_id: nil))
             .collect {|ware| [ware.ware_name, ware.id]}, {}, {class: 'form-control', autocomplete: 'nope', :multiple => true}) %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('Projects') %>
         <%= form.select(:project_ids, Project.where(status: 'Terminé')
-            .or(Project.where(customer_id: if @invoice
-                                             @invoice.customer
-                                           else
-                                             -1
-                                           end))
+            .or(Project.where(invoice_id: @invoice ? @invoice : -1))
             .collect {|project| [project.name, project.id]}, {}, {class: 'form-control', autocomplete: 'nope', :multiple => true}) %>
       </div>
 
