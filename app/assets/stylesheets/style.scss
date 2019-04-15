@@ -44,8 +44,14 @@
   top: 2rem;
 }
 
-.table tr {
-  cursor: pointer;
+.table {
+  tr {
+    cursor: pointer;
+  }
+
+  .description-header {
+    width: 30vw;
+  }
 }
 
 .date-picker {
@@ -119,7 +125,7 @@
     border: none;
   }
 
-  article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav,  summary {
+  article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, summary {
     display: block;
   }
 
@@ -158,6 +164,7 @@
     .logo {
       float: left;
       margin-right: 20px;
+      //background: url("logo_greday.png") right bottom no-repeat;
 
       img {
         width: 150px;
@@ -166,8 +173,8 @@
     }
 
     .company-info {
-      float: right;
-      text-align: right;
+      float: left;
+      text-align: left;
 
       > div:first-child {
         line-height: 1em;
@@ -196,7 +203,7 @@
 
     span {
       line-height: 0.88em;
-      display: inline-block;
+      display: inline;
       min-width: 20px;
     }
 
@@ -219,8 +226,8 @@
 
 
   #client-info {
+    margin-left: 10%;
     float: left;
-    margin-left: 60px;
     min-width: 220px;
 
     > div {
@@ -249,6 +256,20 @@
   #items {
     margin: 35px 30px 0 30px;
 
+    .title-project {
+      background: rgba(12, 84, 96, 0.63);
+      color: white;
+      display: inline;
+    }
+
+    .title-project-container {
+      margin-bottom: 10px;
+    }
+
+    p {
+      text-align: justify;
+    }
+
     .first-cell, #items table th:first-child, #items table td:first-child {
       //width: 40px !important;
       //padding-left: 0 !important;
@@ -261,10 +282,11 @@
       width: 100%;
 
       th {
+        background: #4e555b;
         font-weight: bold;
         padding: 5px 8px;
         text-align: right;
-        background: #B32C39;
+        //background: rgba(49, 118, 179, 0.82);
         color: white;
         text-transform: uppercase;
       }
@@ -289,20 +311,41 @@
     }
   }
 
-  .sums_project#sums{
+  .sums_project#sums {
     margin-top: 0;
     background: none;
+
     tr:last-child th, table tr:last-child td {
-      font-size: 15px;
+      font-size: 12px;
       font-weight: bold;
       color: #5B6165;
     }
+
+    tr:last-child th, tr:last-child td {
+      font-size: 12px;
+    }
+
+    tr.amount-total th, tr.amount-total td {
+      font-size: 12px;
+    }
+
+    tr th, tr td {
+      min-width: 100px;
+      padding: 3px 8px;
+      text-align: right;
+      font-size: 12px;
+    }
+
+    tr th {
+      font-weight: normal;
+    }
   }
 
-  #sums{
+  #sums {
     margin: 25px 30px 0 0;
+    z-index: 100;
+    position: relative;
     background: url("total-stripe-firebrick.png") right bottom no-repeat;
-
 
     table {
       float: right;
@@ -326,23 +369,26 @@
         padding: 0 !important;
         border: none !important;
       }
-    }
-  }
 
-  #sums table tr.amount-total th {
-    text-transform: uppercase;
-  }
-  #sums table tr.amount-total th, #sums table tr.amount-total td {
-    font-size: 15px;
-    font-weight: bold;
-  }
-  #sums table tr:last-child th {
-    text-transform: uppercase;
-  }
-  #sums table tr:last-child th, #sums table tr:last-child td {
-    font-size: 15px;
-    font-weight: bold;
-    color: white;
+      tr.amount-total th {
+        text-transform: uppercase;
+      }
+
+      tr.amount-total th, tr.amount-total td {
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      tr:last-child th {
+        text-transform: uppercase;
+      }
+
+      tr:last-child th, tr:last-child td {
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+      }
+    }
   }
 
   #invoice-info {

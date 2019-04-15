@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_24_113226) do
+ActiveRecord::Schema.define(version: 2019_04_15_105208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2019_03_24_113226) do
     t.text "description"
     t.float "total_gross"
     t.float "total"
+    t.date "date"
     t.index ["customer_id"], name: "index_projects_on_customer_id"
     t.index ["invoice_id"], name: "index_projects_on_invoice_id"
     t.index ["quotation_id"], name: "index_projects_on_quotation_id"
@@ -128,7 +129,7 @@ ActiveRecord::Schema.define(version: 2019_03_24_113226) do
     t.integer "quantity"
     t.float "provider_discount"
     t.float "margin"
-    t.float "unit_price"
+    t.float "provider_price"
     t.integer "status"
     t.float "tva_rate"
     t.float "total_cost"
@@ -136,9 +137,10 @@ ActiveRecord::Schema.define(version: 2019_03_24_113226) do
     t.datetime "updated_at", null: false
     t.string "provider_name"
     t.string "provider_invoice"
-    t.float "provider_net"
+    t.float "bought_price"
     t.float "provider_gross"
     t.float "total_gross"
+    t.float "sell_price"
     t.index ["customer_id"], name: "index_wares_on_customer_id"
     t.index ["invoice_id"], name: "index_wares_on_invoice_id"
     t.index ["project_id"], name: "index_wares_on_project_id"

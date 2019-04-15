@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: %i[show edit update destroy]
 
   # GET /projects
   # GET /projects.json
@@ -10,8 +12,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   # GET /projects/1.json
-  def show
-
+  def show;
   end
 
   # GET /projects/new
@@ -20,7 +21,7 @@ class ProjectsController < ApplicationController
   end
 
   # GET /projects/1/edit
-  def edit
+  def edit;
   end
 
   # POST /projects
@@ -74,10 +75,10 @@ class ProjectsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params_create
-    params.permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross)
+    params.permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross, :date, :description)
   end
 
   def project_params
-    params.require(:project).permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross)
+    params.require(:project).permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross, :date, :description)
   end
 end

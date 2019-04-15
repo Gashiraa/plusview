@@ -29,8 +29,8 @@ class ServicesController < ApplicationController
 
     respond_to do |format|
       if @service.save
-        @service.project.update_totals(@service.project)
-        @service.project.invoice&.update_totals_invoice(@service.invoice, @service.invoice.projects, @service.invoice.wares)
+        @service.project&.update_totals(@service.project)
+        @service.project&.invoice&.update_totals_invoice(@service.invoice, @service.invoice.projects, @service.invoice.wares)
         format.html {redirect_to services_url, notice: t('Service was successfully created.')}
         format.json {render :show, status: :created, location: @service}
       else
@@ -45,7 +45,7 @@ class ServicesController < ApplicationController
   def update
     respond_to do |format|
       if @service.update(service_params)
-        @service.project.update_totals(@service.project)
+        @service.project&.update_totals(@service.project)
         @service.project&.invoice&.update_totals_invoice(@service.project.invoice, @service.project.invoice.projects, @service.project.invoice.wares)
         format.html {redirect_to services_url, notice: t('Service was successfully updated.')}
         format.json {render :show, status: :ok, location: @service}

@@ -3,13 +3,13 @@
     <div class="row">
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Customer') %>
+        <%= form.label t('customer') %>
         <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {class: 'form-control'} %>
 
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Status') %>
+        <%= form.label t('status') %>
         <%= form.select(:status, Invoice.statuses.keys {|status| [status.value, status.value]}, {}, {class: 'form-control', autocomplete: 'nope'}) %>
       </div>
 
@@ -21,21 +21,21 @@
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Wares') %>
+        <%= form.label t('wares') %>
         <%= form.select(:ware_ids, Ware.where(status: 'A facturer', project_id: nil)
             .or(Ware.where(invoice_id: @invoice ? @invoice : -1, project_id: nil))
             .collect {|ware| [ware.ware_name, ware.id]}, {}, {class: 'form-control', autocomplete: 'nope', :multiple => true}) %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Projects') %>
+        <%= form.label t('projects') %>
         <%= form.select(:project_ids, Project.where(status: 'Terminé')
             .or(Project.where(invoice_id: @invoice ? @invoice : -1))
             .collect {|project| [project.name, project.id]}, {}, {class: 'form-control', autocomplete: 'nope', :multiple => true}) %>
       </div>
 
       <div class="actions col-xs-10 col-sm-4 col-md-4 col-lg-2 createButton">
-        <%= form.submit t('Create'), :class => "btn btn-dark form-group" %>
+        <%= form.submit t('create'), :class => "btn btn-dark form-group" %>
       </div>
     </div>
   </div>

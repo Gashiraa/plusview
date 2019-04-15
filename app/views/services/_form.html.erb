@@ -3,61 +3,61 @@
     <div class="row">
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Project') %>
-        <%= form.select(:project_id, Project.all.collect {|project| [project.name.to_s + ' - ' + project.customer.name, project.id]}, {:include_blank => true}, {class: 'form-control', autocomplete: 'nope'}) %>
+        <%= form.label t('project') %>
+        <%= form.select(:project_id, Project.all.collect {|project| [project.name.to_s + ' - ' + project.customer.name, project.id]}, {:include_blank => true}, {class: 'form-control', autocomplete: 'off'}) %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('Name') %>
-        <%= form.text_field :name, class: "form-control", autocomplete: 'nope' %>
+        <%= form.text_field :name, class: "form-control", autocomplete: 'off' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Comment') %>
-        <%= form.text_field :comment, class: "form-control", autocomplete: 'nope' %>
+        <%= form.label t('comment') %>
+        <%= form.text_field :comment, class: "form-control", autocomplete: 'off' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Status') %>
-        <%= form.select(:status, Service.statuses.keys {|status| [status.value, status.value]}, {}, {class: 'form-control', autocomplete: 'nope'}) %>
+        <%= form.label t('status') %>
+        <%= form.select(:status, Service.statuses.keys {|status| [status.value, status.value]}, {}, {class: 'form-control', autocomplete: 'off'}) %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('Date') %>
-        <div class="picker-container">
-          <%= form.date_select :date, {}, class: "date-picker form-control", autocomplete: 'nope' %>
+        <div class="picker-container" >
+          <%= form.text_field :date, "data-provide" => 'datepicker',  autocomplete: 'off' , class: "datepicker form-control"%>
         </div>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Duration') %>
+        <%= form.label t('duration') %>
         <div class="picker-container">
-          <%= form.time_select :duration, {default: {hour: 1, min: 0}}, class: "time-picker form-control", autocomplete: 'nope' %>
+          <%= form.time_select :duration, {default: {hour: 1, min: 0}}, class: "time-picker form-control", autocomplete: 'off' %>
         </div>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('Hourly rate'), class: "smallerLabel" %>
+        <%= form.label t('hourly_rate'), class: "smallerLabel" %>
         <%= form.text_field :hourly_rate, class: "form-control", autocomplete: 'nope' , id: 'hourly_rate'%>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('TVA rate') %>
+        <%= form.label t('tva_rate') %>
         <%= form.text_field :tva_rate, value: '21', class: "form-control", id: "tva_rate_s", autocomplete: 'nope'%>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('Gross cost') %>
-        <%= form.text_field :total_gross, class: "form-control", autocomplete: 'nope', id: 'total_gross_s' %>
+        <%= form.label t('gross_cost') %>
+        <%= form.text_field :total_gross, class: "form-control", id: "total_gross_s", autocomplete: 'nope'%>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('Total cost') %>
+        <%= form.label t('total_cost') %>
         <%= form.text_field :total_cost, class: "form-control", id: "total_cost_s", autocomplete: 'nope' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2 createButton">
-        <%= form.submit t('Create'), :class => "btn btn-dark form-group" %>
+        <%= form.submit t('create'), :class => "btn btn-dark form-group" %>
       </div>
     </div>
   </div>

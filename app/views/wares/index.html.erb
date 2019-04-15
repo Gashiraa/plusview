@@ -1,4 +1,4 @@
-<h2><%= t('Wares') %></h2>
+<h2><%= t('ware').pluralize %></h2>
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
@@ -15,15 +15,15 @@
       <div class="form">
         <div class="row">
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Project') %>
+            <%= form.label t('project')%>
             <%= form.collection_select :project_id_eq, Project.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Customer') %>
+            <%= form.label t('customer') %>
             <%= form.collection_select :customer_id_or_project_customer_id_eq, Customer.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Status') %>
+            <%= form.label t('status') %>
             <%= form.select :status_eq, Ware.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
         </div>
@@ -33,12 +33,12 @@
     <table class="table table-hover table-striped ">
       <thead class=thead-dark>
       <tr>
-        <th><%= t('Project') %></th>
-        <th><%= t('Customer') %></th>
-        <th><%= t('Ware name') %></th>
-        <th><%= t('Provider name') %></th>
-        <th><%= t('Comment') %></th>
-        <th><%= t('Status') %></th>
+        <th><%= t(:project).capitalize %></th>
+        <th><%= t('customer') %></th>
+        <th><%= t('ware_name') %></th>
+        <th><%= t('provider_name') %></th>
+        <th><%= t('comment') %></th>
+        <th><%= t('status') %></th>
         <!--      <th><%#= t('Provider discount') %></th>-->
         <!--      <th><%#= t('Margin') %></th>-->
         <!--      <th><%#= t('Quantity') %></th>-->

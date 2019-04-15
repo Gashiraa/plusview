@@ -1,4 +1,4 @@
-<h2>Prestations</h2>
+<h2><%= t(:service).pluralize %></h2>
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
@@ -16,15 +16,15 @@
         <div class="row">
 
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Project') %>
+            <%= form.label t('project') %>
             <%= form.collection_select :project_id_eq, Project.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Customer') %>
+            <%= form.label t('customer') %>
             <%= form.collection_select :customer_id_or_project_customer_id_eq, Customer.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Status') %>
+            <%= form.label t('status') %>
             <%= form.select :status_eq, Service.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
         </div>
@@ -34,15 +34,15 @@
     <table class="table table-hover table-striped">
       <thead class=thead-dark>
       <tr>
-        <th><%= t('Project') %></th>
+        <th><%= t(:project).capitalize %></th>
         <th><%= t('Name') %></th>
-        <th><%= t('Comment') %></th>
-        <th><%= t('Status') %></th>
+        <th><%= t('comment') %></th>
+        <th><%= t('status') %></th>
         <th><%= t('Date') %></th>
-        <th><%= t('Hourly rate') %></th>
-        <th><%= t('Duration') %></th>
-        <th><%= t('TVA rate') %></th>
-        <th><%= t('Total cost') %></th>
+        <th><%= t('hourly_rate') %></th>
+        <th><%= t('duration') %></th>
+        <th><%= t('tva_rate') %></th>
+        <th><%= t('total_cost') %></th>
         <th></th>
       </tr>
       </thead>
@@ -56,7 +56,7 @@
           <td><%= service.name %></td>
           <td><%= service.comment %></td>
           <td><%= service.status %></td>
-          <td><%= service.date %></td>
+          <td><%= l(service.date) %></td>
           <td><%= service.hourly_rate %></td>
           <td><%= service.duration.strftime('%H:%M') %></td>
           <td><%= service.tva_rate %></td>

@@ -29,8 +29,14 @@ class WaresController < ApplicationController
 
     respond_to do |format|
       if @ware.save
+        # update linked project
         @ware.project&.update_totals(@ware.project)
+
+        # update linked invoice
         @ware.invoice&.update_totals_invoice(@ware.invoice, @ware.invoice.projects, @ware.invoice.wares)
+
+        # update linked project's invoice
+        @ware.project&.invoice&.update_totals_invoice(@ware.project.invoice, @ware.project.invoice.projects, @ware.project.invoice.wares)
         format.html {redirect_to wares_url + '#new', notice: t('Ware was successfully created.')}
         format.json {render :show, status: :created, location: @ware}
       else
@@ -45,8 +51,14 @@ class WaresController < ApplicationController
   def update
     respond_to do |format|
       if @ware.update(ware_params)
+        # update linked project
         @ware.project&.update_totals(@ware.project)
+
+        # update linked invoice
         @ware.invoice&.update_totals_invoice(@ware.invoice, @ware.invoice.projects, @ware.invoice.wares)
+
+        # update linked project's invoice
+        @ware.project&.invoice&.update_totals_invoice(@ware.project.invoice, @ware.project.invoice.projects, @ware.project.invoice.wares)
         format.html {redirect_to wares_url, notice: t('Ware was successfully updated.')}
         format.json {render :show, status: :ok, location: @ware}
       else
@@ -75,10 +87,10 @@ class WaresController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ware_params
-    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :provider_net, :provider_invoice, :ware_name)
+    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :margin, :provider_price, :bought_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :sell_price, :provider_invoice, :ware_name)
   end
 
   def ware_params_create
-    params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :provider_discount, :margin, :unit_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :provider_net, :provider_invoice, :ware_name)
+    params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :margin, :provider_price, :bought_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :sell_price, :provider_invoice, :ware_name)
   end
 end

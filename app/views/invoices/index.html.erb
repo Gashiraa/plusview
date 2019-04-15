@@ -15,15 +15,15 @@
       <div class="form">
         <div class="row">
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Project') %>
+            <%= form.label t('project') %>
             <%= form.collection_select :id_eq, Project.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Customer') %>
+            <%= form.label t('customer') %>
             <%= form.collection_select :customer_id_eq, Customer.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Status') %>
+            <%= form.label t('status') %>
             <%= form.select :status_eq, Invoice.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
         </div>
@@ -33,10 +33,10 @@
     <table class="table table-hover table-striped">
       <thead class=thead-dark>
       <tr>
-        <th><%= t('Customer') %></th>
+        <th><%= t('customer') %></th>
         <th><%= t('Date') %></th>
-        <th><%= t('Status') %></th>
-        <th><%= t('Gross cost').to_s + ' (€)' %></th>
+        <th><%= t('status') %></th>
+        <th><%= t('gross_cost').to_s + ' (€)' %></th>
         <th><%= t('Total').to_s + ' (€)' %></th>
         <th></th>
       </tr>
@@ -47,7 +47,7 @@
           <td>
             <%= invoice.customer ? invoice.customer.name : '' %>
           </td>
-          <td><%= invoice.date %></td>
+          <td><%= l(invoice.date) %></td>
           <td><%= invoice.status %></td>
           <td><%= number_with_precision  invoice.total_gross, :precision => 2 %></td>
           <td><%= number_with_precision  invoice.total, :precision => 2 %></td>

@@ -8,19 +8,26 @@
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Description') %>
+        <%= form.label t('description') %>
         <%= form.text_field :description, class: "form-control", autocomplete: 'nope' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Customer') %>
+        <%= form.label t('customer') %>
         <%= form.select(:customer_id, Customer.all.collect {|customer| [customer.name, customer.id]}, {:include_blank => true}, {class: 'form-control', :required => true, autocomplete: 'nope' }) %>
         <div class="invalid-feedback">Example invalid custom select feedback</div>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Status') %>
+        <%= form.label t('status') %>
         <%= form.select(:status, Project.statuses.keys{|status| [status.value,status.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('Date') %>
+        <div class="picker-container">
+          <%= form.date_select :date, {}, class: "date-picker form-control", autocomplete: 'nope' %>
+        </div>
       </div>
 
 <!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
@@ -39,7 +46,7 @@
 <!--      </div>-->
 
       <div class="actions col-xs-10 col-sm-4 col-md-4 col-lg-2 createButton">
-        <%= form.submit t('Create'), :class => "btn btn-dark form-group" %>
+        <%= form.submit t('create'), :class => "btn btn-dark form-group" %>
       </div>
     </div>
   </div>

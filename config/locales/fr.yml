@@ -1,63 +1,68 @@
 fr:
-  Wares: Marchandises
-  Project: Projet
-  Projects: Projets
-  Invoice: Facture
-  Invoices: Factures
-  Customer: Client
-  Quotation: Devis
+  id_locale: ID
 
+  ware: marchandise
+  project: projet
+  invoice: facture
+  customer: client
+  quotation: devis
+
+  project_title: Titre projet
   Name: Nom
-  Ware name: Dénomination
-  Comment: Commentaire
+  ware_name: Dénomination
+  comment: Commentaire
   Quantity: Quantité
-  Provider discount: Remise
-  Margin: Marge
-  Unit price: Prix unitaire
-  Gross cost: Total HT
-  Total gross: Total HT
-  Provider name: Fournisseur
-  Bought price: Prix payé
-  Provider invoice: Facture fournisseur
+  provider_invoice: Facture fournisseur
+  provider_discount: Remise
+  provider_price: Prix brut
+  bought_price: Prix net
+  sell_price: Prix
+  margin: Marge
+  unit_price: Prix unitaire
+  gross_cost: Total HT
+  total_gross: Total HT
+  provider_name: Fournisseur
 
-  Hourly rate: Taux horaire
-  Coefficient: Coefficent
-  Date: Date
-  Duration: Durée
-  Status : Statut
-  TVA rate: Taux TVA
-  Total cost: Coût total
+  hourly_rate: Taux horaire
+  coefficient: Coefficent
+  duration: Durée
+  status: Statut
+  tva_rate: Taux TVA
+  total_cost: Coût total
 
-  Wielding: Soudure
-  Machining: Usinage
-  Karcher: Karcher
-  Description: Description
+  wielding: Soudure
+  machining: Usinage
+  karcher: Karcher
+  description: Description
 
-  Mail: Email
-  TVA record: Num. TVA
-  Street: Rue
-  Number: Numéro
-  Cp: Code postal
-  Locality: Ville
-  Country: Pays
+  mail: Email
+  tva_record: Num. TVA
+  street: Rue
+  number: Numéro
+  zip: Code postal
+  locality: Ville
+  country: Pays
 
-  Ware was successfully created: Marchandise ajoutée
-  Ware was successfully updated: Marchandise mise à jour
-  Ware was successfully destroyed: Marchandise supprimée
+  from: Depuis
+  to: À
 
-  Service was successfully created: Prestation ajoutée
-  Service was successfully updated: Prestation mise à jour
-  Service was successfully destroyed: Prestation supprimée
+  ware_add_success: Marchandise ajoutée
+  ware_update_success: Marchandise mise à jour
+  ware_destroy_success: Marchandise supprimée
 
-  Customer was successfully created: Client ajouté
-  Customer was successfully updated: Client mis à jour
-  Customer was successfully destroyed: Client supprimé
+  service_add_success: Prestation ajoutée
+  service_update_success: Prestation mise à jour
+  service_destroy_success: Prestation supprimée
 
-  Project was successfully created: Projet ajouté
-  Project was successfully updated: Projet mis à jour
-  Project was successfully destroyed: Projet supprimé
+  customer_add_success: Client ajouté
+  customer_update_success: Client mis à jour
+  customer_detroy_success: Client supprimé
 
-  Create: Valider
+  project_add_success: Projet ajouté
+  project_update_success: Projet mis à jour
+  project_destroy_success: Projet supprimé
+
+  create: Valider
   activerecord:
     attributes:
       user:
@@ -247,11 +252,11 @@ fr:
       - vendredi
       - samedi
     formats:
+      input: "%d/%m/%Y"
       default: "%d/%m/%Y"
       long: "%e %B %Y"
       short: "%e %b"
     month_names:
-      -
       - janvier
       - février
       - mars
@@ -423,4 +428,5 @@ fr:
       long: "%A %d %B %Y %Hh%M"
       short: "%d %b %Hh%M"
   pm: pm
+  service: "prestation"
 

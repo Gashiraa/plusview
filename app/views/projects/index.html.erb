@@ -1,4 +1,4 @@
-<h2><%= t('Projects') %></h2>
+<h2><%= t('project').pluralize %></h2>
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
@@ -14,30 +14,44 @@
     <%= search_form_for @search do |form| %>
       <div class="form">
         <div class="row">
+
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Project') %>
+            <%= form.label t('project') %>
             <%= form.collection_select :id_eq, Project.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Customer') %>
+            <%= form.label t('customer') %>
             <%= form.collection_select :customer_id_eq, Customer.all, :id, :name, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('Status') %>
+            <%= form.label t('status') %>
             <%= form.select :status_eq, Project.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => true}, class: 'form-control', onchange: 'this.form.submit();' %>
+          </div>
+          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+            <%= form.label t('from') %>
+            <div class="picker-container">
+              <%= form.text_field :date_gteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off', id:"sortProjectFrom", class: "form-control", onchange: 'this.form.submit();' %>
+            </div>
+          </div>
+          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+            <%= form.label t('to') %>
+            <div class="picker-container">
+              <%= form.text_field :date_lteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off',id:"sortProjectTo", class: "form-control", onchange: 'this.form.submit();' %>
+            </div>
           </div>
         </div>
       </div>
     <% end %>
-
     <table class="table table-hover table-striped">
       <thead class=thead-dark>
       <tr>
-        <th><%= t('Name') %></th>
-        <th><%= t('Description') %></th>
-        <th><%= t('Customer') %></th>
-        <th><%= t('Status') %></th>
-        <th><%= t('Gross cost').to_s + ' (€)' %></th>
+        <th><%= t('id_locale').upcase %></th>
+        <th><%= t('customer') %></th>
+        <th><%= t('project_title') %></th>
+        <th class="description-header"><%= t('description') %></th>
+        <th><%= t('Date') %></th>
+        <th><%= t('status') %></th>
+        <th><%= t('gross_cost').to_s + ' (€)' %></th>
         <th><%= t('Total').to_s + ' (€)' %></th>
         <th colspan="3"></th>
       </tr>
@@ -46,12 +60,14 @@
       <tbody>
       <% @projects.each do |project| %>
         <tr data-link="<%= edit_project_path project %>">
+          <td><%= '#' + project.id.to_s %></td>
+          <td><%= project.customer ? project.customer.name : nil %></td>
           <td><%= project.name %></td>
           <td><%= project.description %></td>
-          <td><%= project.customer ? project.customer.name : nil %></td>
+          <td><%= l(project.date) %></td>
           <td><%= project.status %></td>
-          <td><%= number_with_precision  project.total_gross, :precision => 2 %></td>
-          <td><%= number_with_precision  project.total, :precision => 2 %></td>
+          <td><%= number_with_precision project.total_gross, :precision => 2 %></td>
+          <td><%= number_with_precision project.total, :precision => 2 %></td>
           <td>
             <%= link_to project, method: :delete, data: {confirm: 'Are you sure?'} do %>
               <%= image_tag("delete-icon.png", size: "30x30") %>

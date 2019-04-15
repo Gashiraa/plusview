@@ -1,0 +1,79 @@
+[PROJET]
+
+[OK] Ajouter date projet
+[OK] Recherche projet avec dates
+[OK] Afficher #projet
+[OK] Titre projet, renommer
+
+[FACTURE]
+
+[OK] Afficher numéro de projet
+[OK] Total avec nom projet, plus petit
+[OK] Description du projet si fournie
+[OK] Couleur différente pour distinguer les projets et autres marchandises
+[OK] ]Mettre le nom destinataire à droite, encart à lettre
+[A REVOIR] Ajouter le logo
+[OK] Rennomer "Autre marchandises" en "Comptoir"
+[OK] Ajouter une colonne quantité a part
+Ajouter la devis (en-têtes ou champs), à voir avec comptable (demander facture)
+[OK] Vérifier la mise en page si plusieurs projets dans une facture
+Selection des éléments par client
+
+[MARCHANDISES]
+
+[OK] Prix unitaire, renommer en prix brut
+[OK] Prix payé rennomer en prix net
+[OK] Ajouter prix unitaire client qu'on appelera "Prix"
+[OK] Pour les marges utiliser des pourcentage
+[OK] Revoir le calcul automatique
+
+[GENERAL]
+
+Véifier le statut flow create/update/delete pour les factures/marchandises/projets/prestations
+Vérifier la mise à jour des totaux en create/update/delete pour les marchandises/prestations/projets
+Pour les marchandises "A facturer" ou les projets "terminé", demander confirmation pour les update
+Si facturé, demander confirmation pour modifier ou delete
+Ajouter style bootstrap pour différencier le titre des page
+Colorer les lignes des listings par statut
+Pour les marges utiliser des pourcentage
+IF table vide 
+Devis
+
+Divers -> Nouvelle table pour des divers (extras)
+Page administration des prix
+
+Dates au format EU-fr
+
+[PRESTATIONS]
+
+Renommer "Nom prestation" en "Description prestation"
+Ajouter si présent, commentaire prestation/marchandise sur facture
+Statut automatiquement à "Attribué" si attribué a un projet
+Revoir le calcul automatique
+
+[DEVIS]
+
+Un devis sera généré sur base d'un projet, pour chaque projet un devis sera générable
+Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, ajout de suppléments
+
+[ERREUR DEMO A VERIFIER]
+
+Ajouter prestation a un projet 
+        @service.project.invoice&.update_totals_invoice(@service.invoice, @service.invoice.projects, @service.invoice.wares)
+
+29/03
+[OK] PRE ENCODER TVA 21% 
+[OK] Projet -> Description 
+[OK] Clients -> TVA avec lettre
+[OK] Marchandises -> Nom du fournisseur, #facture fournisseur, dénomination, remise fournisseur, prix net fournisseur , total sans tva
+[OK] Désactiver l'autocomplétion, par défaut Belgique
+[OK] Prestations -> Coefficient à supprimer et champ client
+[OK] Vérouiller champs totaux
+[OK] Projet -> Devis, En réalisation, Terminé, Facturé, Payé
+[OK] Marchandise -> Encodé, Atelier, Attribué, A facturer, Facturée, Payé
+[OK] Prestation -> Encodé, Atelier, Attribué -> statut du projet 
+[OK] Révision Marchandises
+[OK] Onglets
+[OK] Liens rows
+[OK] Position notification
+[OK] Avertissement pour ce qui a déjà été facturé
