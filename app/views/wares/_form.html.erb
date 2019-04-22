@@ -1,30 +1,27 @@
 <%= form_with(model: @ware, local: true, id: 'waresForm', html: {autocomplete: 'off'}) do |form| %>
   <div class="form">
-    <div class="row">
+    <div class="form-row">
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('project') %>
-        <%= form.select(:project_id, Project.all.collect {|project| [project.name.to_s + ' - ' + project.customer.name, project.id]}, {:include_blank => true}, {class: 'form-control', autocomplete: 'nope'}) %>
+        <%= form.select(:project_id, Project.all.collect {|project| [project.name.to_s + ' - ' + project.customer.name, project.id]}, {:include_blank => true}, {class: 'form-control', id: "project_id", autocomplete: 'nope'}) %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('customer') %>
-        <%= form.select(:customer_id, Customer.all.collect {|customer| [customer.name, customer.id]}, {:include_blank => true}, {class: 'form-control', autocomplete: 'nope'}) %>
+        <%= form.select(:customer_id, Customer.all.collect {|customer| [customer.name, customer.id]}, {:include_blank => true}, {class: 'form-control', id: "customer_id", autocomplete: 'nope'}) %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('status') %>
-        <%= form.select(:status, Ware.statuses.keys {|status| [status.value, status.value]}, {}, {class: 'form-control', autocomplete: 'nope'}) %>
+        <%= form.select(:status, Ware.statuses.keys {|status| [status.value, status.value]}, {}, {class: 'form-control', id: "status", autocomplete: 'nope'}) %>
       </div>
+    </div>
+    <div class="form-row">
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('ware_name') %>
         <%= form.text_field :ware_name, class: "form-control", autocomplete: 'nope' %>
-      </div>
-
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('comment') %>
-        <%= form.text_field :comment, class: "form-control", autocomplete: 'nope' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
@@ -36,54 +33,73 @@
         <%= form.label t('provider_invoice') %>
         <%= form.text_field :provider_invoice, class: "form-control", autocomplete: 'nope' %>
       </div>
+    </div>
+    <div class="form-row">
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('comment') %>
+        <%= form.text_field :comment, class: "form-control", autocomplete: 'nope' %>
+      </div>
+    </div>
+    <div class="form-row">
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('provider_price') %>
+        <%= form.label t('provider_price') + " (€)" %>
         <%= form.text_field :provider_price, class: "form-control", autocomplete: 'nope', id: 'provider_price' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('provider_discount') %>
+        <%= form.label t('provider_discount') + " (%)" %>
         <%= form.text_field :provider_discount, class: "form-control", autocomplete: 'nope', id: 'provider_discount' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('bought_price') %>
+        <%= form.label t('bought_price') + " (€)" %>
         <%= form.text_field :bought_price, class: "form-control", autocomplete: 'nope', id: 'bought_price' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
         <%= form.label t('Quantity') %>
-        <%= form.text_field :quantity, class: "form-control", autocomplete: 'nope', id: 'quantity' %>
+        <%= form.text_field :quantity, class: "form-control", autocomplete: 'nope', id: 'quantity', value: "1" %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('sell_price') %>
-        <%= form.text_field :sell_price, class: "form-control", autocomplete: 'nope', id: 'sell_price'  %>
+        <%= form.label t('sell_price') + " (€)" %>
+        <%= form.text_field :sell_price, class: "form-control", autocomplete: 'nope', id: 'sell_price' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('margin') %>
+        <%= form.label t('margin') + " (%)" %>
         <%= form.text_field :margin, class: "form-control", autocomplete: 'nope', id: 'margin' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('tva_rate') + ' (%)' %>
+        <%= form.label t('tva_rate').+ ' (%)' %>
         <%= form.text_field :tva_rate, value: '21', class: "form-control", autocomplete: 'nope', id: 'tva_rate' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('gross_cost') %>
+        <%= form.label t('gross_cost') + " (€)" %>
         <%= form.text_field :total_gross, class: "form-control", autocomplete: 'nope', id: 'total_gross' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('total_cost') %>
+        <%= form.label t('total_cost') + " (€)" %>
         <%= form.text_field :total_cost, class: "form-control", autocomplete: 'nope', id: 'total_cost' %>
       </div>
 
       <div class="actions col-xs-10 col-sm-4 col-md-4 col-lg-2 createButton">
-        <%= form.submit t('create'), :class => "btn btn-dark form-group" %>
+        <%= form.submit t('create'),
+                        :class => "btn btn-dark form-group",
+                        data:
+                            if @ware
+                              if @ware.invoice or @ware.project&.invoice
+                                {confirm: t('ware_already_invoiced')}
+                              elsif @ware.status == "A facturer"
+                                {confirm: t('ware_ready_invoiced')}
+                              end
+                            elsif {}
+                            end %>
       </div>
     </div>
   </div>

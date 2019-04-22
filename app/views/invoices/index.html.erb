@@ -1,4 +1,4 @@
-<h2><%= t('Invoices') %></h2>
+<h2 id="titleBadge"><%= t('invoice').pluralize %></h2>
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
@@ -30,10 +30,10 @@
       </div>
     <% end %>
 
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped"  id="table-to-color">
       <thead class=thead-dark>
       <tr>
-        <th><%= t('customer') %></th>
+        <th><%= t('customer').capitalize %></th>
         <th><%= t('Date') %></th>
         <th><%= t('status') %></th>
         <th><%= t('gross_cost').to_s + ' (€)' %></th>
@@ -48,13 +48,13 @@
             <%= invoice.customer ? invoice.customer.name : '' %>
           </td>
           <td><%= l(invoice.date) %></td>
-          <td><%= invoice.status %></td>
+          <td id="status-cell"><%= invoice.status %></td>
           <td><%= number_with_precision  invoice.total_gross, :precision => 2 %></td>
           <td><%= number_with_precision  invoice.total, :precision => 2 %></td>
 
           <td style="padding: 0">
             <%= link_to image_tag("pdf-icon.png", size: "50x50"), invoice_path(invoice.id, :format => :pdf) %>
-            <%= link_to invoice, method: :delete, data: {confirm: 'Are you sure?'} do %>
+            <%= link_to invoice, method: :delete, data: {confirm: t('confirm_delete')} do %>
               <%= image_tag("delete-icon.png", size: "30x30") %>
             <% end %>
           </td>

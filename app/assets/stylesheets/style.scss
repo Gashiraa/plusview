@@ -1,7 +1,7 @@
 @import "bootstrap";
 
-.navbar {
-  margin-bottom: 1em;
+.nav {
+  margin-top: 1em;
 }
 
 .body {
@@ -9,10 +9,14 @@
   margin: auto;
 
   h2 {
-    text-align: center;
+    max-width: 15%;
+    font-size: 1.3vw;
     text-transform: uppercase;
     position: absolute;
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
   }
 }
 
@@ -45,10 +49,18 @@
 }
 
 .table {
+  margin-top: 1%;
+  box-shadow: 10px 0 40px 2px rgba(0, 0, 0, 0.37);
+  -webkit-box-shadow: 10px 0 40px 2px rgba(0, 0, 0, 0.37);
   tr {
     cursor: pointer;
+    td {
+      border-top: 0.05px solid rgba(0, 0, 0, 0.17);
+    }
+    td:first-letter {
+      text-transform: uppercase;
+    }
   }
-
   .description-header {
     width: 30vw;
   }
@@ -68,8 +80,8 @@
 }
 
 .time-picker {
-  width: 47%;
-  margin-right: 1em;
+  width: 50%;
+  //margin-right: 1em;
 }
 
 .picker-container {
@@ -78,13 +90,6 @@
 
 .form-login {
   margin: auto;
-}
-
-.table {
-  margin-top: 1%;
-  box-shadow: 10px 0px 40px 2px rgba(0, 0, 0, 0.37);
-  -webkit-box-shadow: 10px 0px 40px 2px rgba(0, 0, 0, 0.37);
-
 }
 
 .nav-item {
@@ -164,10 +169,8 @@
     .logo {
       float: left;
       margin-right: 20px;
-      //background: url("logo_greday.png") right bottom no-repeat;
 
       img {
-        width: 150px;
         height: 100px;
       }
     }
@@ -207,15 +210,20 @@
       min-width: 20px;
     }
 
-    #title {
+    #invoice-title, #quotation-title {
       text-transform: uppercase;
       padding: 0px 2px 0px 60px;
       font-size: 50px;
-      background: #F4846F;
       color: white;
-      margin-left: 5%;
+      margin-left: 3%;
     }
 
+    #invoice-title {
+      background: #F4846F;
+    }
+    #quotation-title {
+      background: #55a1f4;
+    }
     #number {
       margin-left: 10px;
       font-size: 35px;
@@ -312,7 +320,7 @@
   }
 
   .sums_project#sums {
-    margin-top: 0;
+    margin: 25px 30px 0 0;
     background: none;
 
     tr:last-child th, table tr:last-child td {
@@ -391,60 +399,24 @@
     }
   }
 
-  #invoice-info {
-    float: left;
-    margin: 50px 40px 0 60px;
+  #notes {
+    h5 {
+      text-align: center;
+      margin-top: 30px;
 
-    > div > span {
-      display: inline-block;
-      min-width: 20px;
-      min-height: 18px;
-      margin-bottom: 3px;
     }
 
-    > div > span:first-child {
-      color: black;
-    }
+    p {
+      text-align: justify;
+      font-size: 11px;
+      margin-left: 50px;
+      margin-right: 50px;
 
-    > div > span:last-child {
-      color: #aaa;
-    }
-
-    :after {
-      content: '';
-      display: block;
-      clear: both;
     }
   }
 
-  #terms {
-    float: left;
-    margin-top: 50px;
-
-    .notes {
-      min-height: 30px;
-      min-width: 50px;
-      color: #B32C39;
-    }
-
-    .payment-info div {
-      margin-bottom: 3px;
-      min-width: 20px;
-    }
-  }
-
-  .thank-you {
-    margin: 10px 0 30px 0;
-    display: inline-block;
-    min-width: 20px;
-    text-transform: uppercase;
-    font-weight: bold;
-    line-height: 0.88em;
-    float: right;
-    padding: 0px 30px 0px 2px;
-    font-size: 50px;
-    background: #F4846F;
-    color: white;
+  #dateInvoice {
+    margin-left: 30px;
   }
 
   .ib_bottom_row_commands {

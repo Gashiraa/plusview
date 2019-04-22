@@ -22,7 +22,7 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Invoice No. #{@invoice.id}",
+        render pdf: "Facture No. #{@invoice.id}",
                page_size: 'A4',
                template: "invoices/show.html.erb",
                layout: "pdf.html",
@@ -48,8 +48,10 @@ class InvoicesController < ApplicationController
   # POST /invoices.json
   def create
     @invoice = Invoice.new(invoice_params_create)
+
     respond_to do |format|
       if @invoice.save
+        @invoice.update_statuses_invoice(@invoice)
         @invoice.update_totals_invoice(@invoice, @invoice.projects, @invoice.wares)
         format.html {redirect_to invoices_url, notice: 'Invoice was successfully created.'}
         format.json {render :show, status: :created, location: @invoice}
@@ -65,6 +67,7 @@ class InvoicesController < ApplicationController
   def update
     respond_to do |format|
       if @invoice.update(invoice_params)
+        @invoice.update_statuses_invoice(@invoice)
         @invoice.update_totals_invoice(@invoice, @invoice.projects, @invoice.wares)
         format.html {redirect_to invoices_url, notice: 'Invoice was successfully updated.'}
         format.json {render :show, status: :ok, location: @invoice}
@@ -78,7 +81,7 @@ class InvoicesController < ApplicationController
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy
-    @invoice.update_content_on_destroy(@invoice)
+    @invoice.update_invoice_content_on_destroy(@invoice)
     @invoice.destroy
     respond_to do |format|
       format.html {redirect_to invoices_url, notice: 'Invoice was successfully destroyed.'}

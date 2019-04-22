@@ -29,9 +29,9 @@ class ServicesController < ApplicationController
 
     respond_to do |format|
       if @service.save
-        @service.project&.update_totals(@service.project)
-        @service.project&.invoice&.update_totals_invoice(@service.invoice, @service.invoice.projects, @service.invoice.wares)
-        format.html {redirect_to services_url, notice: t('Service was successfully created.')}
+        @service.project.update_totals_project(@service.project)
+        @service.project&.invoice&.update_totals_invoice(@service.project.invoice, @service.project.invoice.projects, @service.project.invoice.wares)
+        format.html {redirect_to services_url, notice: t('service_add_success')}
         format.json {render :show, status: :created, location: @service}
       else
         format.html {render :new}
@@ -45,9 +45,9 @@ class ServicesController < ApplicationController
   def update
     respond_to do |format|
       if @service.update(service_params)
-        @service.project&.update_totals(@service.project)
+        @service.project&.update_totals_project(@service.project)
         @service.project&.invoice&.update_totals_invoice(@service.project.invoice, @service.project.invoice.projects, @service.project.invoice.wares)
-        format.html {redirect_to services_url, notice: t('Service was successfully updated.')}
+        format.html {redirect_to services_url, notice: t('service_update_success')}
         format.json {render :show, status: :ok, location: @service}
       else
         format.html {render :edit}
@@ -60,8 +60,10 @@ class ServicesController < ApplicationController
   # DELETE /services/1.json
   def destroy
     @service.destroy
+    @service.project&.update_totals_project(@service.project)
+    @service.project&.invoice&.update_totals_invoice(@service.project.invoice, @service.project.invoice.projects, @service.project.invoice.wares)
     respond_to do |format|
-      format.html {redirect_to services_url, notice: t('Service was successfully destroyed.')}
+      format.html {redirect_to services_url, notice: t('service_destroy_success')}
       format.json {head :no_content}
     end
   end

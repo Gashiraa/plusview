@@ -1,11 +1,6 @@
-<h3>
-  <%= @project.name %> - <%= if @project.customer
-                               @project.customer.name
-                             end
-%>
-</h3>
 
 <%= render 'show', project: @project %>
+
 <%= link_to 'Retour', url_for(:back) %>
 
 

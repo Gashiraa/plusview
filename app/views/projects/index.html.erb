@@ -1,4 +1,4 @@
-<h2><%= t('project').pluralize %></h2>
+<h2 id="titleBadge"><%= t('project').pluralize %></h2>
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
@@ -42,11 +42,11 @@
         </div>
       </div>
     <% end %>
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped" id="table-to-color">
       <thead class=thead-dark>
       <tr>
         <th><%= t('id_locale').upcase %></th>
-        <th><%= t('customer') %></th>
+        <th><%= t('customer').capitalize %></th>
         <th><%= t('project_title') %></th>
         <th class="description-header"><%= t('description') %></th>
         <th><%= t('Date') %></th>
@@ -65,11 +65,11 @@
           <td><%= project.name %></td>
           <td><%= project.description %></td>
           <td><%= l(project.date) %></td>
-          <td><%= project.status %></td>
+          <td id="status-cell"><%= project.status %></td>
           <td><%= number_with_precision project.total_gross, :precision => 2 %></td>
           <td><%= number_with_precision project.total, :precision => 2 %></td>
           <td>
-            <%= link_to project, method: :delete, data: {confirm: 'Are you sure?'} do %>
+            <%= link_to project, method: :delete, data: {confirm: t('confirm_delete')} do %>
               <%= image_tag("delete-icon.png", size: "30x30") %>
             <% end %>
           </td>

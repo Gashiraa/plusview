@@ -30,14 +30,14 @@ class WaresController < ApplicationController
     respond_to do |format|
       if @ware.save
         # update linked project
-        @ware.project&.update_totals(@ware.project)
+        @ware.project&.update_totals_project(@ware.project)
 
         # update linked invoice
         @ware.invoice&.update_totals_invoice(@ware.invoice, @ware.invoice.projects, @ware.invoice.wares)
 
         # update linked project's invoice
         @ware.project&.invoice&.update_totals_invoice(@ware.project.invoice, @ware.project.invoice.projects, @ware.project.invoice.wares)
-        format.html {redirect_to wares_url + '#new', notice: t('Ware was successfully created.')}
+        format.html {redirect_to wares_url + '#new', notice: t('ware_add_success')}
         format.json {render :show, status: :created, location: @ware}
       else
         format.html {render :new}
@@ -52,14 +52,14 @@ class WaresController < ApplicationController
     respond_to do |format|
       if @ware.update(ware_params)
         # update linked project
-        @ware.project&.update_totals(@ware.project)
+        @ware.project&.update_totals_project(@ware.project)
 
         # update linked invoice
         @ware.invoice&.update_totals_invoice(@ware.invoice, @ware.invoice.projects, @ware.invoice.wares)
 
         # update linked project's invoice
         @ware.project&.invoice&.update_totals_invoice(@ware.project.invoice, @ware.project.invoice.projects, @ware.project.invoice.wares)
-        format.html {redirect_to wares_url, notice: t('Ware was successfully updated.')}
+        format.html {redirect_to wares_url, notice: t('ware_update_success')}
         format.json {render :show, status: :ok, location: @ware}
       else
         format.html {render :edit}
@@ -72,8 +72,16 @@ class WaresController < ApplicationController
   # DELETE /wares/1.json
   def destroy
     @ware.destroy
+    # update linked project
+    @ware.project&.update_totals_project(@ware.project)
+
+    # update linked invoice
+    @ware.invoice&.update_totals_invoice(@ware.invoice, @ware.invoice.projects, @ware.invoice.wares)
+
+    # update linked project's invoice
+    @ware.project&.invoice&.update_totals_invoice(@ware.project.invoice, @ware.project.invoice.projects, @ware.project.invoice.wares)
     respond_to do |format|
-      format.html {redirect_to wares_url, notice: t('Ware was successfully destroyed.')}
+      format.html {redirect_to wares_url, notice: t('ware_destroy_success')}
       format.json {head :no_content}
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_15_105208) do
+ActiveRecord::Schema.define(version: 2019_04_22_091632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 2019_04_15_105208) do
 
   create_table "projects", force: :cascade do |t|
     t.bigint "invoice_id"
-    t.bigint "quotation_id"
     t.bigint "customer_id"
     t.integer "status"
     t.integer "wielding"
@@ -73,7 +72,6 @@ ActiveRecord::Schema.define(version: 2019_04_15_105208) do
     t.date "date"
     t.index ["customer_id"], name: "index_projects_on_customer_id"
     t.index ["invoice_id"], name: "index_projects_on_invoice_id"
-    t.index ["quotation_id"], name: "index_projects_on_quotation_id"
   end
 
   create_table "quotations", force: :cascade do |t|
@@ -82,13 +80,15 @@ ActiveRecord::Schema.define(version: 2019_04_15_105208) do
     t.float "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "total_gross"
+    t.bigint "customer_id"
+    t.bigint "project_id"
+    t.index ["customer_id"], name: "index_quotations_on_customer_id"
+    t.index ["project_id"], name: "index_quotations_on_project_id"
   end
 
   create_table "services", force: :cascade do |t|
     t.bigint "project_id"
-    t.bigint "invoice_id"
-    t.bigint "customer_id"
-    t.bigint "quotation_id"
     t.string "name"
     t.string "comment"
     t.float "hourly_rate"
@@ -101,10 +101,7 @@ ActiveRecord::Schema.define(version: 2019_04_15_105208) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "total_gross"
-    t.index ["customer_id"], name: "index_services_on_customer_id"
-    t.index ["invoice_id"], name: "index_services_on_invoice_id"
     t.index ["project_id"], name: "index_services_on_project_id"
-    t.index ["quotation_id"], name: "index_services_on_quotation_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -123,7 +120,6 @@ ActiveRecord::Schema.define(version: 2019_04_15_105208) do
     t.bigint "project_id"
     t.bigint "invoice_id"
     t.bigint "customer_id"
-    t.bigint "quotation_id"
     t.string "ware_name"
     t.string "comment"
     t.integer "quantity"
@@ -144,20 +140,16 @@ ActiveRecord::Schema.define(version: 2019_04_15_105208) do
     t.index ["customer_id"], name: "index_wares_on_customer_id"
     t.index ["invoice_id"], name: "index_wares_on_invoice_id"
     t.index ["project_id"], name: "index_wares_on_project_id"
-    t.index ["quotation_id"], name: "index_wares_on_quotation_id"
   end
 
   add_foreign_key "invoices", "customers"
   add_foreign_key "invoices", "payments"
   add_foreign_key "projects", "customers"
   add_foreign_key "projects", "invoices"
-  add_foreign_key "projects", "quotations"
-  add_foreign_key "services", "customers"
-  add_foreign_key "services", "invoices"
+  add_foreign_key "quotations", "customers"
+  add_foreign_key "quotations", "projects"
   add_foreign_key "services", "projects"
-  add_foreign_key "services", "quotations"
   add_foreign_key "wares", "customers"
   add_foreign_key "wares", "invoices"
   add_foreign_key "wares", "projects"
-  add_foreign_key "wares", "quotations"
 end

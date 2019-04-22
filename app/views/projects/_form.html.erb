@@ -1,6 +1,21 @@
 <%= form_with(model: @project, local: true, class: "needs-validation") do |form| %>
   <div class="form">
-    <div class="row">
+    <div class="form-row">
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('customer') %>
+        <%= form.select(:customer_id, Customer.all.collect {|customer| [customer.name, customer.id]}, {:include_blank => true}, {class: 'form-control', :required => true}) %>
+        <div class="invalid-feedback">Example invalid custom select feedback</div>
+      </div>
+
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('status') %>
+        <%= form.select(:status, Project.statuses.keys {|status| [status.value, status.value]}, {}, {class: 'form-control', id: "status", autocomplete: 'nope'}) %>
+      </div>
+    </div>
+
+    <div class="form-row">
+
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('Name') %>
         <%= form.text_field :name, class: "form-control", :required => true, autocomplete: 'nope' %>
@@ -8,45 +23,48 @@
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('description') %>
-        <%= form.text_field :description, class: "form-control", autocomplete: 'nope' %>
-      </div>
-
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('customer') %>
-        <%= form.select(:customer_id, Customer.all.collect {|customer| [customer.name, customer.id]}, {:include_blank => true}, {class: 'form-control', :required => true, autocomplete: 'nope' }) %>
-        <div class="invalid-feedback">Example invalid custom select feedback</div>
-      </div>
-
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('status') %>
-        <%= form.select(:status, Project.statuses.keys{|status| [status.value,status.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
-      </div>
-
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Date') %>
+        <%= form.label t('date_locale') %>
         <div class="picker-container">
-          <%= form.date_select :date, {}, class: "date-picker form-control", autocomplete: 'nope' %>
+          <%= form.text_field :date, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", value: Time.zone.now.to_date.strftime("%d/%m/%Y") ,autocomplete: 'off', id: "dateProject", class: "form-control" %>
         </div>
       </div>
+    </div>
 
-<!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
-        <%#= form.label t('Wielding') %>
-        <%#= form.select(:wielding, Project.wieldings.keys{|wielding| [wielding.value,wielding.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
-<!--      </div>-->
+    <div class="form-row">
 
-<!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
-        <%#= form.label t('Machining') %>
-        <%#= form.select(:machining, Project.machinings.keys{|machining| [machining.value,machining.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
-<!--      </div>-->
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('description') %>
+        <%= form.text_field :description, rows: "5", class: "form-control", autocomplete: 'nope' %>
+      </div>
 
-<!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
-        <%#= form.label t('Karcher') %>
-        <%#= form.select(:karcher, Project.karchers.keys{|karcher| [karcher.value,karcher.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
-<!--      </div>-->
+      <!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
+      <%#= form.label t('Wielding') %>
+      <%#= form.select(:wielding, Project.wieldings.keys{|wielding| [wielding.value,wielding.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
+      <!--      </div>-->
+
+      <!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
+      <%#= form.label t('Machining') %>
+      <%#= form.select(:machining, Project.machinings.keys{|machining| [machining.value,machining.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
+      <!--      </div>-->
+
+      <!--      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">-->
+      <%#= form.label t('Karcher') %>
+      <%#= form.select(:karcher, Project.karchers.keys{|karcher| [karcher.value,karcher.value]}, {}, {class: 'form-control', autocomplete: 'nope' })%>
+      <!--      </div>-->
+
+      <%= form.hidden_field(:invoice_id, id: 'invoice_id') %>
 
       <div class="actions col-xs-10 col-sm-4 col-md-4 col-lg-2 createButton">
-        <%= form.submit t('create'), :class => "btn btn-dark form-group" %>
+        <%= form.submit t('create'), :class => "btn btn-dark form-group",
+                        data:
+                            if @project
+                              if @project.invoice
+                                {confirm: t('project_already_invoiced')}
+                              elsif @project.status == "Terminé"
+                                {confirm: t('project_ready_invoiced')}
+                              end
+                            elsif {}
+                            end %>
       </div>
     </div>
   </div>

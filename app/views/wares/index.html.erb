@@ -1,4 +1,4 @@
-<h2><%= t('ware').pluralize %></h2>
+<h2 id="titleBadge"><%= t('ware').pluralize %></h2>
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
@@ -30,11 +30,11 @@
       </div>
     <% end %>
 
-    <table class="table table-hover table-striped ">
+    <table class="table table-hover table-striped"  id="table-to-color">
       <thead class=thead-dark>
       <tr>
         <th><%= t(:project).capitalize %></th>
-        <th><%= t('customer') %></th>
+        <th><%= t('customer').capitalize %></th>
         <th><%= t('ware_name') %></th>
         <th><%= t('provider_name') %></th>
         <th><%= t('comment') %></th>
@@ -62,7 +62,7 @@
           <td><%= ware.ware_name %></td>
           <td><%= ware.provider_name %></td>
           <td><%= ware.comment %></td>
-          <td><%= ware.status %></td>
+          <td id="status-cell"><%= ware.status %></td>
           <!--        <td><%#= ware.provider_discount %></td>-->
           <!--        <td><%#= ware.margin %></td>-->
           <!--        <td><%#= ware.quantity %></td>-->
@@ -70,7 +70,7 @@
           <!--        <td><%#= ware.tva_rate %></td>-->
           <!--        <td><%#= ware.total_cost %></td>-->
           <td>
-            <%= link_to ware, method: :delete, data: {confirm: 'Are you sure?'} do %>
+            <%= link_to ware, method: :delete, data: {confirm: t('confirm_delete')} do %>
               <%= image_tag("delete-icon.png", size: "30x30") %>
             <% end %>
           </td>

@@ -1,11 +1,13 @@
 fr:
   id_locale: ID
+  date_locale: date
 
   ware: marchandise
   project: projet
   invoice: facture
   customer: client
   quotation: devis
+  service: "prestation"
 
   project_title: Titre projet
   Name: Nom
@@ -19,7 +21,7 @@ fr:
   sell_price: Prix
   margin: Marge
   unit_price: Prix unitaire
-  gross_cost: Total HT
+  gross_cost: "Total HT"
   total_gross: Total HT
   provider_name: Fournisseur
 
@@ -27,7 +29,7 @@ fr:
   coefficient: Coefficent
   duration: Durée
   status: Statut
-  tva_rate: Taux TVA
+  tva_rate: "Taux TVA"
   total_cost: Coût total
 
   wielding: Soudure
@@ -46,21 +48,26 @@ fr:
   from: Depuis
   to: À
 
-  ware_add_success: Marchandise ajoutée
-  ware_update_success: Marchandise mise à jour
-  ware_destroy_success: Marchandise supprimée
+  ware_add_success: "Marchandise ajoutée"
+  ware_update_success: "Marchandise mise à jour"
+  ware_destroy_success: "Marchandise supprimée"
+  ware_already_invoiced: "Cette marchandise est déjà facturée, continuer ?"
+  ware_ready_invoiced: "Cette marchandise est prête à être facturée, continuer ?"
 
   service_add_success: Prestation ajoutée
   service_update_success: Prestation mise à jour
   service_destroy_success: Prestation supprimée
+  service_already_invoiced: "Cette prestation est déjà facturée, continuer ?"
 
-  customer_add_success: Client ajouté
-  customer_update_success: Client mis à jour
-  customer_detroy_success: Client supprimé
+  customer_add_success: "Client ajouté"
+  customer_update_success: "Client mis à jour"
+  customer_detroy_success: "Client supprimé"
 
-  project_add_success: Projet ajouté
-  project_update_success: Projet mis à jour
-  project_destroy_success: Projet supprimé
+  project_add_success: "Projet ajouté"
+  project_update_success: "Projet mis à jour"
+  project_destroy_success: "Projet supprimé"
+  project_already_invoiced: "Ce projet est déjà facturé, continuer ?"
+  project_ready_invoiced: "Ce projet est prêt à être facturé, continuer ?"
 
   create: Valider
   activerecord:
@@ -428,5 +435,4 @@ fr:
       long: "%A %d %B %Y %Hh%M"
       short: "%d %b %Hh%M"
   pm: pm
-  service: "prestation"
-
+  confirm_delete: "Supprimer cet élément ?"

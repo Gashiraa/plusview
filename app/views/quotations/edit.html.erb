@@ -1,6 +1,5 @@
-<h1>Editing Quotation</h1>
+<h3>Edition Devis</h3>
 
-<%= render 'form', quotation: @quotation %>
+<%= render 'form', invoice: @quotation %>
 
-<%= link_to 'Show', @quotation %> |
-<%= link_to 'Retour', quotations_path %>
+<%= link_to 'Retour', url_for(:back) %>

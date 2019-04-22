@@ -1,3 +1,10 @@
+<h2 id="titleBadge"><%= t('project') %></h2>
+<h4>
+  <%= @project.name %> - <%= if @project.customer
+                               @project.customer.name
+                             end
+%>
+</h4>
 <p id="notice"><%= notice %></p>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -15,13 +22,10 @@
 <div class="tab-content">
   <div class="tab-pane fade show active" id="wares">
 
-    <h5>Marchandises</h5>
-
     <table class="table table-hover table-striped ">
       <thead class=thead-dark>
       <tr>
-        <th><%= t('project') %></th>
-        <th><%= t('customer') %></th>
+        <th><%= t('project').capitalize %></th>
         <th><%= t('ware_name') %></th>
         <th><%= t('provider_name') %></th>
         <th><%= t('comment') %></th>
@@ -36,14 +40,6 @@
           <td>
             <%= if ware.project
                   link_to '#' + ware.project.id.to_s, edit_project_path(ware.project.id)
-                end
-            %>
-          </td>
-          <td>
-            <%= if ware.customer
-                  ware.customer.name
-                elsif ware.project
-                  ware.project.customer.name
                 end
             %>
           </td>
@@ -63,11 +59,10 @@
     <br>
   </div>
   <div class="tab-pane fade" id="services">
-    <h5>Services</h5>
     <table class="table table-hover table-striped">
       <thead class=thead-dark>
       <tr>
-        <th><%= t('project') %></th>
+        <th><%= t('project').capitalize %></th>
         <th><%= t('Name') %></th>
         <th><%= t('comment') %></th>
         <th><%= t('status') %></th>

@@ -2,7 +2,7 @@
   <div id="container">
     <section id="memo">
       <div class="logo">
-        <%= image_tag "logo_greday.png" %>
+        <%= wicked_pdf_image_tag  "logo_greday.png" %>
       </div>
       <div class="company-info">
         <div>THOMAS GREDAY</div>
@@ -38,14 +38,24 @@
           <%= @invoice.customer.mail %>
         </span>
       </div>
+      <div>
+        <span>
+          <%= "TVA : " + @invoice.customer.tva_record %>
+        </span>
+      </div>
     </section>
     <div class="clearfix"></div>
 
     <section id="invoice-title-number">
-      <span id="title">Facture</span>
+      <span id="invoice-title">Facture</span>
       <span id="number"><%= '#' + @invoice.id.to_s %></span>
+      <div class="clearfix"></div>
+
     </section>
     <div class="clearfix"></div>
+    <span id="dateInvoice">
+          <%= "Wonck le, " + l(@invoice.date).to_s %>
+    </span>
     <hr>
 
     <% if @invoice.projects.any? %>
@@ -64,10 +74,10 @@
                 <th><%= t('Name') %></th>
                 <th><%= t('Date') %></th>
                 <th><%= t('duration') %></th>
-                <th><%= t('hourly_rate') %></th>
-                <th><%= t('tva_rate') %></th>
-                <th><%= t('total_gross') %></th>
-                <th><%= t('total_cost') %></th>
+                <th><%= t('hourly_rate') + ' (€)' %></th>
+                <th><%= t('tva_rate') + ' (%)' %></th>
+                <th><%= t('total_gross') + ' (€)' %></th>
+                <th><%= t('total_cost') + ' (€)' %></th>
               </tr>
               </thead>
 
@@ -75,7 +85,7 @@
               <% project.services.each do |service| %>
                 <tr data-link="<%= edit_service_path service %>">
                   <td><%= service.name %></td>
-                  <td><%= l(service.date) %></td>
+                  <td><%= service.date ? l(service.date) : "" %></td>
                   <td><%= service.duration.strftime('%H:%M') %></td>
                   <td><%= service.hourly_rate %></td>
                   <td><%= service.tva_rate %></td>
@@ -94,10 +104,10 @@
               <tr>
                 <th><%= t('ware_name') %></th>
                 <th><%= t('Quantity') %></th>
-                <th><%= t('sell_price') %></th>
-                <th><%= t('tva_rate') %></th>
-                <th><%= t('total_gross') %></th>
-                <th><%= t('total_cost') %></th>
+                <th><%= t('sell_price') + ' (€)' %></th>
+                <th><%= t('tva_rate') + ' (%)' %></th>
+                <th><%= t('total_gross') + ' (€)' %></th>
+                <th><%= t('total_cost') + ' (€)' %></th>
               </tr>
               </thead>
 
@@ -121,14 +131,14 @@
             <table cellpadding="0" cellspacing="0">
               <tr class="amount-total">
               <tr data-hide-on-quote="true">
-                <th>Total TVA projet</th>
+                <th>Total TVA projet (€)</th>
                 <td><%= number_with_precision (project.total - project.total_gross), :precision => 2 %></td>
               </tr>
-              <th>TOTAL HT PROJET</th>
+              <th>TOTAL HT PROJET (€)</th>
               <td><%= number_with_precision project.total_gross, :precision => 2 %></td>
               </tr>
-              <tr data-hide-on-quote="true">
-                <th>TOTAL TTC PROJET</th>
+              <tr >
+                <th><%= "TOTAL TTC PROJET (€)"%></th>
                 <td><%= number_with_precision project.total, :precision => 2 %></td>
 
               </tr>
@@ -154,10 +164,10 @@
           <tr>
             <th><%= t('ware_name') %></th>
             <th><%= t('Quantity') %></th>
-            <th><%= t('sell_price') %></th>
-            <th><%= t('tva_rate') %></th>
-            <th><%= t('total_gross') %></th>
-            <th><%= t('total_cost') %></th>
+            <th><%= t('sell_price') + ' (€)' %></th>
+            <th><%= t('tva_rate') + ' (%)' %></th>
+            <th><%= t('total_gross') + ' (€)' %></th>
+            <th><%= t('total_cost') + ' (€)' %></th>
           </tr>
           </thead>
 
@@ -181,20 +191,33 @@
       <div class="clearfix"></div>
       <table>
         <tr class="amount-total">
-          <th>TOTAL HT</th>
-          <td><%= @invoice.total_gross %></td>
+          <th>TOTAL HT (€)</th>
+          <td><%= number_with_precision @invoice.total_gross, :precision => 2 %></td>
         </tr>
         <tr data-hide-on-quote="true">
-          <th>Total TVA</th>
+          <th>Total TVA (€)</th>
           <td><%= # noinspection RubyArgumentParentheses
                   number_with_precision (@invoice.total - @invoice.total_gross), :precision => 2 %></td>
         </tr>
         <tr data-hide-on-quote="true">
-          <th>TOTAL TTC</th>
-          <td><%= @invoice.total %></td>
+          <th>TOTAL TTC (€)</th>
+          <td><%=number_with_precision @invoice.total, :precision => 2 %></td>
         </tr>
       </table>
       <div class="clearfix"></div>
+    </section>
+    <section id="notes">
+      <h5>
+        Les paiements se feront au compte BNP Fortis : <b>BE47 0015 7715 0480</b>
+      </h5>
+      <p>
+        1) Le montant de la facture est payable dans les 8 jours. </br>
+        2) Toute réclamation devra être formulée au plus tard dans les huit jours de la réception par lettre
+        recommandée.</br>
+        3) En cas de retard de paiement, un intérêt de 1% par mois est dû de plein droit, ainsi qu'une indemnité égale à
+        15% du montant de la facture avec un minimum de 50€, sans sommation ni mise en demeure.</br>
+        4) Pour tous litiges, seuls les tribunaux de Liège sont compétents.
+      </p>
     </section>
   </div>
 </div>

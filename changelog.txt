@@ -1,7 +1,37 @@
+A FAIRE
+
+[A REVOIR] Ajouter le logo
+Selection des éléments par client pour la facture
+IF table vide
+Divers -> Nouvelle table pour des divers (extras)
+Page administration des prix
+Liens dans les rows
+Rassembler vue projet
+pagination
+Plus beaux formulaires
+[OK] Ajouter style bootstrap pour différencier le titre des page
+[OK] Colorer les lignes des listings par statut
+Tri dans les clients
+
+
+[PRESTATIONS]
+
+Renommer "Nom prestation" en "Description prestation"
+Ajouter si présent, commentaire prestation/marchandise sur facture
+Statut automatiquement à "Attribué" si attribué a un projet
+Revoir le calcul automatique
+Taux horaire préencodé 45€
+
+[DEVIS]
+Un devis sera généré sur base d'un projet, pour chaque projet un devis sera générable
+Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, ajout de suppléments
+
+17/04
+
 [PROJET]
 
 [OK] Ajouter date projet
-[OK] Recherche projet avec dates
+[OK] Trier projets par dates
 [OK] Afficher #projet
 [OK] Titre projet, renommer
 
@@ -12,12 +42,12 @@
 [OK] Description du projet si fournie
 [OK] Couleur différente pour distinguer les projets et autres marchandises
 [OK] ]Mettre le nom destinataire à droite, encart à lettre
-[A REVOIR] Ajouter le logo
 [OK] Rennomer "Autre marchandises" en "Comptoir"
 [OK] Ajouter une colonne quantité a part
-Ajouter la devis (en-têtes ou champs), à voir avec comptable (demander facture)
-[OK] Vérifier la mise en page si plusieurs projets dans une facture
-Selection des éléments par client
+[OK] Vérifier la mise en page si plusieurs projets dans une
+[OK] Ajouter conditions générales
+[OK] Numéro de TVA du client
+[OK] Devises
 
 [MARCHANDISES]
 
@@ -29,37 +59,12 @@ Selection des éléments par client
 
 [GENERAL]
 
-Véifier le statut flow create/update/delete pour les factures/marchandises/projets/prestations
-Vérifier la mise à jour des totaux en create/update/delete pour les marchandises/prestations/projets
-Pour les marchandises "A facturer" ou les projets "terminé", demander confirmation pour les update
-Si facturé, demander confirmation pour modifier ou delete
-Ajouter style bootstrap pour différencier le titre des page
-Colorer les lignes des listings par statut
-Pour les marges utiliser des pourcentage
-IF table vide 
-Devis
-
-Divers -> Nouvelle table pour des divers (extras)
-Page administration des prix
-
-Dates au format EU-fr
-
-[PRESTATIONS]
-
-Renommer "Nom prestation" en "Description prestation"
-Ajouter si présent, commentaire prestation/marchandise sur facture
-Statut automatiquement à "Attribué" si attribué a un projet
-Revoir le calcul automatique
-
-[DEVIS]
-
-Un devis sera généré sur base d'un projet, pour chaque projet un devis sera générable
-Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, ajout de suppléments
-
-[ERREUR DEMO A VERIFIER]
-
-Ajouter prestation a un projet 
-        @service.project.invoice&.update_totals_invoice(@service.invoice, @service.invoice.projects, @service.invoice.wares)
+[OK] Véifier le statut flow create/update/delete pour les factures/marchandises/projets/prestations
+[OK] Vérifier la mise à jour des totaux en create/update/delete pour les marchandises/prestations/projets
+[OK] Pour les marchandises "A facturer" ou les projets "terminé", demander confirmation pour les update
+[OK] Si facturé, demander confirmation pour modifier ou delete
+[OK] Pour les marges utiliser des pourcentage
+[OK] Dates au format EU-fr
 
 29/03
 [OK] PRE ENCODER TVA 21% 

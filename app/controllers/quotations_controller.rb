@@ -1,15 +1,34 @@
+# frozen_string_literal: true
+
 class QuotationsController < ApplicationController
-  before_action :set_quotation, only: [:show, :edit, :update, :destroy]
+  before_action :set_quotation, only: %i[show edit update destroy]
 
   # GET /quotations
   # GET /quotations.json
   def index
-    @quotations = Quotation.all
+    @search = Quotation.ransack(params[:q])
+    @quotations = @search.result(distinct: true)
   end
 
   # GET /quotations/1
   # GET /quotations/1.json
   def show
+    @quotation = scope.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Devis No. #{@quotation.id}",
+               page_size: 'A4',
+               template: 'quotations/show.html.erb',
+               layout: 'pdf.html',
+               orientation: 'Portrait',
+               encoding: 'utf8',
+               lowquality: true,
+               zoom: 1,
+               dpi: 75
+      end
+    end
   end
 
   # GET /quotations/new
@@ -17,18 +36,22 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.new
   end
 
-  # GET /quotations/1/edit
-  def edit
+  def scope
+    ::Quotation.all.includes(:project)
   end
+
+  # GET /quotations/1/edit
+  def edit; end
 
   # POST /quotations
   # POST /quotations.json
   def create
-    @quotation = Quotation.new(quotation_params)
+    @quotation = Quotation.new(quotation_params_create)
 
     respond_to do |format|
       if @quotation.save
-        format.html { redirect_to @quotation, notice: 'Quotation was successfully created.' }
+        @quotation.update_totals_quotation(@quotation)
+        format.html { redirect_to quotations_url, notice: 'Quotation was successfully created.' }
         format.json { render :show, status: :created, location: @quotation }
       else
         format.html { render :new }
@@ -42,7 +65,8 @@ class QuotationsController < ApplicationController
   def update
     respond_to do |format|
       if @quotation.update(quotation_params)
-        format.html { redirect_to @quotation, notice: 'Quotation was successfully updated.' }
+        @quotation.update_totals_quotation(@quotation)
+        format.html { redirect_to quotations_url, notice: 'Quotation was successfully updated.' }
         format.json { render :show, status: :ok, location: @quotation }
       else
         format.html { render :edit }
@@ -62,13 +86,18 @@ class QuotationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_quotation
-      @quotation = Quotation.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def quotation_params
-      params.require(:quotation).permit(:date, :status, :total)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_quotation
+    @quotation = Quotation.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def quotation_params_create
+    params.permit(:date, :status, :total, :total_gross, :customer_id, :project_id)
+  end
+
+  def quotation_params
+    params.require(:quotation).permit(:date, :status, :total, :total_gross, :customer_id, :project_id)
+  end
 end

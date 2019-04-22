@@ -1,5 +1,4 @@
-<h2>Clients</h2>
-
+<h2 id="titleBadge"><%= t('customer').pluralize %></h2>
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
@@ -10,10 +9,9 @@
   </li>
 </ul>
 
-
 <div class="tab-content">
   <div class="tab-pane fade show active" id="listing">
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped"  id="table-to-color">
       <thead class=thead-dark>
       <tr>
         <th><%= t('Name') %></th>
@@ -40,7 +38,7 @@
           <td><%= customer.locality %></td>
           <td><%= customer.country %></td>
           <td>
-            <%= link_to customer, method: :delete, data: {confirm: 'Are you sure?'} do %>
+            <%= link_to customer, method: :delete, data: {confirm: t('confirm_delete')} do %>
               <%= image_tag("delete-icon.png", size: "30x30") %>
             <% end %>
           </td>
