@@ -6,6 +6,7 @@
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -46,7 +47,7 @@
     <p id="notice" class="alert alert-danger"><%= alert %></p>
   <% end %>
 <body>
-<div class="body" id="primary-content">
+<div class="content" id="primary-content">
   <%= yield %>
 </div>
 </body>

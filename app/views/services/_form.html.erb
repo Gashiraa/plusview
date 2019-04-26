@@ -22,7 +22,7 @@
     <div class="form-row">
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('Name') %>
+        <%= form.label t('Description') %>
         <%= form.text_field :name, class: "form-control", autocomplete: 'off' %>
       </div>
 
@@ -37,13 +37,13 @@
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('duration') %>
         <div class="picker-container">
-          <%= form.time_select :duration, {default: {hour: 1, min: 0}}, class: "time-picker form-control", autocomplete: 'off' %>
+          <%= form.time_select :duration, {default: {hour: 1, min: 0}, minute_step: 15}, class: "time-picker form-control", autocomplete: 'off' %>
         </div>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
         <%= form.label t('hourly_rate') + ' (€/H)' %>
-        <%= form.text_field :hourly_rate, class: "form-control", autocomplete: 'nope', id: 'hourly_rate' %>
+        <%= form.text_field :hourly_rate, value: '45', class: "form-control", autocomplete: 'nope', id: 'hourly_rate' %>
       </div>
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">

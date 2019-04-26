@@ -1,42 +1,47 @@
-A FAIRE
-
-[A REVOIR] Ajouter le logo
+--A FAIRE--
+[DEMANDER] Ajouter si présent, commentaire prestation/marchandise sur facture
 Selection des éléments par client pour la facture
 IF table vide
 Divers -> Nouvelle table pour des divers (extras)
 Page administration des prix
 Liens dans les rows
 Rassembler vue projet
-pagination
+Pagination
 Plus beaux formulaires
-[OK] Ajouter style bootstrap pour différencier le titre des page
-[OK] Colorer les lignes des listings par statut
 Tri dans les clients
-
 
 [PRESTATIONS]
 
-Renommer "Nom prestation" en "Description prestation"
-Ajouter si présent, commentaire prestation/marchandise sur facture
-Statut automatiquement à "Attribué" si attribué a un projet
-Revoir le calcul automatique
-Taux horaire préencodé 45€
-
 [DEVIS]
-Un devis sera généré sur base d'un projet, pour chaque projet un devis sera générable
 Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, ajout de suppléments
 
-17/04
+--22/04--
+
+[GENERAL]
+[OK] Ajouter style bootstrap pour différencier le titre des page
+[OK] Colorer les lignes des listings par statut
+
+[FACTURE]
+[OK] Ajouter le logo
+
+[PRESTATIONS]
+[OK] Taux horaire préencodé 45€
+[OK] Revoir le calcul automatique
+[OK] Statut automatiquement à "Attribué" si attribué a un projet
+[OK] Renommer "Nom prestation" en "Description prestation"
+
+[DEVIS]
+[OK] Un devis sera généré sur base d'un projet, pour chaque projet un devis sera générable
+
+--17/04--
 
 [PROJET]
-
 [OK] Ajouter date projet
 [OK] Trier projets par dates
 [OK] Afficher #projet
 [OK] Titre projet, renommer
 
 [FACTURE]
-
 [OK] Afficher numéro de projet
 [OK] Total avec nom projet, plus petit
 [OK] Description du projet si fournie
@@ -50,7 +55,6 @@ Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, aj
 [OK] Devises
 
 [MARCHANDISES]
-
 [OK] Prix unitaire, renommer en prix brut
 [OK] Prix payé rennomer en prix net
 [OK] Ajouter prix unitaire client qu'on appelera "Prix"
@@ -58,7 +62,6 @@ Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, aj
 [OK] Revoir le calcul automatique
 
 [GENERAL]
-
 [OK] Véifier le statut flow create/update/delete pour les factures/marchandises/projets/prestations
 [OK] Vérifier la mise à jour des totaux en create/update/delete pour les marchandises/prestations/projets
 [OK] Pour les marchandises "A facturer" ou les projets "terminé", demander confirmation pour les update
@@ -66,7 +69,8 @@ Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, aj
 [OK] Pour les marges utiliser des pourcentage
 [OK] Dates au format EU-fr
 
-29/03
+--29/03--
+
 [OK] PRE ENCODER TVA 21% 
 [OK] Projet -> Description 
 [OK] Clients -> TVA avec lettre

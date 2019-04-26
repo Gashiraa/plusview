@@ -5,7 +5,7 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     @search = Service.ransack(params[:q])
-    @services = @search.result(distinct: true)
+    @services = @search.result(distinct: true).order(:status)
   end
 
   # GET /services/1

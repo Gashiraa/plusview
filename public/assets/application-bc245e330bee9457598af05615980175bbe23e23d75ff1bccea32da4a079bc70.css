@@ -11537,7 +11537,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 /* line 6, app/assets/stylesheets/style.scss */
-.body {
+.content {
   max-width: 98%;
   margin: auto;
 }

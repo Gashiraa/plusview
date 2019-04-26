@@ -34,15 +34,15 @@
     <table class="table table-hover table-striped" id="table-to-color">
       <thead class=thead-dark>
       <tr>
-        <th><%= t(:project).capitalize %></th>
-        <th><%= t('Name') %></th>
+        <th class="centerCell"><%= t(:project).capitalize %></th>
+        <th><%= t('Description') %></th>
         <th><%= t('comment') %></th>
-        <th ><%= t('status') %></th>
-        <th><%= t('Date') %></th>
-        <th><%= t('hourly_rate') %></th>
-        <th><%= t('duration') %></th>
-        <th><%= t('tva_rate') %></th>
-        <th><%= t('total_cost') %></th>
+        <th class="centerCell"><%= t('status') %></th>
+        <th class="centerCell"><%= t('Date') %></th>
+        <th class="rightCell"><%= t('hourly_rate').to_s + ' (€/H)'  %></th>
+        <th class="centerCell"><%= t('duration').to_s + ' (H)'  %></th>
+        <th class="rightCell"><%= t('tva_rate').to_s + ' (€)'  %></th>
+        <th class="rightCell"><%= t('total_cost').to_s + ' (€)'  %></th>
         <th></th>
       </tr>
       </thead>
@@ -50,17 +50,17 @@
       <tbody>
       <% @services.each do |service| %>
         <tr data-link="<%= edit_service_path service %>">
-          <td>
+          <td class="centerCell">
             <%= service.project ? (link_to '#' + service.project.id.to_s, project_path(service.project.id)) : '' %>
           </td>
           <td><%= service.name %></td>
           <td><%= service.comment %></td>
-          <td id="status-cell"><%= service.status %></td>
-          <td><%= service.date %></td>
-          <td><%= service.hourly_rate %></td>
-          <td><%= service.duration.strftime('%H:%M') %></td>
-          <td><%= service.tva_rate %></td>
-          <td><%= number_with_precision service.total_cost, :precision => 2 %></td>
+          <td class="centerCell" id="status-cell"><%= service.status %></td>
+          <td class="centerCell"><%= l(service.date) %></td>
+          <td class="rightCell"><%= service.hourly_rate %></td>
+          <td class="centerCell"><%= service.duration.strftime('%H:%M') %></td>
+          <td class="rightCell"><%= number_with_precision service.tva_rate, :precision => 2  %></td>
+          <td class="rightCell"><%= number_with_precision service.total_cost, :precision => 2 %></td>
           <td>
             <%= link_to service, method: :delete, data: {confirm: t('confirm_delete')} do %>
               <%= image_tag("delete-icon.png", size: "30x30") %>

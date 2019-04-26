@@ -5,7 +5,7 @@ class InvoicesController < ApplicationController
   # GET /invoices.json
   def index
     @search = Invoice.ransack(params[:q])
-    @invoices = @search.result(distinct: true)
+    @invoices = @search.result(distinct: true).order(:status)
   end
 
   # GET /invoices/1

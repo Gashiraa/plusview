@@ -5,7 +5,7 @@ class WaresController < ApplicationController
   # GET /wares.json
   def index
     @search = Ware.ransack(params[:q])
-    @wares = @search.result(distinct: true)
+    @wares = @search.result(distinct: true).order(:status)
   end
 
   # GET /wares/1

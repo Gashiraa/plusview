@@ -7,7 +7,7 @@ class QuotationsController < ApplicationController
   # GET /quotations.json
   def index
     @search = Quotation.ransack(params[:q])
-    @quotations = @search.result(distinct: true)
+    @quotations = @search.result(distinct: true).order(:status)
   end
 
   # GET /quotations/1

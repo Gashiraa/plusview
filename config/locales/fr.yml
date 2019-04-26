@@ -436,3 +436,4 @@ fr:
       short: "%d %b %Hh%M"
   pm: pm
   confirm_delete: "Supprimer cet élément ?"
+  Description: "Description"

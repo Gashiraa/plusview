@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @search = Project.ransack(params[:q])
-    @projects = @search.result(distinct: true)
+    @projects = @search.result(distinct: true).order(:status)
   end
 
   # GET /projects/1
