@@ -9,10 +9,7 @@
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
-    <a class="nav-link active" data-toggle="tab" href="#wares" role="tab">Marchandises</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#services" role="tab">Prestations</a>
+    <a class="nav-link active" data-toggle="tab" href="#content" role="tab">Contenu</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#edit" role="tab">Edition projet</a>
@@ -20,12 +17,11 @@
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane fade show active" id="wares">
-
+  <div class="tab-pane fade show active" id="content">
+    <h5><%= t('ware').pluralize %></h5>
     <table class="table table-hover table-striped ">
       <thead class=thead-dark>
       <tr>
-        <th><%= t('project').capitalize %></th>
         <th><%= t('ware_name') %></th>
         <th><%= t('provider_name') %></th>
         <th><%= t('comment') %></th>
@@ -35,14 +31,13 @@
       </thead>
 
       <tbody>
+      <% unless @project.wares.any? %>
+        <tr>
+          <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+        </tr>
+      <% end %>
       <% @project.wares.each do |ware| %>
         <tr data-link="<%= edit_ware_path ware %>">
-          <td>
-            <%= if ware.project
-                  link_to '#' + ware.project.id.to_s, edit_project_path(ware.project.id)
-                end
-            %>
-          </td>
           <td><%= ware.ware_name %></td>
           <td><%= ware.provider_name %></td>
           <td><%= ware.comment %></td>
@@ -56,13 +51,11 @@
       <% end %>
       </tbody>
     </table>
-    <br>
-  </div>
-  <div class="tab-pane fade" id="services">
+    <h5><%= t('service').pluralize %></h5>
+
     <table class="table table-hover table-striped">
       <thead class=thead-dark>
       <tr>
-        <th><%= t('project').capitalize %></th>
         <th><%= t('Name') %></th>
         <th><%= t('comment') %></th>
         <th><%= t('status') %></th>
@@ -78,12 +71,6 @@
       <tbody>
       <% @project.services.each do |service| %>
         <tr data-link="<%= edit_service_path service %>">
-          <td>
-            <%= if service.project
-                  link_to '#' + service.project.id.to_s, project_path(service.project.id)
-                end
-            %>
-          </td>
           <td><%= service.name %></td>
           <td><%= service.comment %></td>
           <td><%= service.status %></td>
@@ -104,6 +91,7 @@
       <% end %>
       </tbody>
     </table>
+    <br>
   </div>
   <div class="tab-pane fade" id="edit">
     <%= render 'form', project: @project %>

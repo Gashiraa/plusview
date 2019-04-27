@@ -12,6 +12,7 @@
 //
 //= require jquery3
 //= require jquery
+//= require select2
 //= require rails-ujs
 //= require jquery-ui
 //= require bootstrap-sprockets
@@ -22,6 +23,12 @@
 
 
 $(document).on("turbolinks:load", function () {
+
+        $("#project_select").select2({theme: "bootstrap"});
+        $("#customer_select").select2({theme: "bootstrap"});
+        $("#status_select").select2({theme: "bootstrap"});
+        $("#customer_name_select").select2({theme: "bootstrap"});
+        $("#customer_locality_select").select2({theme: "bootstrap"});
 
         //+++GENERAL+++
 

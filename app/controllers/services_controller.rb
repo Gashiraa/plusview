@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @search = Service.ransack(params[:q])
+    @search = Service.paginate(page: params[:page], per_page: 10).ransack(params[:q])
     @services = @search.result(distinct: true).order(:status)
   end
 

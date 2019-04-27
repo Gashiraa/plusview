@@ -6,7 +6,7 @@ class QuotationsController < ApplicationController
   # GET /quotations
   # GET /quotations.json
   def index
-    @search = Quotation.ransack(params[:q])
+    @search = Quotation.paginate(page: params[:page], per_page: 10).ransack(params[:q])
     @quotations = @search.result(distinct: true).order(:status)
   end
 
@@ -18,7 +18,7 @@ class QuotationsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Devis No. #{@quotation.id}",
+        render pdf: t('quotation')+"_#{@quotation.id}",
                page_size: 'A4',
                template: 'quotations/show.html.erb',
                layout: 'pdf.html',

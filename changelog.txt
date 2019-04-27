@@ -1,19 +1,24 @@
 --A FAIRE--
+
 [DEMANDER] Ajouter si présent, commentaire prestation/marchandise sur facture
 Selection des éléments par client pour la facture
-IF table vide
 Divers -> Nouvelle table pour des divers (extras)
 Page administration des prix
-Liens dans les rows
-Rassembler vue projet
-Pagination
 Plus beaux formulaires
-Tri dans les clients
 
 [PRESTATIONS]
 
 [DEVIS]
 Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, ajout de suppléments
+
+--27/04--
+
+Tri dans les clients
+Pagination
+Possibilité d'écrire dans les filtres
+Rassembler vue projet (marchandises et prestations dans contenu)
+Liens vers les projets dans les lignes
+Affichage adapté aux tableaux vides
 
 --22/04--
 
@@ -72,7 +77,7 @@ Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, aj
 --29/03--
 
 [OK] PRE ENCODER TVA 21% 
-[OK] Projet -> Description 
+[OK] Projet -> Description
 [OK] Clients -> TVA avec lettre
 [OK] Marchandises -> Nom du fournisseur, #facture fournisseur, dénomination, remise fournisseur, prix net fournisseur , total sans tva
 [OK] Désactiver l'autocomplétion, par défaut Belgique

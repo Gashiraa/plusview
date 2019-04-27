@@ -48,6 +48,10 @@ fr:
   from: Depuis
   to: À
 
+  all_projects: "Tous les projets"
+  all_customers: "Tous les clients"
+  all_status: "Tous les status"
+
   ware_add_success: "Marchandise ajoutée"
   ware_update_success: "Marchandise mise à jour"
   ware_destroy_success: "Marchandise supprimée"
@@ -62,6 +66,8 @@ fr:
   customer_add_success: "Client ajouté"
   customer_update_success: "Client mis à jour"
   customer_detroy_success: "Client supprimé"
+  all_customer_names: "Tous les noms"
+  all_customer_localities: "Toutes les localités"
 
   project_add_success: "Projet ajouté"
   project_update_success: "Projet mis à jour"
@@ -70,6 +76,10 @@ fr:
   project_ready_invoiced: "Ce projet est prêt à être facturé, continuer ?"
 
   create: Valider
+  will_paginate:
+    previous_label: "Précedent"
+    next_label: "Suivant"
+    page_gap: "&hellip;"
   activerecord:
     attributes:
       user:

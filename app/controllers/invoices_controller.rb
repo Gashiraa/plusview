@@ -4,7 +4,7 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @search = Invoice.ransack(params[:q])
+    @search = Invoice.paginate(page: params[:page], per_page: 10).ransack(params[:q])
     @invoices = @search.result(distinct: true).order(:status)
   end
 
@@ -22,7 +22,7 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Facture No. #{@invoice.id}",
+        render pdf: t('invoice')+"_#{@invoice.id}",
                page_size: 'A4',
                template: "invoices/show.html.erb",
                layout: "pdf.html",

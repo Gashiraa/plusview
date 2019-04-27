@@ -4,7 +4,8 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    @search = Customer.paginate(page: params[:page], per_page: 10).ransack(params[:q])
+    @customers = @search.result(distinct: true).order(:name)
   end
 
   # GET /customers/1

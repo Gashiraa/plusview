@@ -12,6 +12,8 @@
  *
  *= require jquery-ui
  *= require style
+ *= require select2
+ *= require select2-bootstrap
  *= require_self
  */
 @import "style.scss";
