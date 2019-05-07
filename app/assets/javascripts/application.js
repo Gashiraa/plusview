@@ -43,14 +43,14 @@ $(document).on("turbolinks:load", function () {
         $('#customer_edit_select').on('focus load trigger mouseover change', function () {
             let customer = this.options[this.selectedIndex].text;
             $("#select_wares_invoice > option").each(function () {
-                if ((this.text.substring(0, customer.length) === customer && customer.length > 1)) {
+                if (this.getAttribute("customer") === customer && customer.length > 1) {
                     this.style.display = "block";
                 } else {
                     this.style.display = "none";
                 }
             });
             $("#select_projects_invoice > option").each(function () {
-                if (this.text.substring(0, customer.length) === customer && customer.length > 1) {
+                if (this.getAttribute("customer") === customer && customer.length > 1) {
                     this.style.display = "block";
                 } else {
                     this.style.display = "none";
@@ -63,7 +63,6 @@ $(document).on("turbolinks:load", function () {
             let customer, options;
             customer = $('#customer_edit_select :selected').text();
             options = $(projects).filter("optgroup[label='" + customer + "']").html();
-            console.log(options);
             if (options) {
                 return $('#quotation_projects').html(options);
             } else {

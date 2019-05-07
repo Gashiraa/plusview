@@ -25,14 +25,14 @@
         <%= form.label t('wares_to_invoice') %>
         <%= form.select(:ware_ids, Ware.where(status: 'A facturer', project_id: nil)
             .or(Ware.where(invoice_id: @invoice ? @invoice : -1, project_id: nil))
-            .collect {|ware| [ware.customer.name + ' | ' +ware.ware_name, ware.id]}, {}, {class: 'form-control', id: 'select_wares_invoice', autocomplete: 'nope', :multiple => true}) %>
+            .collect {|ware| [ware.ware_name, ware.id, {customer: ware.customer.name}]}, {}, {class: 'form-control', id: 'select_wares_invoice', autocomplete: 'nope', :multiple => true}) %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
         <%= form.label t('projects_done').pluralize %>
         <%= form.select(:project_ids, Project.where(status: 'Terminé')
             .or(Project.where(invoice_id: @invoice ? @invoice : -1))
-            .collect {|project| [project.customer.name + ' | ' + project.name, project.id]}, {}, {class: 'form-control', id: 'select_projects_invoice', autocomplete: 'nope', :multiple => true}) %>
+            .collect {|project| [project.name, project.id, {customer: project.customer.name}]}, {}, {class: 'form-control', id: 'select_projects_invoice', autocomplete: 'nope', :multiple => true}) %>
       </div>
 
       <div class="col-12 createButton">
