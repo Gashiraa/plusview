@@ -24,20 +24,61 @@
 
 $(document).on("turbolinks:load", function () {
 
-        $("#project_select").select2({theme: "bootstrap"});
-        $("#customer_select").select2({theme: "bootstrap"});
-        $("#status_select").select2({theme: "bootstrap"});
-        $("#customer_name_select").select2({theme: "bootstrap"});
-        $("#customer_locality_select").select2({theme: "bootstrap"});
+        {
+            $("#project_sort_select").select2({theme: "bootstrap", width: '100%'});
+            $("#customer_sort_select").select2({theme: "bootstrap", width: '100%'});
+            $("#status_sort_select").select2({theme: "bootstrap", width: '100%'});
 
-        //+++GENERAL+++
+            $("#project_edit_select").select2({theme: "bootstrap", width: '100%'});
+            $("#customer_edit_select").select2({theme: "bootstrap", width: '100%'});
+            $("#status_edit_select").select2({theme: "bootstrap", width: '100%'});
+
+            $("#ware_edit_name_select").select2({theme: "bootstrap", width: '100%'});
+
+            $("#customer_name_select").select2({theme: "bootstrap", width: '100%'});
+            $("#customer_locality_select").select2({theme: "bootstrap", width: '100%'});
+        }
+
+
+        $('#customer_edit_select').on('focus load trigger mouseover change', function () {
+            let customer = this.options[this.selectedIndex].text;
+            $("#select_wares_invoice > option").each(function () {
+                if (this.text.substring(0, customer.length) === customer && customer.length > 1) {
+                    this.style.display = "block";
+                } else {
+                    this.style.display = "none";
+                }
+            });
+            $("#select_projects_invoice > option").each(function () {
+                if (this.text.substring(0, customer.length) === customer && customer.length > 1) {
+                    this.style.display = "block";
+                } else {
+                    this.style.display = "none";
+                }
+            });
+        });
+
+        $('#customer_edit_select').on('focus trigger mouseover change', function () {
+            let projects = $('#quotation_projects').html();
+            let customer, options;
+            customer = $('#customer_edit_select :selected').text();
+            options = $(projects).filter("optgroup[label='" + customer + "']").html();
+            console.log(options);
+            if (options) {
+                return $('#quotation_projects').html(options);
+            } else {
+                return $('#quotation_projects').empty();
+            }
+        });
+
+        /*
+        GENERAL SECTION
+        */
 
         //Navbar active
-        $(document).ready(function () {
-            $.each($('.navbar-nav').find('li'), function () {
-                $(this).toggleClass('active',
-                    window.location.pathname.indexOf($(this).find('a').attr('href')) > -1);
-            });
+        $.each($('.navbar-nav').find('li'), function () {
+            $(this).toggleClass('active',
+                window.location.pathname.indexOf($(this).find('a').attr('href')) > -1);
         });
 
         //Calls for datepickers formatting
@@ -110,29 +151,30 @@ $(document).on("turbolinks:load", function () {
                             case 'Devis' : //Project, Ware
                             case 'Créé' : //Quotation
                             case 'Emise' : //Invoice
-                                row.style.backgroundColor = "rgba(149,215,219,0.66)";
+                                row.style.backgroundImage = "linear-gradient(to right, #95d7db, #a0dce0, #abe0e4, #b5e5e9, #c0eaed)";
                                 break;
                             case 'Atelier': //Ware
                             case 'Encodé' : //Service
                             case 'En réalisation' : //Project
                             case 'Envoyé' : //Quotation
                             case 'Envoyée' : //Invoice
-                                row.style.backgroundColor = "rgba(206,219,79,0.65)";
+                                row.style.backgroundImage = "linear-gradient(to right, #fef07a, #fdf18b, #fcf39c, #fcf4ad, #fbf5bd)";
                                 break;
                             case 'Terminé': //Project
                             case 'Attribuée' : //Ware, Service
                             case 'Accepté' : //Quotation
-                                row.style.backgroundColor = "rgba(254,240,122,0.65)";
+                                row.style.backgroundImage = "linear-gradient(to right, #f9ae48, #f9b559, #f8bb6a, #f7c27b, #f6c88b)";
                                 break;
                             case 'A facturer' : //Ware
-                                row.style.backgroundColor = "rgba(249,174,72,0.65)";
+                                row.style.backgroundImage = "linear-gradient(to right, #ee8f55, #ee9864, #eea172, #eeaa81, #edb390";
+
                                 break;
                             case 'Facturé' : //Project, Ware
-                            case 'Payée' : //Invoice
-                                row.style.backgroundColor = "rgba(238,143,85,0.65)";
+                                row.style.backgroundImage = "linear-gradient(to right, #ee7c6c, #ee8475, #ef8c7d, #ee9386, #ee9b8f)";
                                 break;
+                            case 'Payée' : //Invoice
                             case 'Payé' : //Project, Ware
-                                row.style.backgroundColor = "rgba(238,124,108,0.65)";
+                                row.style.backgroundImage = "linear-gradient(to right, #cedb4f, #d0db60, #d1dc6f, #d3dc7d, #d4dc8b)";
                                 break;
                             default:
                         }
@@ -146,25 +188,25 @@ $(document).on("turbolinks:load", function () {
         switch (title.innerText) {
             case 'PROJETS' :
             case 'PROJET' :
-                title.className += " badge badge-primary";
+                title.style.backgroundColor = "#32469b";
                 break;
             case 'MARCHANDISES' :
-                title.className += " badge badge-success";
+                title.style.backgroundColor = "#6f3e9b";
                 break;
             case 'PRESTATIONS' :
-                title.className += " badge badge-danger";
+                title.style.backgroundColor = "#9b4b5b";
                 break;
             case 'CLIENTS' :
-                title.className += " badge badge-warning";
+                title.style.backgroundColor = "#9b724c";
                 break;
             case 'DEVIS' :
-                title.className += " badge badge-info";
+                title.style.backgroundColor = "#3c769b";
                 break;
             case 'FACTURES' :
-                title.className += " badge badge-dark";
+                title.style.backgroundColor = "#819b4c";
                 break;
             case 'PAIEMENT' :
-                title.className += " badge badge-secondary";
+                title.style.backgroundColor = "#479b46";
                 break;
             default:
                 console.log(title.value);
@@ -173,20 +215,20 @@ $(document).on("turbolinks:load", function () {
         //+++WARES+++
 
         //Disabling dropdowns for ware forms
-        $('select[id="project_id"]').on('focus trigger mouseover change', function () {
+        $('select[id="project_edit_select"]').on('focus trigger mouseover change', function () {
             if ($(this).val().length > 0) {
-                $('#customer_id').prop("disabled", true);
+                $('#customer_edit_select').prop("disabled", true);
                 $('#status option:eq(2)').prop('selected', true);
             } else {
-                $('#customer_id').prop("disabled", false);
+                $('#customer_edit_select').prop("disabled", false);
                 $('#status option:eq(0)').prop('selected', true);
             }
         });
-        $('select[id="customer_id"]').on('focus trigger mouseover change', function () {
+        $('select[id="customer_edit_select"]').on('focus trigger mouseover change', function () {
             if ($(this).val().length > 0) {
-                $('#project_id').prop("disabled", true);
+                $('#project_edit_select').prop("disabled", true);
             } else {
-                $('#project_id').prop("disabled", false);
+                $('#project_edit_select').prop("disabled", false);
             }
         });
 
@@ -224,6 +266,7 @@ $(document).on("turbolinks:load", function () {
 
         //+++SERVICES++++
 
+        //SERVICES TOTAL auto-complete
         $('#servicesForm,#total_cost_s,#total_gross_s,#hourly_rate,#tva_rate_s,#coefficient,#_duration_4i,#_duration_5i,#service_duration_4i,#service_duration_5i')
             .on('keyup keypress mouseover change', function () {
                     let total_cost = document.getElementById('total_cost_s');
@@ -263,10 +306,4 @@ function autoFormatDatePicker(picker) {
             element.value = dd + "-" + mm + "-" + yyyy;
         }
     }
-}
-
-//Confirmation messages for service updates
-function confirmService() {
-    if (document.getElementById('invoice_id').name !== (0 || "service[0]"))
-        return confirm('Cette prestation est déjà facturée, continuer ?');
 }

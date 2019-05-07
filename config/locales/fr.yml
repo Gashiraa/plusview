@@ -50,7 +50,7 @@ fr:
 
   all_projects: "Tous les projets"
   all_customers: "Tous les clients"
-  all_status: "Tous les status"
+  all_status: "Tous les statuts"
 
   ware_add_success: "Marchandise ajoutée"
   ware_update_success: "Marchandise mise à jour"
@@ -447,3 +447,6 @@ fr:
   pm: pm
   confirm_delete: "Supprimer cet élément ?"
   Description: "Description"
+  none: "aucun"
+  wares_to_invoice: "Marchandises à facturer"
+  projects_done: "Projets terminés"

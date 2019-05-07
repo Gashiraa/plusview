@@ -104,4 +104,5 @@ class InvoicesController < ApplicationController
   def invoice_params_create
     params.permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], project_ids: [])
   end
+
 end

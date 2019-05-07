@@ -12,8 +12,24 @@
   max-width: 98%;
   margin: 1em auto auto auto;
 
+  .center-div {
+    background-color: #fcfcfc;
+    border: 1px solid #a3a3a3;
+    border-radius: 2px;
+    padding: 1.5vw 1.5vw 0 1.5vw;
+    margin: 0 auto;
+    max-width: 1000px /* value of your choice which suits your alignment */
+  }
+
+  #titleBadge {
+    text-align: center;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    color: white;
+  }
+
   h2 {
-    max-width: 15%;
+    max-width: 20%;
     font-size: 1.3vw;
     text-transform: uppercase;
     position: absolute;
@@ -35,13 +51,8 @@
     }
   }
 
-  .form-control {
-    width: 100%;
-  }
-
   .createButton {
     text-align: center;
-    top: 2rem;
   }
 
   .table {
@@ -247,7 +258,7 @@
 
     #number {
       margin-left: 10px;
-      font-size: 35px;
+      font-size: 25px;
       position: relative;
       top: -5px;
     }

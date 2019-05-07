@@ -1,50 +1,56 @@
 <%= form_with(model: customer, local: true, html: {autocomplete: 'off'}) do |form| %>
   <input autocomplete="false" name="hidden" type="text" style="display:none;">
-  <div class="form">
-    <div class="row">
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+  <div class="form center-div">
+
+    <div class="form-row">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('Name') %>
         <%= form.text_field :name, class: "form-control", autocomplete: 'nope' %>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('mail') %>
         <%= form.text_field :mail, class: "form-control", autocomplete: 'nope' %>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('tva_record') %>
         <%= form.text_field :tva_record, class: "form-control", autocomplete: 'nope' %>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('street') %>
         <%= form.text_field :street, class: "form-control", autocomplete: 'nope' %>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('number') %>
         <%= form.number_field :number, class: "form-control", autocomplete: 'nope' %>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('zip') %>
         <%= form.number_field :cp, class: "form-control", autocomplete: 'nope' %>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('locality') %>
         <%= form.text_field :locality, class: "form-control", autocomplete: 'nope' %>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('country') %>
-        <%= form.text_field :country, value:"Belgique", class: "form-control", autocomplete: 'nope' %>
-      </div>
-
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2 createButton">
-        <%= form.submit t('create'), :class => "btn btn-dark form-group" %>
+        <%= form.text_field :country, value: "Belgique", class: "form-control", autocomplete: 'nope' %>
       </div>
     </div>
+
+      <div class="actions col-12 createButton">
+        <%= form.submit t('create'), :class => "btn btn-dark form-group" %>
+      </div>
   </div>
 <% end %>

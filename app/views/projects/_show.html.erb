@@ -42,10 +42,10 @@
           <td><%= ware.provider_name %></td>
           <td><%= ware.comment %></td>
           <td><%= ware.status %></td>
-          <td>
-            <button type="button" class="close" aria-label="Close">
-              <%= link_to 'X', ware, method: :delete, data: {confirm: 'Are you sure?'} %>
-            </button>
+          <td class="centerCell">
+            <%= link_to ware, method: :delete, data: {confirm: t('confirm_delete')} do %>
+              <%= image_tag("delete-icon.png", size: "25x25") %>
+            <% end %>
           </td>
         </tr>
       <% end %>
@@ -69,6 +69,11 @@
       </thead>
 
       <tbody>
+      <% unless @project.services.any? %>
+        <tr>
+          <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+        </tr>
+      <% end %>
       <% @project.services.each do |service| %>
         <tr data-link="<%= edit_service_path service %>">
           <td><%= service.name %></td>
@@ -80,12 +85,10 @@
           <td><%= service.tva_rate %></td>
           <td><%= number_with_precision service.total_cost, :precision => 2 %></td>
 
-          <td>
-            <button type="button" class="close" aria-label="Close">
-          <span aria-hidden="true">
-            <%= link_to 'X', service, method: :delete, data: {confirm: 'Êtes-vous certain ?'} %>
-          </span>
-            </button>
+          <td class="centerCell">
+            <%= link_to service, method: :delete, data: {confirm: t('confirm_delete')} do %>
+              <%= image_tag("delete-icon.png", size: "25x25") %>
+            <% end %>
           </td>
         </tr>
       <% end %>

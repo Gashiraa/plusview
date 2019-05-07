@@ -1,5 +1,6 @@
+<h2 id="titleBadge"><%= t('customer').pluralize %></h2>
 <h3>Edition Client</h3>
 
 <%= render 'form', customer: @customer %>
 
-<%= link_to 'Retour', customers_path %>
+<%= link_to 'Retour', url_for(:back) %>

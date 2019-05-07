@@ -17,15 +17,15 @@
 
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
             <%= form.label t('project') %>
-            <%= form.collection_select :project_id_eq, Project.all, :id, :name, {:include_blank => t('all_projects')}, {class: 'form-control', id: 'project_select', onchange: 'this.form.submit();'} %>
+            <%= form.collection_select :project_id_eq, Project.all, :id, :name, {:include_blank => t('all_projects')}, {class: 'form-control', id: 'project_sort_select', onchange: 'this.form.submit();'} %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
             <%= form.label t('customer') %>
-            <%= form.collection_select :customer_id_or_project_customer_id_eq, Customer.all, :id, :name, {:include_blank => t('all_customers')}, {class: 'form-control', id: 'customer_select', onchange: 'this.form.submit();'} %>
+            <%= form.collection_select :project_customer_id_eq, Customer.all, :id, :name, {:include_blank => t('all_customers')}, {class: 'form-control', id: 'customer_sort_select', onchange: 'this.form.submit();'} %>
           </div>
           <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
             <%= form.label t('status') %>
-            <%= form.select :status_eq, Service.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_select', onchange: 'this.form.submit();'} %>
+            <%= form.select :status_eq, Service.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
           <td class="centerCell"><%= service.duration.strftime('%H:%M') %></td>
           <td class="rightCell"><%= number_with_precision service.tva_rate, :precision => 2  %></td>
           <td class="rightCell"><%= number_with_precision service.total_cost, :precision => 2 %></td>
-          <td>
+          <td class="centerCell">
             <%= link_to service, method: :delete, data: {confirm: t('confirm_delete')} do %>
               <%= image_tag("delete-icon.png", size: "30x30") %>
             <% end %>

@@ -67,4 +67,6 @@ gem 'wkhtmltopdf-binary'
 gem 'jquery-ui-rails'
 gem 'will_paginate', '~> 3.1.0'
 gem 'select2-rails'
+gem "font-awesome-rails"
+
 # gem 'mini_racer'

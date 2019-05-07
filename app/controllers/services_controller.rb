@@ -29,7 +29,7 @@ class ServicesController < ApplicationController
 
     respond_to do |format|
       if @service.save
-        @service.project.update_totals_project(@service.project)
+        @service.project&.update_totals_project(@service.project)
         @service.project&.invoice&.update_totals_invoice(@service.project.invoice, @service.project.invoice.projects, @service.project.invoice.wares)
         format.html {redirect_to services_url, notice: t('service_add_success')}
         format.json {render :show, status: :created, location: @service}

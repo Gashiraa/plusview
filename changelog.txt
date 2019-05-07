@@ -5,6 +5,7 @@ Selection des éléments par client pour la facture
 Divers -> Nouvelle table pour des divers (extras)
 Page administration des prix
 Plus beaux formulaires
+User management
 
 [PRESTATIONS]
 
@@ -19,6 +20,7 @@ Possibilité d'écrire dans les filtres
 Rassembler vue projet (marchandises et prestations dans contenu)
 Liens vers les projets dans les lignes
 Affichage adapté aux tableaux vides
+Plus beaux formulaires
 
 --22/04--
 

@@ -1,32 +1,38 @@
 <%= form_with(model: @service, local: true, id: "servicesForm") do |form| %>
-  <div class="form">
+  <div class="form center-div">
     <div class="form-row">
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('project') %>
-        <%= form.select(:project_id, Project.all.collect {|project| [project.name.to_s + ' - ' + project.customer.name, project.id]}, {:include_blank => true}, {class: 'form-control', autocomplete: 'off'}) %>
-      </div>
+        <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+          <%= form.label t('project')%>
+          <%= form.collection_select :project_id, Project.all, :id, :name, {:include_blank => true}, {class: 'form-control', id: 'project_edit_select'} %>
+        </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-        <%= form.label t('status') %>
-        <%= form.select(:status, Service.statuses.keys {|status| [status.value, status.value]}, {}, {class: 'form-control', autocomplete: 'off'}) %>
-      </div>
+        <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+          <%= form.label t('status') %>
+          <%= form.select :status, Ware.statuses.map {|status| [status[0], status[0]]}, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
+        </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-4">
         <%= form.label t('date_locale') %>
-        <div class="picker-container">
+        <div class="input-group mb-3">
           <%= form.text_field :date, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", value: Time.zone.now.to_date.strftime("%d/%m/%Y"), autocomplete: 'off', id: "dateProject", class: "form-control" %>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <%= fa_icon "calendar" %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="form-row">
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-6 col-xl-6">
         <%= form.label t('Description') %>
         <%= form.text_field :name, class: "form-control", autocomplete: 'off' %>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-6 col-xl-6">
         <%= form.label t('comment') %>
         <%= form.text_field :comment, class: "form-control", autocomplete: 'off' %>
       </div>
@@ -34,31 +40,64 @@
 
     <div class="form-row">
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-6 col-xl-6">
         <%= form.label t('duration') %>
         <div class="picker-container">
           <%= form.time_select :duration, {default: {hour: 1, min: 0}, minute_step: 15}, class: "time-picker form-control", autocomplete: 'off' %>
         </div>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('hourly_rate') + ' (€/H)' %>
-        <%= form.text_field :hourly_rate, value: '45', class: "form-control", autocomplete: 'nope', id: 'hourly_rate' %>
+      <div class="col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-6">
+        <%= form.label t('hourly_rate')%>
+        <div class="input-group mb-3">
+          <%= form.text_field :hourly_rate, value: '45', class: "form-control", autocomplete: 'nope', id: 'hourly_rate' %>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <%= fa_icon "euro" %>
+              /H
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('tva_rate') + " (%)" %>
-        <%= form.text_field :tva_rate, value: '21', class: "form-control", id: "tva_rate_s", autocomplete: 'nope' %>
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+        <%= form.label t('tva_rate')%>
+        <div class="input-group mb-3">
+          <%= form.text_field :tva_rate, value: '21', class: "form-control", id: "tva_rate_s", autocomplete: 'nope' %>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <%= fa_icon "percent" %>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
-        <%= form.label t('gross_cost') + " (€)" %>
-        <%= form.text_field :total_gross, class: "form-control", id: "total_gross_s", autocomplete: 'nope' %>
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+        <%= form.label t('gross_cost')%>
+        <div class="input-group mb-3">
+          <%= form.text_field :total_gross, class: "form-control", disabled: true, id: "total_gross_s", autocomplete: 'nope' %>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <%= fa_icon "euro" %>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-1">
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('total_cost') + " (€)" %>
-        <%= form.text_field :total_cost, class: "form-control", id: "total_cost_s", autocomplete: 'nope' %>
+        <div class="input-group mb-3">
+          <%= form.text_field :total_cost, class: "form-control", disabled: true, id: "total_cost_s", autocomplete: 'nope' %>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <%= fa_icon "euro" %>
+            </div>
+          </div>
+        </div>
       </div>
 
       <%= form.hidden_field(@service ? @service.project.invoice_id : 0, id: 'invoice_id') %>
@@ -66,7 +105,7 @@
     </div>
 
     <div class="form-row">
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2 createButton">
+      <div class="actions col-12 createButton">
         <%= form.submit t('create'), :class => "btn btn-dark form-group",
                         data:
                             if @service
@@ -77,5 +116,7 @@
                             end %>
       </div>
     </div>
+    <%= link_to 'Retour', url_for(:back) %>
+
   </div>
 <% end %>

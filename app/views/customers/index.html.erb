@@ -56,7 +56,7 @@
           <td><%= customer.cp %></td>
           <td><%= customer.locality %></td>
           <td><%= customer.country %></td>
-          <td>
+          <td class="centerCell">
             <%= link_to customer, method: :delete, data: {confirm: t('confirm_delete')} do %>
               <%= image_tag("delete-icon.png", size: "30x30") %>
             <% end %>
