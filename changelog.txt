@@ -1,16 +1,19 @@
 --A FAIRE--
 
 [DEMANDER] Ajouter si présent, commentaire prestation/marchandise sur facture
-Selection des éléments par client pour la facture
 Divers -> Nouvelle table pour des divers (extras)
 Page administration des prix
-Plus beaux formulaires
 User management
 
 [PRESTATIONS]
 
 [DEVIS]
 Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, ajout de suppléments
+
+--07/05--
+
+Plus beaux formulaires
+Selection des éléments par client pour la facture
 
 --27/04--
 

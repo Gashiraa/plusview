@@ -43,7 +43,7 @@ $(document).on("turbolinks:load", function () {
         $('#customer_edit_select').on('focus load trigger mouseover change', function () {
             let customer = this.options[this.selectedIndex].text;
             $("#select_wares_invoice > option").each(function () {
-                if (this.text.substring(0, customer.length) === customer && customer.length > 1) {
+                if ((this.text.substring(0, customer.length) === customer && customer.length > 1)) {
                     this.style.display = "block";
                 } else {
                     this.style.display = "none";
