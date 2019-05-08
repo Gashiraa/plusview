@@ -79,7 +79,7 @@
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('gross_cost')%>
         <div class="input-group mb-3">
-          <%= form.text_field :total_gross, class: "form-control", disabled: true, id: "total_gross_s", autocomplete: 'nope' %>
+          <%= form.text_field :total_gross, class: "form-control", readonly: true, id: "total_gross_s", autocomplete: 'nope' %>
           <div class="input-group-append">
             <div class="input-group-text">
               <%= fa_icon "euro" %>
@@ -91,7 +91,7 @@
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('total_cost') + " (€)" %>
         <div class="input-group mb-3">
-          <%= form.text_field :total_cost, class: "form-control", disabled: true, id: "total_cost_s", autocomplete: 'nope' %>
+          <%= form.text_field :total_cost, class: "form-control", readonly: true, id: "total_cost_s", autocomplete: 'nope' %>
           <div class="input-group-append">
             <div class="input-group-text">
               <%= fa_icon "euro" %>
@@ -99,8 +99,6 @@
           </div>
         </div>
       </div>
-
-      <%= form.hidden_field(@service ? @service.project.invoice_id : 0, id: 'invoice_id') %>
 
     </div>
 

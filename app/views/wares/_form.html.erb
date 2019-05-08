@@ -73,7 +73,7 @@
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('bought_price') %>
         <div class="input-group mb-3">
-          <%= form.text_field :bought_price, class: "form-control", autocomplete: 'nope', disabled: true, id: 'bought_price' %>
+          <%= form.text_field :bought_price, class: "form-control", autocomplete: 'nope', readonly: true, id: 'bought_price' %>
           <div class="input-group-append">
             <div class="input-group-text">
               <%= fa_icon "euro" %>
@@ -94,7 +94,7 @@
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('sell_price') %>
         <div class="input-group mb-3">
-          <%= form.text_field :sell_price, class: "form-control", autocomplete: 'nope', disabled: true, id: 'sell_price' %>
+          <%= form.text_field :sell_price, class: "form-control", autocomplete: 'nope', readonly: true, id: 'sell_price' %>
           <div class="input-group-append">
             <div class="input-group-text">
               <%= fa_icon "euro" %>
@@ -134,7 +134,7 @@
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('gross_cost') %>
         <div class="input-group mb-3">
-          <%= form.text_field :total_gross, class: "form-control", autocomplete: 'nope', disabled: true, id: 'total_gross' %>
+          <%= form.text_field :total_gross, class: "form-control", autocomplete: 'nope', readonly: true, id: 'total_gross' %>
           <div class="input-group-append">
             <div class="input-group-text">
               <%= fa_icon "euro" %>
@@ -146,7 +146,7 @@
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('total_cost') %>
         <div class="input-group mb-3">
-          <%= form.text_field :total_cost, class: "form-control", autocomplete: 'nope', disabled: true, id: 'total_cost' %>
+          <%= form.text_field :total_cost, class: "form-control", autocomplete: 'nope', readonly: true, id: 'total_cost' %>
           <div class="input-group-append">
             <div class="input-group-text">
               <%= fa_icon "euro" %>
