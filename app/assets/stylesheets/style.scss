@@ -23,8 +23,9 @@
 
   #titleBadge {
     text-align: center;
-    border: 1px solid #000000;
-    border-radius: 5px;
+    border: 1.5px solid #000000;
+    box-shadow: 3px 0 18px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 1px;
     color: white;
   }
 
@@ -91,11 +92,6 @@
     }
   }
 
-  .date-picker {
-    width: 30%;
-    margin-right: 1em;
-  }
-
   .picker-container {
     display: -webkit-box;
   }
@@ -106,7 +102,6 @@
 
   .time-picker {
     width: 50%;
-    //margin-right: 1em;
   }
 
   .picker-container {

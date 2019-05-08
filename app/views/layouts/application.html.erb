@@ -4,11 +4,17 @@
   <title>Greday</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <% filename = controller.controller_name %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type =>  'image/png' %>
+
+  <%# if FileTest.exist? "/javascript//" + filename %>
+    <%#= javascript_include_tag "#{filename}" %>
+  <%# end %>
+
+  <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type => 'image/png' %>
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Greday</a>
@@ -41,12 +47,12 @@
     </ul>
   </div>
 </nav>
-  <% if notice %>
-    <p id="notice" class="alert alert-success"><%= notice %></p>
-  <% end %>
-  <% if alert %>
-    <p id="notice" class="alert alert-danger"><%= alert %></p>
-  <% end %>
+<% if notice %>
+  <p id="notice" class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p id="notice" class="alert alert-danger"><%= alert %></p>
+<% end %>
 <body>
 <div class="content" id="primary-content">
   <%= yield %>
