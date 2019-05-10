@@ -1,0 +1,29 @@
+<h1>Project Extra Lines</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Extra</th>
+      <th>Quantity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @project_extra_lines.each do |project_extra_line| %>
+      <tr>
+        <td><%= project_extra_line.project %></td>
+        <td><%= project_extra_line.extra %></td>
+        <td><%= project_extra_line.quantity %></td>
+        <td><%= link_to 'Show', project_extra_line %></td>
+        <td><%= link_to 'Edit', edit_project_extra_line_path(project_extra_line) %></td>
+        <td><%= link_to 'Destroy', project_extra_line, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project Extra Line', new_project_extra_line_path %>

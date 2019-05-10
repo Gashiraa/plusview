@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @project_extra_line.project %>
+</p>
+
+<p>
+  <strong>Extra:</strong>
+  <%= @project_extra_line.extra %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @project_extra_line.quantity %>
+</p>
+
+<%= link_to 'Edit', edit_project_extra_line_path(@project_extra_line) %> |
+<%= link_to 'Back', project_extra_lines_path %>

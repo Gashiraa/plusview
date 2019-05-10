@@ -1,0 +1,64 @@
+<%= form_for(@project_extra_line) do |form| %>
+  <div class="form center-div">
+    <h3>Ajout divers</h3>
+
+    <div class="form-row">
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+        <%= form.label t('project') %>
+        <%= form.collection_select :project_id, Project.all, :id, :name, {:include_blank => true}, {:required => true, class: 'form-control', id: 'project_extra_edit_select'} %>
+      </div>
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+        <%= form.label t('extra') %>
+        <%= form.collection_select :extra_id, Extra.all, :id, :name, {:include_blank => true}, {class: 'form-control', id: 'extra_edit_select'} %>
+      </div>
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+        <%= form.label t('unit') %>
+        <%= form.select(:id, Extra.all
+            .collect {|extra| [extra.unit, extra.id, {extra: extra.id}]}, {}, {class: 'form-control', id: 'extra_unit', autocomplete: 'nope', :disabled => true}) %>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+        <%= form.label t('Quantity') %>
+        <%= form.text_field :quantity, class: "form-control", autocomplete: 'nope', id: 'quantity', value: @project_extra_line.quantity ? @project_extra_line.quantity : "1" %>
+      </div>
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+        <%= form.label t('extra_price') %>
+        <%= form.select(:id, Extra.all
+            .collect {|extra| [extra.unit_price, extra.id, {extra: extra.id}]}, {}, {class: 'form-control', id: 'extra_unit_price', autocomplete: 'nope', :disabled => true}) %>
+      </div>
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
+        <%= form.label t('tva_rate') %>
+        <%= form.select(:id, Extra.all
+            .collect {|extra| [extra.tva_rate, extra.id, {extra: extra.id}]}, {}, {class: 'form-control', id: 'extra_tva_rate', autocomplete: 'nope', :disabled => true}) %>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-6">
+        <%= form.label t('total_gross') %>
+        <%= form.text_field :total_gross, readonly: true, class: 'form-control', id: 'extra_total_gross' %>
+      </div>
+
+      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-6">
+        <%= form.label t('total_cost') %>
+        <%= form.text_field :total, readonly: true, class: 'form-control', id: 'extra_total' %>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 createButton">
+        <%= form.submit t('create'), :class => "btn btn-dark form-group" %>
+      </div>
+    </div>
+  </div>
+<% end %>
