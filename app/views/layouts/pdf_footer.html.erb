@@ -1,0 +1,52 @@
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    h5 {
+      margin: 0;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    p {
+      color: grey;
+      text-align: justify;
+      font-size: 10px;
+      margin-left: 65px;
+      margin-right: 65px;
+    }
+  </style>
+  <script>
+      function number_pages() {
+          var vars = {};
+          var x = document.location.search.substring(1).split('&');
+          for (var i in x) {
+              var z = x[i].split('=', 2);
+              vars[z[0]] = decodeURIComponent(z[1]);
+          }
+          var x = ['frompage', 'topage', 'page', 'webpage', 'section', 'subsection', 'subsubsection'];
+          for (var i in x) {
+              var y = document.getElementsByClassName(x[i]);
+              for (var j = 0; j < y.length; ++j) y[j].textContent = vars[x[i]];
+          }
+      }
+  </script>
+</head>
+<body onload="number_pages()">
+<section id="notes">
+  <h5>
+    Les paiements se feront au compte BNP Fortis : <b>BE47 0015 7715 0480</b>
+  </h5>
+  <p>
+    Le montant de la facture est payable dans les 8 jours. Toute réclamation devra être formulée au plus tard dans les
+    huit jours de la réception par lettre
+    recommandée. En cas de retard de paiement, un intérêt de 1% par mois est dû de plein droit, ainsi qu'une indemnité
+    égale à 15% du montant de la facture avec un minimum de 50€, sans sommation ni mise en demeure.
+    Pour tous litiges, seuls les tribunaux de Liège sont compétents.
+  </p>
+  <h5>
+    <span class="page"></span>/<span class="topage"></span>
+  </h5>
+</section>
+</body>
+</html>

@@ -29,7 +29,6 @@
         </div>
       </div>
     <% end %>
-
     <table class="table table-hover table-striped"  id="table-to-color">
       <thead class=thead-dark>
       <tr>
@@ -39,12 +38,6 @@
         <th><%= t('provider_name') %></th>
         <th><%= t('comment') %></th>
         <th class="centerCell"><%= t('status') %></th>
-        <!--      <th><%#= t('Provider discount') %></th>-->
-        <!--      <th><%#= t('Margin') %></th>-->
-        <!--      <th><%#= t('Quantity') %></th>-->
-        <!--      <th><%#= t('Unit price') %></th>-->
-        <!--      <th><%#= t('TVA rate') %></th>-->
-        <!--      <th><%#= t('Total cost') %></th>-->
         <th></th>
       </tr>
       </thead>
@@ -68,12 +61,6 @@
           <td><%= ware.provider_name %></td>
           <td><%= ware.comment %></td>
           <td class="centerCell" id="status-cell"><%= ware.status %></td>
-          <!--        <td><%#= ware.provider_discount %></td>-->
-          <!--        <td><%#= ware.margin %></td>-->
-          <!--        <td><%#= ware.quantity %></td>-->
-          <!--        <td><%#= ware.unit_price %></td>-->
-          <!--        <td><%#= ware.tva_rate %></td>-->
-          <!--        <td><%#= ware.total_cost %></td>-->
           <td class="centerCell">
             <%= link_to ware, method: :delete, data: {confirm: t('confirm_delete')} do %>
               <%= image_tag("delete-icon.png", size: "25x25") %>
@@ -83,6 +70,8 @@
       <% end %>
       </tbody>
     </table>
+    <%= link_to '+', new_project_extra_line_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+
     <div class="flickr_pagination">
       <hr>
       <%= will_paginate @wares %>
@@ -90,5 +79,12 @@
   </div>
   <div class="tab-pane fade" id="new">
     <%= render 'wares/new' %>
+  </div>
+  <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+      </div>
+    </div>
   </div>
 </div>

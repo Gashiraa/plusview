@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_22_091632) do
+ActiveRecord::Schema.define(version: 2019_05_10_134324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2019_04_22_091632) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "extras", force: :cascade do |t|
+    t.string "name"
+    t.string "unit"
+    t.string "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "tva_rate"
+  end
+
   create_table "invoices", force: :cascade do |t|
     t.bigint "payment_id"
     t.date "date"
@@ -54,6 +63,18 @@ ActiveRecord::Schema.define(version: 2019_04_22_091632) do
     t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "project_extra_lines", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "extra_id"
+    t.float "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "total_gross"
+    t.float "total"
+    t.index ["extra_id"], name: "index_project_extra_lines_on_extra_id"
+    t.index ["project_id"], name: "index_project_extra_lines_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -144,6 +165,8 @@ ActiveRecord::Schema.define(version: 2019_04_22_091632) do
 
   add_foreign_key "invoices", "customers"
   add_foreign_key "invoices", "payments"
+  add_foreign_key "project_extra_lines", "extras"
+  add_foreign_key "project_extra_lines", "projects"
   add_foreign_key "projects", "customers"
   add_foreign_key "projects", "invoices"
   add_foreign_key "quotations", "customers"

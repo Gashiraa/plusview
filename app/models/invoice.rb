@@ -21,6 +21,8 @@ class Invoice < ApplicationRecord
   end
 
   def update_statuses_invoice(invoice)
+    Project.all.where(status: 'Facturé', invoice_id: nil).update(status: 'Terminé')
+    Ware.all.where(status: 'Facturé', invoice_id: nil).update(status: 'A facturer')
     invoice.wares.update(status: 'Facturé')
     invoice.projects.update(status: 'Facturé')
   end

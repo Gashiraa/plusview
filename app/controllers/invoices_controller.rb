@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+  before_action :set_invoice, only: %i[show edit update destroy]
 
   # GET /invoices
   # GET /invoices.json
@@ -22,26 +24,31 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: t('invoice')+"_#{@invoice.id}",
+        render pdf: t('invoice') + "_#{@invoice.id}",
                page_size: 'A4',
-               template: "invoices/show.html.erb",
-               layout: "pdf.html",
-               orientation: "Portrait",
+               template: 'invoices/show.html.erb',
+               layout: 'pdf.html',
+               orientation: 'Portrait',
                encoding: 'utf8',
                lowquality: true,
                zoom: 1,
-               dpi: 75
+               dpi: 75,
+               :margin => { :bottom => 35 },
+               footer: {
+                   html: {
+                       template: 'layouts/pdf_footer.html.erb'
+                   },
+               }
       end
     end
   end
 
-  #
   def scope
     ::Invoice.all.includes(:wares)
   end
 
   # GET /invoices/1/edit
-  def edit
+  def edit;
   end
 
   # POST /invoices
@@ -104,5 +111,4 @@ class InvoicesController < ApplicationController
   def invoice_params_create
     params.permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], project_ids: [])
   end
-
 end

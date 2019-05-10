@@ -83,6 +83,6 @@ test:
 #
 production:
   <<: *default
-  database: greday_production
-  username: greday
-  password: <%= ENV['GREDAY_DATABASE_PASSWORD'] %>
+  database: greday
+  username: jh
+  password: sheepworld

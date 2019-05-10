@@ -5,7 +5,6 @@
                              end
 %>
 </h4>
-<p id="notice"><%= notice %></p>
 
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item active">
@@ -94,8 +93,56 @@
       <% end %>
       </tbody>
     </table>
-    <br>
+
+    <h5><%= t('extra').pluralize %>   <%= link_to '+', new_project_extra_line_path, {class: 'btn btn-info', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+    </h5>
+
+    <table class="table table-hover table-striped" id="table-to-color2">
+      <thead class=thead-dark>
+      <tr>
+        <th><%= t('Name') %></th>
+        <th><%= t('unit') %></th>
+        <th><%= t('unit_price') %></th>
+        <th><%= t('quantity') %></th>
+        <th><%= t('total_gross') %></th>
+        <th><%= t('total_cost') %></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% unless @project.project_extra_lines.any? %>
+        <tr>
+          <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+        </tr>
+      <% end %>
+      <% @project.project_extra_lines.each do |project_extra_line| %>
+        <tr data-link="<%= edit_project_extra_line_path project_extra_line%>">
+          <td><%= project_extra_line.extra.name %></td>
+          <td><%= project_extra_line.extra.unit %></td>
+          <td><%= project_extra_line.extra.unit_price %></td>
+          <td><%= project_extra_line.quantity %></td>
+          <td><%= project_extra_line.total_gross %></td>
+          <td><%= project_extra_line.total %></td>
+          <td class="centerCell">
+            <%= link_to project_extra_line, method: :delete, data: {confirm: t('confirm_delete')} do %>
+              <%= image_tag("delete-icon.png", size: "25x25") %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
+
+  <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+
   <div class="tab-pane fade" id="edit">
     <%= render 'form', project: @project %>
   </div>

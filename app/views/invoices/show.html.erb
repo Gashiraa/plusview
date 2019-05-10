@@ -2,7 +2,7 @@
   <div id="container">
     <section id="memo">
       <div class="logo">
-        <%= wicked_pdf_image_tag  "logo_greday.png" %>
+        <%= wicked_pdf_image_tag "logo_greday.png" %>
       </div>
       <div class="company-info">
         <div>THOMAS GREDAY</div>
@@ -25,7 +25,7 @@
       </div>
       <div>
         <span>
-          <%= @invoice.customer.street + ', ' + @invoice.customer.number.to_s %>
+          <%= @invoice.customer.street.to_s + ', ' + @invoice.customer.number.to_s %>
         </span>
       </div>
       <div>
@@ -48,9 +48,15 @@
 
     <section id="invoice-title-number">
       <span id="invoice-title">Facture</span>
-      <span id="number"><%= '#' + @invoice.id.to_s %></span>
       <div class="clearfix"></div>
+      <span id="number">
+        <h2>
+          <%= '#' + @invoice.id.to_s %>
+            </h2>
 
+        </h2>
+      </span>
+      <div class="clearfix"></div>
     </section>
     <div class="clearfix"></div>
     <span id="dateInvoice">
@@ -61,71 +67,116 @@
     <% if @invoice.projects.any? %>
       <% @invoice.projects.each do |project| %>
         <section id="items" class="project">
-          <div class="title-project-container">
-            <h4 class="title-project">Projet #<%= project.id %> : <%= project.name %></h4>
+          <div class="avoidbreak">
+
+            <div class="title-project-container">
+              <h4 class="title-project">Projet #<%= project.id %> : <%= project.name %></h4>
+            </div>
+            <p><%= project.description %></p>
+            <% if project.services.any? %>
+              <h5>Prestations</h5>
+
+              <table class="table table-hover table-striped avoidbreak">
+                <thead class=thead-dark>
+                <tr>
+                  <th><%= t('Name') %></th>
+                  <th><%= t('Date') %></th>
+                  <th><%= t('duration') %></th>
+                  <th><%= t('hourly_rate') + ' (€)' %></th>
+                  <th><%= t('tva_rate') + ' (%)' %></th>
+                  <th><%= t('total_gross') + ' (€)' %></th>
+                  <th><%= t('total_cost') + ' (€)' %></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% project.services.each do |service| %>
+                  <tr data-link="<%= edit_service_path service %>">
+                    <td><%= service.name %></td>
+                    <td><%= service.date ? l(service.date) : "" %></td>
+                    <td><%= service.duration.strftime('%H:%M') %></td>
+                    <td><%= service.hourly_rate %></td>
+                    <td><%= service.tva_rate %></td>
+                    <td><%= service.total_gross %></td>
+                    <td><%= service.total_cost %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            <% end %>
           </div>
-          <p><%= project.description %></p>
-          <% if project.services.any? %>
-            <h5>Prestations</h5>
+          <div class="avoidbreak">
+            <% if project.wares.any? %>
+              <h5>Marchandises</h5>
 
-            <table class="table table-hover table-striped">
-              <thead class=thead-dark>
-              <tr>
-                <th><%= t('Name') %></th>
-                <th><%= t('Date') %></th>
-                <th><%= t('duration') %></th>
-                <th><%= t('hourly_rate') + ' (€)' %></th>
-                <th><%= t('tva_rate') + ' (%)' %></th>
-                <th><%= t('total_gross') + ' (€)' %></th>
-                <th><%= t('total_cost') + ' (€)' %></th>
-              </tr>
-              </thead>
-
-              <tbody>
-              <% project.services.each do |service| %>
-                <tr data-link="<%= edit_service_path service %>">
-                  <td><%= service.name %></td>
-                  <td><%= service.date ? l(service.date) : "" %></td>
-                  <td><%= service.duration.strftime('%H:%M') %></td>
-                  <td><%= service.hourly_rate %></td>
-                  <td><%= service.tva_rate %></td>
-                  <td><%= service.total_gross %></td>
-                  <td><%= service.total_cost %></td>
+              <table class="table table-hover table-striped">
+                <thead class=thead-dark>
+                <tr>
+                  <th><%= t('ware_name') %></th>
+                  <th><%= t('Quantity') %></th>
+                  <th><%= t('sell_price') + ' (€)' %></th>
+                  <th><%= t('tva_rate') + ' (%)' %></th>
+                  <th><%= t('total_gross') + ' (€)' %></th>
+                  <th><%= t('total_cost') + ' (€)' %></th>
                 </tr>
-              <% end %>
-              </tbody>
-            </table>
-          <% end %>
-          <% if project.wares.any? %>
-            <h5>Marchandises</h5>
+                </thead>
 
-            <table class="table table-hover table-striped">
-              <thead class=thead-dark>
-              <tr>
-                <th><%= t('ware_name') %></th>
-                <th><%= t('Quantity') %></th>
-                <th><%= t('sell_price') + ' (€)' %></th>
-                <th><%= t('tva_rate') + ' (%)' %></th>
-                <th><%= t('total_gross') + ' (€)' %></th>
-                <th><%= t('total_cost') + ' (€)' %></th>
-              </tr>
-              </thead>
+                <tbody>
+                <% project.wares.each do |ware| %>
+                  <tr data-link="<%= edit_ware_path ware %>">
+                    <td><%= ware.ware_name %></td>
+                    <td><%= ware.quantity %></td>
+                    <td><%= ware.sell_price %></td>
+                    <td><%= ware.tva_rate %></td>
+                    <td><%= ware.total_gross %></td>
+                    <td><%= ware.total_cost %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            <% end %>
+          </div>
+          <div class="avoidbreak">
+            <% if project.project_extra_lines.any? %>
+              <h5><%= t('extra').pluralize %>
+              </h5>
 
-              <tbody>
-              <% project.wares.each do |ware| %>
-                <tr data-link="<%= edit_ware_path ware %>">
-                  <td><%= ware.ware_name %></td>
-                  <td><%= ware.quantity %></td>
-                  <td><%= ware.sell_price %></td>
-                  <td><%= ware.tva_rate %></td>
-                  <td><%= ware.total_gross %></td>
-                  <td><%= ware.total_cost %></td>
+              <table class="table table-hover table-striped">
+                <thead class=thead-dark>
+                <tr>
+                  <th><%= t('Name') %></th>
+                  <th><%= t('unit') %></th>
+                  <th><%= t('unit_price') + ' (€)' %></th>
+                  <th><%= t('quantity') %></th>
+                  <th><%= t('tva_rate') + ' (%)' %></th>
+                  <th><%= t('total_gross') + ' (€)' %></th>
+                  <th><%= t('total_cost') + ' (€)' %></th>
                 </tr>
-              <% end %>
-              </tbody>
-            </table>
-          <% end %>
+                </thead>
+
+                <tbody>
+                <% unless project.project_extra_lines.any? %>
+                  <tr>
+                    <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+                  </tr>
+                <% end %>
+                <% project.project_extra_lines.each do |project_extra_line| %>
+                  <tr data-link="<%= edit_project_extra_line_path project_extra_line %>">
+                    <td><%= project_extra_line.extra.name %></td>
+                    <td><%= project_extra_line.extra.unit %></td>
+                    <td><%= project_extra_line.extra.unit_price %></td>
+                    <td><%= project_extra_line.quantity %></td>
+                    <td><%= project_extra_line.extra.tva_rate %></td>
+                    <td><%= project_extra_line.total_gross %></td>
+                    <td><%= project_extra_line.total %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            <% end %>
+          </div>
         </section>
+
         <% if !(@invoice.projects.length == 1 && @invoice.wares.length == 0) %>
           <section id="sums" class="sums_project">
             <table cellpadding="0" cellspacing="0">
@@ -137,8 +188,8 @@
               <th>TOTAL HT PROJET (€)</th>
               <td><%= number_with_precision project.total_gross, :precision => 2 %></td>
               </tr>
-              <tr >
-                <th><%= "TOTAL TTC PROJET (€)"%></th>
+              <tr>
+                <th><%= "TOTAL TTC PROJET (€)" %></th>
                 <td><%= number_with_precision project.total, :precision => 2 %></td>
 
               </tr>
@@ -150,7 +201,7 @@
       <% end %>
     <% end %>
     </section>
-    <section id="items" class="wares">
+    <section id="items" class="wares avoidbreak">
       <% if @invoice.wares.any? %>
         <% if @invoice.projects.any? %>
           <div class="title-project-container">
@@ -186,7 +237,8 @@
         </table>
       <% end %>
     </section>
-    <section id="sums">
+
+    <section id="sums" class="avoidbreak">
       <div class="clearfix"></div>
       <div class="clearfix"></div>
       <table>
@@ -201,23 +253,11 @@
         </tr>
         <tr data-hide-on-quote="true">
           <th>TOTAL TTC (€)</th>
-          <td><%=number_with_precision @invoice.total, :precision => 2 %></td>
+          <td><%= number_with_precision @invoice.total, :precision => 2 %></td>
         </tr>
       </table>
       <div class="clearfix"></div>
     </section>
-    <section id="notes">
-      <h5>
-        Les paiements se feront au compte BNP Fortis : <b>BE47 0015 7715 0480</b>
-      </h5>
-      <p>
-        1) Le montant de la facture est payable dans les 8 jours. </br>
-        2) Toute réclamation devra être formulée au plus tard dans les huit jours de la réception par lettre
-        recommandée.</br>
-        3) En cas de retard de paiement, un intérêt de 1% par mois est dû de plein droit, ainsi qu'une indemnité égale à
-        15% du montant de la facture avec un minimum de 50€, sans sommation ni mise en demeure.</br>
-        4) Pour tous litiges, seuls les tribunaux de Liège sont compétents.
-      </p>
-    </section>
+    <div class="clearfix"></div>
   </div>
 </div>

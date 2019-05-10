@@ -22,6 +22,9 @@ $(document).on("turbolinks:load", function () {
             $("#customer_edit_select").select2({theme: "bootstrap", width: '100%'});
             $("#status_edit_select").select2({theme: "bootstrap", width: '100%'});
 
+            $("#project_extra_edit_select").select2({theme: "bootstrap", width: '100%'});
+            $("#extra_edit_select").select2({theme: "bootstrap", width: '100%'});
+
             $("#ware_edit_name_select").select2({theme: "bootstrap", width: '100%', tags: true});
 
             $("#customer_name_select").select2({theme: "bootstrap", width: '100%', tags: true});
@@ -117,6 +120,9 @@ $(document).on("turbolinks:load", function () {
                 break;
             case 'PAIEMENT' :
                 title.style.backgroundColor = "#479b46";
+                break;
+            case 'DIVERS' :
+                title.style.backgroundColor = "#9b7311";
                 break;
             default:
                 console.log(title.value);

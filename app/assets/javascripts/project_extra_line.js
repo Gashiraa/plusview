@@ -1,0 +1,47 @@
+$(document).on("turbolinks:load", function () {
+        $('#extra_edit_select').on('focus load trigger mouseover change', function () {
+            let extra = this.options[this.selectedIndex].value;
+            $("#extra_unit_price > option").each(function () {
+                if (this.getAttribute("extra") === extra) {
+                    this.style.display = "block";
+                    $('#extra_unit_price').val(extra);
+                } else {
+                    this.style.display = "none";
+                }
+            });
+            $("#extra_unit > option").each(function () {
+                if (this.getAttribute("extra") === extra) {
+                    this.style.display = "block";
+                    $('#extra_unit').val(extra);
+                } else {
+                    this.style.display = "none";
+                }
+            });
+            $("#extra_tva_rate > option").each(function () {
+                if (this.getAttribute("extra") === extra) {
+                    this.style.display = "block";
+                    $('#extra_tva_rate').val(extra);
+                } else {
+                    this.style.display = "none";
+                }
+            });
+        });
+        $('#extra_edit_select').trigger('change');
+
+        $('#extra_edit_select, #edit_project_extra_line,#total_cost,#total_gross,#quantity,#tva_rate,#margin')
+            .on('keyup keypress mouseover change', function () {
+                let quantity = document.getElementById('quantity').value || 0;
+                let tva_rate = document.getElementById('extra_tva_rate').options[document.getElementById('extra_tva_rate').selectedIndex].text || 0;
+                let extra_unit_price = document.getElementById('extra_unit_price').options[document.getElementById('extra_unit_price').selectedIndex].text || 0;
+                let extra_total_gross = document.getElementById('extra_total_gross');
+                let extra_total = document.getElementById('extra_total');
+
+                let gross = (parseInt(quantity) * parseFloat(extra_unit_price));
+                let total = gross * (1 + (parseFloat(tva_rate) / 100));
+
+                extra_total_gross.value = gross.toFixed(2);
+                extra_total.value = total.toFixed(2);
+            });
+        $('#quantity').trigger('mouseover');
+    }
+);
