@@ -13,11 +13,11 @@ $(document).on("turbolinks:load", function () {
         $('select[id="project_edit_select"]').trigger('change');
 
         $('select[id="customer_edit_select"]').on('focus trigger mouseover change', function () {
-                if ($(this).val().length > 0) {
-                    $('#project_edit_select').prop("disabled", true);
-                } else {
-                    $('#project_edit_select').prop("disabled", false);
-                }
+            if ($(this).val().length > 0) {
+                $('#project_edit_select').prop("disabled", true);
+            } else {
+                $('#project_edit_select').prop("disabled", false);
+            }
         });
         $('select[id="customer_edit_select"]').trigger('change');
 
@@ -54,5 +54,11 @@ $(document).on("turbolinks:load", function () {
                 total_cost.value = total.toFixed(2);
             });
         $('#waresForm').trigger('mouseover');
+
+        if ($('#projectId').data('somedata')) {
+            $("#project_edit_select").val($('#projectId').data('somedata'));
+            $("#project_edit_select").prop("readonly", true);
+
+        }
     }
 );

@@ -28,9 +28,9 @@ $(document).on("turbolinks:load", function () {
         });
         $('#extra_edit_select').trigger('change');
 
-        $('#extra_edit_select, #edit_project_extra_line,#total_cost,#total_gross,#quantity,#tva_rate,#margin')
+        $('#extra_edit_select,#edit_project_extra_line,#extra_total_gross,#extra_total,#extra_quantity,#extra_tva_rate')
             .on('keyup keypress mouseover change', function () {
-                let quantity = document.getElementById('quantity').value || 0;
+                let quantity = document.getElementById('extra_quantity').value || 0;
                 let tva_rate = document.getElementById('extra_tva_rate').options[document.getElementById('extra_tva_rate').selectedIndex].text || 0;
                 let extra_unit_price = document.getElementById('extra_unit_price').options[document.getElementById('extra_unit_price').selectedIndex].text || 0;
                 let extra_total_gross = document.getElementById('extra_total_gross');
@@ -42,6 +42,6 @@ $(document).on("turbolinks:load", function () {
                 extra_total_gross.value = gross.toFixed(2);
                 extra_total.value = total.toFixed(2);
             });
-        $('#quantity').trigger('mouseover');
+        $('#extra_total_gross').trigger('mouseover');
     }
 );

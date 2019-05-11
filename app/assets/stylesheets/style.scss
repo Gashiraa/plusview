@@ -16,12 +16,17 @@
     h3 {
       text-align: center;
     }
+
     background-color: #fcfcfc;
     border: 1px solid #a3a3a3;
     border-radius: 2px;
     padding: 1.5vw 1.5vw 0 1.5vw;
     margin: 0 auto;
     max-width: 1000px /* value of your choice which suits your alignment */
+  }
+
+  .button-add {
+    margin-top: auto;
   }
 
   #titleBadge {
@@ -36,7 +41,6 @@
     max-width: 20%;
     font-size: 1.3vw;
     text-transform: uppercase;
-    position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
@@ -71,6 +75,9 @@
 
     .centerCell {
       text-align: center;
+      img {
+        margin-right: 1vw;
+      }
     }
 
     .rightCell {
@@ -133,6 +140,10 @@
   left: 0;
   right: 0;
   bottom: 1vh;
+}
+
+.logout-button {
+  margin-left: 2vw;
 }
 
 .pdf {
@@ -266,6 +277,7 @@
         margin-top: 1%;
 
       }
+
       font-size: 25px;
       margin-top: 4vh;
     }
@@ -276,7 +288,8 @@
     float: left;
     min-width: 220px;
     top: 40mm;
-    right: 70mm;
+    right: 55mm;
+    font-size: 19px;
   }
 
   table {

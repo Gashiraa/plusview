@@ -6,7 +6,7 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @search = Invoice.paginate(page: params[:page], per_page: 10).ransack(params[:q])
+    @search = Invoice.paginate(page: params[:page], per_page: 12).ransack(params[:q])
     @invoices = @search.result(distinct: true).order(:status)
   end
 
@@ -16,6 +16,7 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     @invoice = Invoice.new
+    respond_to(&:js)
   end
 
   def show
@@ -54,7 +55,7 @@ class InvoicesController < ApplicationController
   # POST /invoices
   # POST /invoices.json
   def create
-    @invoice = Invoice.new(invoice_params_create)
+    @invoice = Invoice.new(invoice_params)
 
     respond_to do |format|
       if @invoice.save
@@ -106,9 +107,5 @@ class InvoicesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def invoice_params
     params.require(:invoice).permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], project_ids: [])
-  end
-
-  def invoice_params_create
-    params.permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], project_ids: [])
   end
 end

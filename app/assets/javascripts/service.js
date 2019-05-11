@@ -27,5 +27,9 @@ $(document).on("turbolinks:load", function () {
                 }
             );
         $('#servicesForm').trigger('mouseover');
+
+        if ($('#projectId').data('somedata')) {
+            $("#project_edit_select").val($('#projectId').data('somedata'));
+        }
     }
 );

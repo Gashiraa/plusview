@@ -4,7 +4,7 @@ class WaresController < ApplicationController
   # GET /wares
   # GET /wares.json
   def index
-    @search = Ware.paginate(page: params[:page], per_page: 10).ransack(params[:q])
+    @search = Ware.paginate(page: params[:page], per_page: 12).ransack(params[:q])
     @wares = @search.result(distinct: true).order(:status)
   end
 
@@ -16,6 +16,7 @@ class WaresController < ApplicationController
   # GET /wares/new
   def new
     @ware = Ware.new
+    respond_to(&:js)
   end
 
   # GET /wares/1/edit
@@ -25,7 +26,7 @@ class WaresController < ApplicationController
   # POST /wares
   # POST /wares.json
   def create
-    @ware = Ware.new(ware_params_create)
+    @ware = Ware.new(ware_params)
 
     respond_to do |format|
       if @ware.save
@@ -37,7 +38,7 @@ class WaresController < ApplicationController
 
         # update linked project's invoice
         @ware.project&.invoice&.update_totals_invoice(@ware.project.invoice, @ware.project.invoice.projects, @ware.project.invoice.wares)
-        format.html {redirect_to wares_url + '#new', notice: t('ware_add_success')}
+        format.html { redirect_to request.env["HTTP_REFERER"] , notice: t('ware_add_success')}
         format.json {render :show, status: :created, location: @ware}
       else
         format.html {render :new}
@@ -59,7 +60,7 @@ class WaresController < ApplicationController
 
         # update linked project's invoice
         @ware.project&.invoice&.update_totals_invoice(@ware.project.invoice, @ware.project.invoice.projects, @ware.project.invoice.wares)
-        format.html {redirect_to wares_url, notice: t('ware_update_success')}
+        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('ware_update_success')}
         format.json {render :show, status: :ok, location: @ware}
       else
         format.html {render :edit}
@@ -81,7 +82,7 @@ class WaresController < ApplicationController
     # update linked project's invoice
     @ware.project&.invoice&.update_totals_invoice(@ware.project.invoice, @ware.project.invoice.projects, @ware.project.invoice.wares)
     respond_to do |format|
-      format.html {redirect_to wares_url, notice: t('ware_destroy_success')}
+      format.html {redirect_to request.env["HTTP_REFERER"], notice: t('ware_destroy_success')}
       format.json {head :no_content}
     end
   end
@@ -96,9 +97,5 @@ class WaresController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def ware_params
     params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :margin, :provider_price, :bought_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :sell_price, :provider_invoice, :ware_name)
-  end
-
-  def ware_params_create
-    params.permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :margin, :provider_price, :bought_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :sell_price, :provider_invoice, :ware_name)
   end
 end

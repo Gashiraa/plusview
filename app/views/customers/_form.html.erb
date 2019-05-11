@@ -1,6 +1,12 @@
-<%= form_with(model: customer, local: true, html: {autocomplete: 'off'}) do |form| %>
+<%= form_with(model: @customer, local: true, html: {autocomplete: 'off'}) do |form| %>
   <input autocomplete="false" name="hidden" type="text" style="display:none;">
   <div class="form center-div">
+
+    <% if @customer.id %>
+      <h3><%= t('editing_customers') %></h3>
+    <% else %>
+      <h3><%= t('creating_customers') %></h3>
+    <% end %>
 
     <div class="form-row">
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">

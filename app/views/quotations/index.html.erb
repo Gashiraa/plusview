@@ -1,78 +1,74 @@
 <h2 id="titleBadge"><%= t('quotation').pluralize %></h2>
-
-<ul class="nav nav-tabs" role="tablist">
-  <li class="nav-item active">
-    <a class="nav-link active" data-toggle="tab" href="#listing" role="tab">Listing</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#new" role="tab">Nouveau devis</a>
-  </li>
-</ul>
-
-<div class="tab-content">
-  <div class="tab-pane fade show active" id="listing">
-    <%= search_form_for @search do |form| %>
-      <div class="form">
-        <div class="row">
-          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('project') %>
-            <%= form.collection_select :id_eq, Project.all, :id, :name, {:include_blank => t('all_projects')}, {class: 'form-control', id: 'project_sort_select', onchange: 'this.form.submit();'} %>
-          </div>
-          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('customer') %>
-            <%= form.collection_select :customer_id_eq, Customer.all, :id, :name, {:include_blank => t('all_customers')}, {class: 'form-control', id: 'customer_sort_select', onchange: 'this.form.submit();'} %>
-          </div>
-          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('status') %>
-            <%= form.select :status_eq, Quotation.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
-          </div>
-        </div>
+<hr>
+<%= search_form_for @search do |form| %>
+  <div class="form">
+    <div class="row">
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('project') %>
+        <%= form.collection_select :id_eq, Project.all, :id, :name, {:include_blank => t('all_projects')}, {class: 'form-control', id: 'project_sort_select', onchange: 'this.form.submit();'} %>
       </div>
-    <% end %>
-
-    <table class="table table-hover table-striped"  id="table-to-color">
-      <thead class=thead-dark>
-      <tr>
-        <th><%= t('customer').capitalize %></th>
-        <th><%= t('Date') %></th>
-        <th><%= t('status') %></th>
-        <th><%= t('gross_cost').to_s + ' (€)' %></th>
-        <th><%= t('Total').to_s + ' (€)' %></th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <% unless @quotations.any? %>
-        <tr>
-          <td class="emptyTable" colspan="9">Aucune données à afficher</td>
-        </tr>
-      <% end %>
-      <% @quotations.each do |quotation| %>
-        <tr data-link="<%= edit_quotation_path quotation %>">
-          <td>
-            <%= quotation.customer ? quotation.customer.name : '' %>
-          </td>
-          <td><%= l(quotation.date) %></td>
-          <td id="status-cell"><%= quotation.status %></td>
-          <td><%= number_with_precision  quotation.total_gross, :precision => 2 %></td>
-          <td><%= number_with_precision  quotation.total, :precision => 2 %></td>
-
-          <td style="padding: 0">
-            <%= link_to image_tag("pdf-icon.png", size: "50x50"), quotation_path(quotation.id, :format => :pdf) %>
-            <%= link_to quotation, method: :delete, data: {confirm: t('confirm_delete')} do %>
-              <%= image_tag("delete-icon.png", size: "30x30") %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <br>
-    <div class="flickr_pagination">
-      <%= will_paginate @quotations %>
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('customer') %>
+        <%= form.collection_select :customer_id_eq, Customer.all, :id, :name, {:include_blank => t('all_customers')}, {class: 'form-control', id: 'customer_sort_select', onchange: 'this.form.submit();'} %>
+      </div>
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
+        <%= form.label t('status') %>
+        <%= form.select :status_eq, Quotation.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
+      </div>
+      <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
+        <%= link_to '+', new_quotation_path, {class: 'btn btn-info', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+      </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="new">
-    <%= render 'invoices/new' %>
+<% end %>
+
+<table class="table table-hover table-striped" id="table-to-color">
+  <thead class=thead-dark>
+  <tr>
+    <th><%= t('customer').capitalize %></th>
+    <th><%= t('Date') %></th>
+    <th><%= t('status') %></th>
+    <th><%= t('gross_cost').to_s + ' (€)' %></th>
+    <th><%= t('Total').to_s + ' (€)' %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% unless @quotations.any? %>
+    <tr>
+      <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+    </tr>
+  <% end %>
+  <% @quotations.each do |quotation| %>
+    <tr>
+      <td>
+        <%= quotation.customer ? quotation.customer.name : '' %>
+      </td>
+      <td><%= l(quotation.date) %></td>
+      <td id="status-cell"><%= quotation.status %></td>
+      <td><%= number_with_precision quotation.total_gross, :precision => 2 %></td>
+      <td><%= number_with_precision quotation.total, :precision => 2 %></td>
+      <td class="centerCell" >
+        <%= link_to edit_quotation_path(quotation), remote: true do %>
+          <%= image_tag("edit-icon.png", size: "30x30") %>
+        <% end %>
+        <%= link_to image_tag("pdf-icon.png", size: "30x30"), quotation_path(quotation.id, :format => :pdf) %>
+        <%= link_to quotation, method: :delete, data: {confirm: t('confirm_delete')} do %>
+          <%= image_tag("delete-icon.png", size: "30x30") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<br>
+<div class="flickr_pagination">
+  <%= will_paginate @quotations %>
+</div>
+
+<div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+    </div>
   </div>
 </div>

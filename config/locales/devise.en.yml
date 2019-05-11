@@ -69,3 +69,4 @@ en:
   customer: "customer"
   status: "status"
   ware_already_invoiced: ""
+  editing_wares: "Edition marchandise"

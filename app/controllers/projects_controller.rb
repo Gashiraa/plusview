@@ -1,12 +1,21 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController
+
   before_action :set_project, only: %i[show edit update destroy]
+  before_action :get_user
+
+  include Devise::Controllers::Helpers
+  helper_method :current_user
+
+  def get_user
+    @user = current_user
+  end
 
   # GET /projects
   # GET /projects.json
   def index
-    @search = Project.paginate(page: params[:page], per_page: 10).ransack(params[:q])
+    @search = Project.paginate(page: params[:page], per_page: 12).ransack(params[:q])
     @projects = @search.result(distinct: true).order(:status)
   end
 
@@ -18,6 +27,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    respond_to(&:js)
   end
 
   # GET /projects/1/edit
@@ -27,7 +37,7 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params_create)
+    @project = Project.new(project_params)
 
     respond_to do |format|
       if @project.save
@@ -66,6 +76,7 @@ class ProjectsController < ApplicationController
     end
   end
 
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -74,10 +85,6 @@ class ProjectsController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def project_params_create
-    params.permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross, :date, :description)
-  end
-
   def project_params
     params.require(:project).permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross, :date, :description)
   end

@@ -23,6 +23,11 @@ class ProjectExtraLinesController < ApplicationController
 
   # GET /project_extra_lines/1/edit
   def edit
+    @extra = ProjectExtraLine.find(params[:id])
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   # POST /project_extra_lines
@@ -32,7 +37,7 @@ class ProjectExtraLinesController < ApplicationController
 
     respond_to do |format|
       if @project_extra_line.save
-        format.html {redirect_to edit_project_path(id: @project_extra_line.project.id), notice: 'Project extra line was successfully updated.'}
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: t('project_extra_line_add_success')}
         format.json {render :show, status: :created, location: @project_extra_line}
       else
         format.html {render :new}
@@ -46,7 +51,7 @@ class ProjectExtraLinesController < ApplicationController
   def update
     respond_to do |format|
       if @project_extra_line.update(project_extra_line_params)
-        format.html {redirect_to edit_project_path(id: @project_extra_line.project.id), notice: 'Project extra line was successfully updated.'}
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: t('project_extra_line_update_success')}
         format.json {render :show, status: :ok, location: @project_extra_line}
       else
         format.html {render :edit}
@@ -60,7 +65,7 @@ class ProjectExtraLinesController < ApplicationController
   def destroy
     @project_extra_line.destroy
     respond_to do |format|
-      format.html {redirect_to edit_project_path(id: @project_extra_line.project.id), notice: 'Project extra line was successfully updated.'}
+      format.html { redirect_to request.env["HTTP_REFERER"], notice: t('project_extra_line_delete_success')}
       format.json {head :no_content}
     end
   end

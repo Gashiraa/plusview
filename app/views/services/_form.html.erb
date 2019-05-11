@@ -1,5 +1,12 @@
 <%= form_with(model: @service, local: true, id: "servicesForm") do |form| %>
   <div class="form center-div">
+
+    <% if @service.id %>
+      <h3><%= t('editing_services') %></h3>
+    <% else %>
+      <h3><%= t('creating_services') %></h3>
+    <% end %>
+
     <div class="form-row">
 
         <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
@@ -114,7 +121,5 @@
                             end %>
       </div>
     </div>
-    <%= link_to 'Retour', url_for(:back) %>
-
   </div>
 <% end %>

@@ -5,7 +5,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @search = Customer.paginate(page: params[:page], per_page: 10).ransack(params[:q])
+    @search = Customer.paginate(page: params[:page], per_page: 12).ransack(params[:q])
     @customers = @search.result(distinct: true).order(:name)
   end
 
@@ -17,6 +17,7 @@ class CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new
+    respond_to(&:js)
   end
 
   # GET /customers/1/edit
@@ -26,7 +27,7 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
-    @customer = Customer.new(customer_params_create)
+    @customer = Customer.new(customer_params)
 
     respond_to do |format|
       if @customer.save
@@ -73,9 +74,5 @@ class CustomersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def customer_params
     params.require(:customer).permit(:name, :mail, :tva_record, :street, :number, :cp, :locality, :country)
-  end
-
-  def customer_params_create
-    params.permit(:name, :mail, :tva_record, :street, :number, :cp, :locality, :country)
   end
 end

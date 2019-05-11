@@ -75,6 +75,14 @@ fr:
   project_already_invoiced: "Ce projet est déjà facturé, continuer ?"
   project_ready_invoiced: "Ce projet est prêt à être facturé, continuer ?"
 
+  project_extra_line_add_success: "Divers ajouté au projet"
+  project_extra_line_update_success: "Divers mis à jour dans le projet"
+  project_extra_line_delete_success: "Divers supprimé du projet"
+
+  extra_add_success: "Divers ajouté"
+  extra_update_success: "Divers mis à jour"
+  extra_delete_success: "Divers supprimé"
+
   create: Valider
   will_paginate:
     previous_label: "Précedent"
@@ -457,3 +465,19 @@ fr:
   extra_price: "Prix/Unité"
   editing_extra: "Modification divers"
   creating_extra: "Création divers"
+  creating_wares: "Création marchandise"
+  editing_invoice: "Edition facture"
+  creating_invoice: "Création facture"
+  editing_customers: "Edition client"
+  creating_customers: "Création client"
+  editing_wares: "Edition marchandise"
+  editing_services: "Edition prestation"
+  creating_services: "Création prestation"
+  editing_quotation: "Edition devis"
+  creating_quotation: "Création devis"
+  editing_project: "Edition projet"
+  creating_project: "Création projet"
+  logout: "Déconnexion"
+  locale_changed: "Langue changée avec succès"
+  FR: "FR"
+  EN: "EN"

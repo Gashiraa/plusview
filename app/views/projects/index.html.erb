@@ -1,95 +1,95 @@
 <h2 id="titleBadge"><%= t('project').pluralize %></h2>
+<hr>
+<%= search_form_for @search do |form| %>
+  <div class="form">
+    <div class="row">
 
-<ul class="nav nav-tabs" role="tablist">
-  <li class="nav-item active">
-    <a class="nav-link active" data-toggle="tab" href="#listing" role="tab">Listing</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#new" role="tab">Nouveau projet</a>
-  </li>
-</ul>
-
-<div class="tab-content">
-  <div class="tab-pane fade show active" id="listing">
-    <%= search_form_for @search do |form| %>
-      <div class="form">
-        <div class="row">
-
-          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('project') %>
-            <%= form.collection_select :id_eq, Project.all, :id, :name, {:include_blank => t('all_projects')}, {class: 'form-control', id: 'project_sort_select', onchange: 'this.form.submit();'} %>
-          </div>
-          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('customer') %>
-            <%= form.collection_select :customer_id_eq, Customer.all, :id, :name, {:include_blank => t('all_customers')}, {class: 'form-control', id: 'customer_sort_select', onchange: 'this.form.submit();'} %>
-          </div>
-          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('status') %>
-            <%= form.select :status_eq, Project.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
-          </div>
-          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('from') %>
-            <div class="picker-container">
-              <%= form.text_field :date_gteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off', id: "sortProjectFrom", class: "form-control", onchange: 'this.form.submit();' %>
-            </div>
-          </div>
-          <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
-            <%= form.label t('to') %>
-            <div class="picker-container">
-              <%= form.text_field :date_lteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off', id: "sortProjectTo", class: "form-control", onchange: 'this.form.submit();' %>
-            </div>
-          </div>
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-auto">
+        <%= form.label t('project') %>
+        <%= form.collection_select :id_eq, Project.all, :id, :name, {:include_blank => t('all_projects')}, {class: 'form-control', id: 'project_sort_select', onchange: 'this.form.submit();'} %>
+      </div>
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-auto">
+        <%= form.label t('customer') %>
+        <%= form.collection_select :customer_id_eq, Customer.all, :id, :name, {:include_blank => t('all_customers')}, {class: 'form-control', id: 'customer_sort_select', onchange: 'this.form.submit();'} %>
+      </div>
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-auto">
+        <%= form.label t('status') %>
+        <%= form.select :status_eq, Project.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
+      </div>
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-auto">
+        <%= form.label t('from') %>
+        <div class="picker-container">
+          <%= form.text_field :date_gteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off', id: "sortProjectFrom", class: "form-control", onchange: 'this.form.submit();' %>
         </div>
       </div>
-    <% end %>
-
-    <table class="table table-hover table-striped" id="table-to-color">
-      <thead class=thead-dark>
-      <tr>
-        <th class="centerCell"><%= t('id_locale').upcase %></th>
-        <th><%= t('customer').capitalize %></th>
-        <th><%= t('project_title') %></th>
-        <th class="description-header"><%= t('description') %></th>
-        <th class="centerCell"><%= t('Date') %></th>
-        <th class="centerCell"><%= t('status') %></th>
-        <th class="rightCell"><%= t('gross_cost').to_s + ' (€)' %></th>
-        <th class="rightCell"><%= t('Total').to_s + ' (€)' %></th>
-        <th colspan="3"></th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <% unless @projects.any? %>
-        <tr>
-          <td class="emptyTable" colspan="9">Aucune données à afficher</td>
-        </tr>
-      <% end %>
-      <% @projects.each do |project| %>
-        <tr data-link="<%= edit_project_path project %>">
-          <td class="centerCell"><%= '#' + project.id.to_s %></td>
-          <td><%= project.customer ? project.customer.name : nil %></td>
-          <td><%= project.name %></td>
-          <td><%= project.description %></td>
-          <td class="centerCell"><%= l(project.date) %></td>
-          <td class="centerCell" id="status-cell"><%= project.status %></td>
-          <td class="rightCell"><%= number_with_precision project.total_gross, :precision => 2 %></td>
-          <td class="rightCell"><%= number_with_precision project.total, :precision => 2 %></td>
-          <td class="centerCell">
-            <%= link_to project, method: :delete, data: {confirm: t('confirm_delete')} do %>
-              <%= image_tag("delete-icon.png", size: "30x30") %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <br>
-    <div class="flickr_pagination">
-      <%= will_paginate @projects %>
+      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-auto">
+        <%= form.label t('to') %>
+        <div class="picker-container">
+          <%= form.text_field :date_lteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off', id: "sortProjectTo", class: "form-control", onchange: 'this.form.submit();' %>
+        </div>
+      </div>
+      <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
+        <%= link_to '+', new_project_path, {class: 'btn btn-info', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+      </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="new">
-    <%= render 'projects/new' %>
+<% end %>
+
+<table class="table table-hover table-striped" id="table-to-color">
+  <thead class=thead-dark>
+  <tr>
+    <th class="centerCell"><%= t('id_locale').upcase %></th>
+    <th><%= t('customer').capitalize %></th>
+    <th><%= t('project_title') %></th>
+    <th class="description-header"><%= t('description') %></th>
+    <th class="centerCell"><%= t('Date') %></th>
+    <th class="centerCell"><%= t('status') %></th>
+    <th class="rightCell"><%= t('gross_cost').to_s + ' (€)' %></th>
+    <th class="rightCell"><%= t('Total').to_s + ' (€)' %></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% unless @projects.any? %>
+    <tr>
+      <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+    </tr>
+  <% end %>
+  <% @projects.each do |project| %>
+    <tr>
+      <td class="centerCell"><%= '#' + project.id.to_s %></td>
+      <td><%= project.customer ? project.customer.name : nil %></td>
+      <td><%= project.name %></td>
+      <td><%= project.description %></td>
+      <td class="centerCell"><%= project.date ? l(project.date) : "" %></td>
+      <td class="centerCell" id="status-cell"><%= project.status %></td>
+      <td class="rightCell"><%= number_with_precision project.total_gross, :precision => 2 %></td>
+      <td class="rightCell"><%= number_with_precision project.total, :precision => 2 %></td>
+      <td class="centerCell">
+        <%= link_to project_path(project) do %>
+          <%= image_tag("open-icon.png", size: "30x30") %>
+        <% end %>
+        <%= link_to edit_project_path(project), remote: true do %>
+          <%= image_tag("edit-icon.png", size: "30x30") %>
+        <% end %>
+        <%= link_to project, method: :delete, data: {confirm: t('confirm_delete')} do %>
+          <%= image_tag("delete-icon.png", size: "30x30") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<br>
+<div class="flickr_pagination">
+  <%= will_paginate @projects %>
+</div>
+
+<div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+    </div>
   </div>
 </div>
 

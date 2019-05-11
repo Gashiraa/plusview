@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @search = Service.paginate(page: params[:page], per_page: 10).ransack(params[:q])
+    @search = Service.paginate(page: params[:page], per_page: 12).ransack(params[:q])
     @services = @search.result(distinct: true).order(:status)
   end
 
@@ -16,6 +16,7 @@ class ServicesController < ApplicationController
   # GET /services/new
   def new
     @service = Service.new
+    respond_to(&:js)
   end
 
   # GET /services/1/edit
@@ -25,13 +26,13 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.json
   def create
-    @service = Service.new(service_params_create)
+    @service = Service.new(service_params)
 
     respond_to do |format|
       if @service.save
         @service.project&.update_totals_project(@service.project)
         @service.project&.invoice&.update_totals_invoice(@service.project.invoice, @service.project.invoice.projects, @service.project.invoice.wares)
-        format.html {redirect_to services_url, notice: t('service_add_success')}
+        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('service_add_success')}
         format.json {render :show, status: :created, location: @service}
       else
         format.html {render :new}
@@ -47,7 +48,7 @@ class ServicesController < ApplicationController
       if @service.update(service_params)
         @service.project&.update_totals_project(@service.project)
         @service.project&.invoice&.update_totals_invoice(@service.project.invoice, @service.project.invoice.projects, @service.project.invoice.wares)
-        format.html {redirect_to services_url, notice: t('service_update_success')}
+        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('service_update_success')}
         format.json {render :show, status: :ok, location: @service}
       else
         format.html {render :edit}
@@ -63,7 +64,7 @@ class ServicesController < ApplicationController
     @service.project&.update_totals_project(@service.project)
     @service.project&.invoice&.update_totals_invoice(@service.project.invoice, @service.project.invoice.projects, @service.project.invoice.wares)
     respond_to do |format|
-      format.html {redirect_to services_url, notice: t('service_destroy_success')}
+      format.html {redirect_to request.env["HTTP_REFERER"], notice: t('service_destroy_success')}
       format.json {head :no_content}
     end
   end
@@ -76,9 +77,6 @@ class ServicesController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def service_params_create
-    params.permit(:project_id, :total_gross, :invoice_id, :customer_id, :quotation_id, :name, :comment, :hourly_rate, :coefficient, :date, :duration, :status, :tva_rate, :total_cost)
-  end
 
   def service_params
     params.require(:service).permit(:project_id, :total_gross, :invoice_id, :customer_id, :quotation_id, :name, :comment, :hourly_rate, :coefficient, :date, :duration, :status, :tva_rate, :total_cost)

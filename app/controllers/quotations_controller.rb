@@ -6,7 +6,7 @@ class QuotationsController < ApplicationController
   # GET /quotations
   # GET /quotations.json
   def index
-    @search = Quotation.paginate(page: params[:page], per_page: 10).ransack(params[:q])
+    @search = Quotation.paginate(page: params[:page], per_page: 12).ransack(params[:q])
     @quotations = @search.result(distinct: true).order(:status)
   end
 
@@ -26,7 +26,13 @@ class QuotationsController < ApplicationController
                encoding: 'utf8',
                lowquality: true,
                zoom: 1,
-               dpi: 75
+               dpi: 75,
+               :margin => { :bottom => 35 },
+               footer: {
+                   html: {
+                       template: 'layouts/pdf_footer.html.erb'
+                   },
+               }
       end
     end
   end
@@ -34,6 +40,7 @@ class QuotationsController < ApplicationController
   # GET /quotations/new
   def new
     @quotation = Quotation.new
+    respond_to(&:js)
   end
 
   def scope
@@ -46,7 +53,7 @@ class QuotationsController < ApplicationController
   # POST /quotations
   # POST /quotations.json
   def create
-    @quotation = Quotation.new(quotation_params_create)
+    @quotation = Quotation.new(quotation_params)
 
     respond_to do |format|
       if @quotation.save
@@ -86,17 +93,12 @@ class QuotationsController < ApplicationController
   end
 
   private
-
   # Use callbacks to share common setup or constraints between actions.
   def set_quotation
     @quotation = Quotation.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def quotation_params_create
-    params.permit(:date, :status, :total, :total_gross, :customer_id, :project_id)
-  end
-
   def quotation_params
     params.require(:quotation).permit(:date, :status, :total, :total_gross, :customer_id, :project_id)
   end

@@ -4,7 +4,7 @@ class ExtrasController < ApplicationController
   # GET /extras
   # GET /extras.json
   def index
-    @search = Extra.paginate(page: params[:page], per_page: 10).ransack(params[:q])
+    @search = Extra.paginate(page: params[:page], per_page: 12).ransack(params[:q])
     @extras = @search.result(distinct: true)
   end
 
@@ -34,7 +34,7 @@ class ExtrasController < ApplicationController
     @extra = Extra.new(extra_params)
     respond_to do |format|
       if @extra.save
-        format.html { redirect_to extras_path, notice: 'Extra was successfully created.' }
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: t('extra_add_success') }
         format.json { render :show, status: :created, location: @extra }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@ class ExtrasController < ApplicationController
   def update
     respond_to do |format|
       if @extra.update(extra_params)
-        format.html { redirect_to extras_path, notice: 'Extra was successfully created.' }
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: t('extra_update_success')}
         format.json { render :show, status: :ok, location: @extra }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class ExtrasController < ApplicationController
   def destroy
     @extra.destroy
     respond_to do |format|
-      format.html { redirect_to extras_path, notice: 'Extra was successfully created.' }
+      format.html { redirect_to request.env["HTTP_REFERER"], notice: t('extra_delete_success') }
       format.json { head :no_content }
     end
   end

@@ -1,5 +1,12 @@
-<%= form_with(model: @ware, local: true, id: 'waresForm', html: {autocomplete: 'off'}) do |form| %>
+<%= form_with(model: @ware, id: 'waresForm', html: {autocomplete: 'off'}) do |form| %>
   <div class="form center-div">
+
+    <% if @ware.id %>
+      <h3><%= t('editing_wares') %></h3>
+    <% else %>
+      <h3><%= t('creating_wares') %></h3>
+    <% end %>
+
     <div class="form-row">
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('project') %>
@@ -40,6 +47,7 @@
         <%= form.label t('comment') %>
         <%= form.text_area :comment, class: "form-control", autocomplete: 'nope' %>
       </div>
+
     </div>
 
     <hr>
@@ -169,7 +177,5 @@
                           elsif {}
                           end %>
     </div>
-    <%= link_to 'Retour', url_for(:back) %>
-
   </div>
 <% end %>

@@ -1,5 +1,12 @@
 <%= form_with(model: @invoice, local: true, html: {autocomplete: 'off'}) do |form| %>
   <div class="form center-div">
+
+    <% if @invoice.id %>
+      <h3><%= t('editing_invoice') %></h3>
+    <% else %>
+      <h3><%= t('creating_invoice') %></h3>
+    <% end %>
+
     <div class="form-row">
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
@@ -30,9 +37,14 @@
 
       <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
         <%= form.label t('projects_done').pluralize %>
-        <%= form.select(:project_ids, Project.where(status: 'Terminé')
-            .or(Project.where(invoice_id: @invoice ? @invoice : -1))
-            .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'select_projects_invoice', autocomplete: 'nope', :multiple => true}) %>
+        <% if @invoice.id %>
+          <%= form.select(:project_ids, Project.where(status: 'Terminé')
+              .or(Project.where(invoice_id: @invoice.id))
+              .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'select_projects_invoice', autocomplete: 'nope', :multiple => true}) %>
+        <% else %>
+          <%= form.select(:project_ids, Project.where(status: 'Terminé')
+              .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'select_projects_invoice', autocomplete: 'nope', :multiple => true}) %>
+        <% end %>
       </div>
 
       <div class="col-12 createButton">

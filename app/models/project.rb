@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   has_many :wares, dependent: :nullify
   has_many :services, dependent: :nullify
 
-  has_many :project_extra_lines
+  has_many :project_extra_lines, dependent: :nullify
   has_many :extra, through: :project_extra_lines
 
   enum status: [:Devis, :'En réalisation', :'Terminé', :'Facturé', :'Payé']
