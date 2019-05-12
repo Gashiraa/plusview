@@ -25,12 +25,23 @@
 <table class="table table-hover table-striped" id="table-to-color">
   <thead class=thead-dark>
   <tr>
-    <th class="centerCell"><%= t(:project).capitalize %></th>
-    <th><%= t('customer').capitalize %></th>
-    <th><%= t('ware_name') %></th>
-    <th><%= t('provider_name') %></th>
-    <th><%= t('comment') %></th>
-    <th class="centerCell"><%= t('status') %></th>
+    <th class="centerCell ">
+      <%= sortable "wares", 'project_id' %>
+    </th>
+    <th>
+      <%= sortable "wares", '"customers"."name"', t("customer")%>
+    </th>
+    <th>
+      <%= sortable "wares", "ware_name" %>
+    </th>
+    <th>
+      <%= sortable "wares", "provider_name" %>
+    </th>
+    <th>
+      <%= sortable "wares", "comment" %>
+    </th>
+    <th class="centerCell">
+      <%= sortable "wares", "status" %></th>
     <th></th>
   </tr>
   </thead>
@@ -48,9 +59,9 @@
           <% if current_user.isAdmin %>
             <%= (link_to '#' + ware.project.id.to_s, project_path(ware.project.id)) %>
           <% else %>
-          <%= '#' + ware.project.id.to_s %>
+            <%= '#' + ware.project.id.to_s %>
           <% end %>
-      <% end %>
+        <% end %>
       </td>
       <td>
         <%= # noinspection RubyNestedTernaryOperatorsInspection

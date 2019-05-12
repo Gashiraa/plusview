@@ -3,20 +3,12 @@
 class ProjectsController < ApplicationController
 
   before_action :set_project, only: %i[show edit update destroy]
-  before_action :get_user
-
-  include Devise::Controllers::Helpers
-  helper_method :current_user
-
-  def get_user
-    @user = current_user
-  end
 
   # GET /projects
   # GET /projects.json
   def index
     @search = Project.paginate(page: params[:page], per_page: 12).ransack(params[:q])
-    @projects = @search.result(distinct: true).order(:status)
+    @projects = @search.result(distinct: true).order(date: :desc)
   end
 
   # GET /projects/1

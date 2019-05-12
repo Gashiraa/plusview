@@ -70,18 +70,40 @@ $(document).on("turbolinks:load", function () {
             window.location = $(this).data("link")
         });
 
-        //Row sorting
-        $('th').click(function () {
-            var table = $(this).parents('table').eq(0);
-            var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
-            this.asc = !this.asc;
-            if (!this.asc) {
-                rows = rows.reverse()
-            }
-            for (var i = 0; i < rows.length; i++) {
-                table.append(rows[i])
+        $("th a").on("change", function () {
+            let img = new Image();
+            if (this.classList.contains('asc')) {
+                img.src = "/assets/arrow-up.png";
+                this.parentElement.append(img)
             }
         });
+
+//         //Row sorting
+//         $('th').click(function () {
+//             var table = $(this).parents('table').eq(0);
+//             var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+//             this.asc = !this.asc;
+//             if (!this.asc) {
+//                 rows = rows.reverse()
+//             }
+//             for (var i = 0; i < rows.length; i++) {
+//                 table.append(rows[i])
+//             }
+//         });
+//
+//
+// //Row sorting
+//         function comparer(index) {
+//             return function (a, b) {
+//                 var valA = getCellValue(a, index), valB = getCellValue(b, index);
+//                 return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
+//             }
+//         }
+//
+// //Row sorting
+//         function getCellValue(row, index) {
+//             return $(row).children('td').eq(index).text()
+//         }
 
         //Notification fader
         setTimeout(function () {
@@ -143,18 +165,6 @@ function autoFormatDatePicker(picker) {
     }
 }
 
-//Row sorting
-function comparer(index) {
-    return function (a, b) {
-        var valA = getCellValue(a, index), valB = getCellValue(b, index);
-        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
-    }
-}
-
-//Row sorting
-function getCellValue(row, index) {
-    return $(row).children('td').eq(index).text()
-}
 
 //Color lines status
 function colorTable(tableToColor) {

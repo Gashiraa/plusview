@@ -1,11 +1,16 @@
 class WaresController < ApplicationController
   before_action :set_ware, only: %i[show edit update destroy]
+  helper_method :sort_column, :sort_direction
 
   # GET /wares
   # GET /wares.json
   def index
-    @search = Ware.paginate(page: params[:page], per_page: 12).ransack(params[:q])
-    @wares = @search.result(distinct: true).order(:status)
+    @search = Ware.joins('LEFT JOIN "customers" ON "wares"."customer_id" = "customers"."id" ')
+                  .order(sort_column + " " + sort_direction)
+                  .select('wares.id, wares.status, project_id, wares.customer_id, ware_name,comment, provider_name, customers.name')
+                  .paginate(page: params[:page], per_page: 4)
+                  .ransack(params[:q])
+    @wares = @search.result(distinct: true)
   end
 
   # GET /wares/1
@@ -38,7 +43,7 @@ class WaresController < ApplicationController
 
         # update linked project's invoice
         @ware.project&.invoice&.update_totals_invoice(@ware.project.invoice, @ware.project.invoice.projects, @ware.project.invoice.wares)
-        format.html { redirect_to request.env["HTTP_REFERER"] , notice: t('ware_add_success')}
+        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('ware_add_success')}
         format.json {render :show, status: :created, location: @ware}
       else
         format.html {render :new}
@@ -97,5 +102,13 @@ class WaresController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def ware_params
     params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :margin, :provider_price, :bought_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :sell_price, :provider_invoice, :ware_name)
+  end
+
+  def sort_column
+    params[:sort] || "status"
+  end
+
+  def sort_direction
+    params[:direction] || "asc"
   end
 end
