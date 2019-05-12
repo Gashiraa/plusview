@@ -1,14 +1,15 @@
 class WaresController < ApplicationController
   before_action :set_ware, only: %i[show edit update destroy]
+
   helper_method :sort_column, :sort_direction
 
   # GET /wares
   # GET /wares.json
   def index
-    @search = Ware.joins('LEFT JOIN "customers" ON "wares"."customer_id" = "customers"."id" ')
+    @search = Ware.paginate(page: params[:page], per_page: 12)
+                  .joins('LEFT JOIN "customers" ON "wares"."customer_id" = "customers"."id" ')
                   .order(sort_column + " " + sort_direction)
                   .select('wares.id, wares.status, project_id, wares.customer_id, ware_name,comment, provider_name, customers.name')
-                  .paginate(page: params[:page], per_page: 4)
                   .ransack(params[:q])
     @wares = @search.result(distinct: true)
   end

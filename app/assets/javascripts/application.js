@@ -70,10 +70,22 @@ $(document).on("turbolinks:load", function () {
             window.location = $(this).data("link")
         });
 
-        $("th a").on("change", function () {
+        $.each($('th a'), function () {
             let img = new Image();
             if (this.classList.contains('asc')) {
+                img.src = "/assets/arrow-down.png";
+                img.style.height = '10px';
+                img.style.width = '10px';
+                this.parentElement.append(img)
+            }
+        });
+
+        $.each($('th a'), function () {
+            let img = new Image();
+            if (this.classList.contains('desc')) {
                 img.src = "/assets/arrow-up.png";
+                img.style.height = '10px';
+                img.style.width = '10px';
                 this.parentElement.append(img)
             }
         });

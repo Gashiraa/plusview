@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   authenticated :user do
     root to: 'projects#index', constraints: lambda {|request| request.env['warden'].user.isAdmin}
-    root to: 'wares#index'
+    root to: 'wares#index', constraints: lambda {|request| !request.env['warden'].user.isAdmin}
   end
 
   resources :services, constraints: lambda {|request| request.env['warden'].user.isAdmin}
