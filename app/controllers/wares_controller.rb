@@ -7,11 +7,14 @@ class WaresController < ApplicationController
   # GET /wares.json
   def index
     @search = Ware.paginate(page: params[:page], per_page: 12)
-                  .joins('LEFT JOIN "customers" ON "wares"."customer_id" = "customers"."id" ')
+                  .joins('LEFT JOIN customers ON wares.customer_id = customers.id ')
+                  .joins('LEFT JOIN projects ON wares.project_id = projects.id ')
+                  .joins('LEFT JOIN customers AS c ON projects.customer_id = c.id')
                   .order(sort_column + " " + sort_direction)
-                  .select('wares.id, wares.status, project_id, wares.customer_id, ware_name,comment, provider_name, customers.name')
+                  .select('wares.id, wares.status, project_id, wares.customer_id, ware_name, comment,
+                  provider_name, coalesce(c.name, customers.name)')
                   .ransack(params[:q])
-    @wares = @search.result(distinct: true)
+                  @wares = @search.result(distinct: true)
   end
 
   # GET /wares/1
@@ -106,10 +109,14 @@ class WaresController < ApplicationController
   end
 
   def sort_column
-    params[:sort] || "status"
+    if params[:sort] == "customers.name"
+      "coalesce(c.name, customers.name)"
+    else
+      params[:sort] || "status"
+    end
   end
 
   def sort_direction
-    params[:direction] || "asc"
+      params[:direction] || "asc"
   end
 end

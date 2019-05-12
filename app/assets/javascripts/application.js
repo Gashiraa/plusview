@@ -72,20 +72,15 @@ $(document).on("turbolinks:load", function () {
 
         $.each($('th a'), function () {
             let img = new Image();
+            img.style.height = '10px';
+            img.style.width = '10px';
+            img.style.marginLeft = '1vw';
             if (this.classList.contains('asc')) {
                 img.src = "/assets/arrow-down.png";
-                img.style.height = '10px';
-                img.style.width = '10px';
                 this.parentElement.append(img)
             }
-        });
-
-        $.each($('th a'), function () {
-            let img = new Image();
             if (this.classList.contains('desc')) {
                 img.src = "/assets/arrow-up.png";
-                img.style.height = '10px';
-                img.style.width = '10px';
                 this.parentElement.append(img)
             }
         });
