@@ -75,6 +75,7 @@
 
     .centerCell {
       text-align: center;
+
       img {
         margin-right: 1vw;
       }
@@ -92,14 +93,29 @@
         border-top: 0.05px solid rgba(0, 0, 0, 0.17);
       }
 
+      th .current {
+        padding-right: 12px;
+        background-repeat: no-repeat;
+        background-position: right center;
+      }
+
+      th {
+        a, a :link, a :active, a :hover, a :visited {
+          color: white;
+          text-decoration: none;
+        }
+      }
+
       td:first-letter {
         text-transform: uppercase;
       }
     }
 
+
     .description-header {
       width: 30vw;
     }
+
   }
 
   .picker-container {
@@ -129,6 +145,7 @@
   .tab-content {
     margin-top: 1%;
   }
+
 }
 
 #notice {
@@ -506,16 +523,3 @@
 .flickr_pagination .next_page {
   margin-left: 1em;
 }
-
-th .current {
-  padding-right: 12px;
-  background-repeat: no-repeat;
-  background-position: right center;
-}
-//th .asc {
-//  background-image: url(arrow-down.png);
-//}
-//
-//th .desc {
-//  background-image: url(arrow-up.png);
-//}

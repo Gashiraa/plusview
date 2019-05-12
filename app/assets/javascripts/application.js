@@ -62,7 +62,7 @@ $(document).on("turbolinks:load", function () {
         });
 
         //Clickable rows
-        $("tr[data-link]").click(function () {
+        $("th[data-link]").click(function () {
             console.log(event);
             if (event.target.localName === "a") {
                 event.stopPropagation();
@@ -74,7 +74,7 @@ $(document).on("turbolinks:load", function () {
             let img = new Image();
             img.style.height = '10px';
             img.style.width = '10px';
-            img.style.marginLeft = '1vw';
+            img.style.marginLeft = '0.5vw';
             if (this.classList.contains('asc')) {
                 img.src = "/assets/arrow-down.png";
                 this.parentElement.append(img)
