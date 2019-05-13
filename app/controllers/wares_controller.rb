@@ -1,20 +1,11 @@
 class WaresController < ApplicationController
   before_action :set_ware, only: %i[show edit update destroy]
 
-  helper_method :sort_column, :sort_direction
-
   # GET /wares
   # GET /wares.json
   def index
-    @search = Ware.paginate(page: params[:page], per_page: 12)
-                  .joins('LEFT JOIN customers ON wares.customer_id = customers.id ')
-                  .joins('LEFT JOIN projects ON wares.project_id = projects.id ')
-                  .joins('LEFT JOIN customers AS c ON projects.customer_id = c.id')
-                  .order(sort_column + " " + sort_direction)
-                  .select('wares.id, wares.status, project_id, wares.customer_id, ware_name, comment,
-                  provider_name, coalesce(c.name, customers.name)')
-                  .ransack(params[:q])
-                  @wares = @search.result(distinct: true)
+    @search = Ware.ransack(params[:q])
+    @wares = @search.result.paginate(page: params[:page], per_page: 12)
   end
 
   # GET /wares/1
@@ -108,15 +99,4 @@ class WaresController < ApplicationController
     params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :margin, :provider_price, :bought_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :sell_price, :provider_invoice, :ware_name)
   end
 
-  def sort_column
-    if params[:sort] == "customers.name"
-      "coalesce(c.name, customers.name)"
-    else
-      params[:sort] || "status"
-    end
-  end
-
-  def sort_direction
-      params[:direction] || "asc"
-  end
 end

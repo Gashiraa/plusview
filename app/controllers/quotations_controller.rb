@@ -3,11 +3,12 @@
 class QuotationsController < ApplicationController
   before_action :set_quotation, only: %i[show edit update destroy]
 
+
   # GET /quotations
   # GET /quotations.json
   def index
-    @search = Quotation.paginate(page: params[:page], per_page: 12).ransack(params[:q])
-    @quotations = @search.result(distinct: true).order(:status)
+    @search = Quotation.ransack(params[:q])
+    @quotations = @search.result(distinct: true).paginate(page: params[:page], per_page: 12)
   end
 
   # GET /quotations/1
@@ -18,7 +19,7 @@ class QuotationsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: t('quotation')+"_#{@quotation.id}",
+        render pdf: t('quotation') + "_#{@quotation.id}",
                page_size: 'A4',
                template: 'quotations/show.html.erb',
                layout: 'pdf.html',
@@ -27,11 +28,11 @@ class QuotationsController < ApplicationController
                lowquality: true,
                zoom: 1,
                dpi: 75,
-               :margin => { :bottom => 35 },
+               margin: { bottom: 35 },
                footer: {
-                   html: {
-                       template: 'layouts/pdf_footer.html.erb'
-                   },
+                 html: {
+                   template: 'layouts/pdf_footer.html.erb'
+                 }
                }
       end
     end
@@ -93,6 +94,7 @@ class QuotationsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_quotation
     @quotation = Quotation.find(params[:id])
@@ -102,4 +104,5 @@ class QuotationsController < ApplicationController
   def quotation_params
     params.require(:quotation).permit(:date, :status, :total, :total_gross, :customer_id, :project_id)
   end
+
 end

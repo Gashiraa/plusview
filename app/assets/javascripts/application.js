@@ -70,48 +70,6 @@ $(document).on("turbolinks:load", function () {
             window.location = $(this).data("link")
         });
 
-        $.each($('th a'), function () {
-            let img = new Image();
-            img.style.height = '10px';
-            img.style.width = '10px';
-            img.style.marginLeft = '0.5vw';
-            if (this.classList.contains('asc')) {
-                img.src = "/assets/arrow-down.png";
-                this.parentElement.append(img)
-            }
-            if (this.classList.contains('desc')) {
-                img.src = "/assets/arrow-up.png";
-                this.parentElement.append(img)
-            }
-        });
-
-//         //Row sorting
-//         $('th').click(function () {
-//             var table = $(this).parents('table').eq(0);
-//             var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
-//             this.asc = !this.asc;
-//             if (!this.asc) {
-//                 rows = rows.reverse()
-//             }
-//             for (var i = 0; i < rows.length; i++) {
-//                 table.append(rows[i])
-//             }
-//         });
-//
-//
-// //Row sorting
-//         function comparer(index) {
-//             return function (a, b) {
-//                 var valA = getCellValue(a, index), valB = getCellValue(b, index);
-//                 return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
-//             }
-//         }
-//
-// //Row sorting
-//         function getCellValue(row, index) {
-//             return $(row).children('td').eq(index).text()
-//         }
-
         //Notification fader
         setTimeout(function () {
             $('#notice').fadeOut();
@@ -127,30 +85,30 @@ $(document).on("turbolinks:load", function () {
 
         //Badges titles
         let title = document.getElementById("titleBadge");
-        switch (title.innerText) {
-            case 'PROJETS' :
-            case 'PROJET' :
+        switch (title.getAttribute('display')) {
+            case 'projects' :
+            case 'project' :
                 title.style.backgroundColor = "#32469b";
                 break;
-            case 'MARCHANDISES' :
+            case 'wares' :
                 title.style.backgroundColor = "#6f3e9b";
                 break;
-            case 'PRESTATIONS' :
+            case 'services' :
                 title.style.backgroundColor = "#9b4b5b";
                 break;
-            case 'CLIENTS' :
+            case 'customers' :
                 title.style.backgroundColor = "#9b724c";
                 break;
-            case 'DEVIS' :
+            case 'quotations' :
                 title.style.backgroundColor = "#3c769b";
                 break;
-            case 'FACTURES' :
+            case 'invoices' :
                 title.style.backgroundColor = "#819b4c";
                 break;
-            case 'PAIEMENT' :
+            case 'payments' :
                 title.style.backgroundColor = "#479b46";
                 break;
-            case 'DIVERS' :
+            case 'extras' :
                 title.style.backgroundColor = "#9b7311";
                 break;
             default:

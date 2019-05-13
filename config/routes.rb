@@ -8,14 +8,7 @@ Rails.application.routes.draw do
     patch 'users' => 'devise/registrations#update', :as => 'user_registration'
   end
 
-  unauthenticated :user do
-    root to: 'projects#index'
-  end
-
-  authenticated :user do
-    root to: 'projects#index', constraints: lambda {|request| request.env['warden'].user.isAdmin}
-    root to: 'wares#index', constraints: lambda {|request| !request.env['warden'].user.isAdmin}
-  end
+  root to: 'wares#index'
 
   resources :services, constraints: lambda {|request| request.env['warden'].user.isAdmin}
   resources :extras, constraints: lambda {|request| request.env['warden'].user.isAdmin}

@@ -1,4 +1,4 @@
-<h2 id="titleBadge"><%= t('ware').pluralize %></h2>
+<h2 id="titleBadge" display="wares"><%= t('ware').pluralize %></h2>
 <hr>
 <%= search_form_for @search do |form| %>
   <div class="form">
@@ -16,7 +16,7 @@
         <%= form.select :status_eq, Ware.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
       </div>
       <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
-        <%= link_to '+', new_ware_path, {class: 'btn btn-info', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to '+', new_ware_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </div>
 
     </div>
@@ -25,23 +25,23 @@
 <table class="table table-hover table-striped" id="table-to-color">
   <thead class=thead-dark>
   <tr>
-    <th class="centerCell ">
-      <%= sortable "wares", 'project_id' %>
+    <th class="center-cell ">
+      <%= sort_link(@search, :project_id, t('project')) %>
     </th>
     <th>
-      <%= sortable "wares", "customers.name", t("customer")%>
+      <%= sort_link(@search, :customer_id, t('customer')) %>
     </th>
     <th>
-      <%= sortable "wares", "ware_name" %>
+      <%= sort_link(@search, :ware_name, t('ware_name')) %>
     </th>
     <th>
-      <%= sortable "wares", "provider_name" %>
+      <%= sort_link(@search, :provider_name, t('provider_name')) %>
     </th>
     <th>
-      <%= sortable "wares", "comment" %>
+      <%= sort_link(@search, :comment, t('comment')) %>
     </th>
-    <th class="centerCell">
-      <%= sortable "wares", "status" %></th>
+    <th class="center-cell">
+      <%= sort_link(@search, :status, t('status')) %>
     <th></th>
   </tr>
   </thead>
@@ -54,7 +54,7 @@
   <% end %>
   <% @wares.each do |ware| %>
     <tr>
-      <td class="centerCell">
+      <td class="center-cell">
         <% if ware.project %>
           <% if current_user.isAdmin %>
             <%= (link_to '#' + ware.project.id.to_s, project_path(ware.project.id)) %>
@@ -70,8 +70,8 @@
       <td><%= ware.ware_name %></td>
       <td><%= ware.provider_name %></td>
       <td><%= ware.comment %></td>
-      <td class="centerCell" id="status-cell"><%= ware.status %></td>
-      <td class="centerCell">
+      <td class="center-cell" id="status-cell"><%= ware.status %></td>
+      <td class="center-cell">
         <%= link_to edit_ware_path(ware), remote: true do %>
           <%= image_tag("edit-icon.png", size: "30x30") %>
         <% end %>

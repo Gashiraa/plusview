@@ -1,12 +1,11 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
-
   # GET /customers
   # GET /customers.json
   def index
-    @search = Customer.paginate(page: params[:page], per_page: 12).ransack(params[:q])
-    @customers = @search.result(distinct: true).order(:name)
+    @search = Customer.ransack(params[:q])
+    @customers = @search.result(distinct: true).order(:name).paginate(page: params[:page], per_page: 12)
   end
 
   # GET /customers/1
@@ -31,7 +30,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html {redirect_to customers_url, notice: t('customer_add_success')}
+        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('customer_add_success')}
         format.json {render :show, status: :created, location: @customer}
       else
         format.html {render :new}
@@ -45,7 +44,7 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
-        format.html {redirect_to customers_url, notice: t('customer_update_success')}
+        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('customer_update_success')}
         format.json {render :show, status: :ok, location: @customer}
       else
         format.html {render :edit}
@@ -59,7 +58,7 @@ class CustomersController < ApplicationController
   def destroy
     @customer.destroy
     respond_to do |format|
-      format.html {redirect_to customers_url, notice: t('customer_detroy_success')}
+      format.html {redirect_to request.env["HTTP_REFERER"], notice: t('customer_detroy_success')}
       format.json {head :no_content}
     end
   end

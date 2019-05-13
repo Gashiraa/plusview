@@ -1,4 +1,4 @@
-<h2 id="titleBadge"><%= t('project').pluralize %></h2>
+<h2 id="titleBadge" display="projects"><%= t('project').pluralize %></h2>
 <hr>
 <%= search_form_for @search do |form| %>
   <div class="form">
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
-        <%= link_to '+', new_project_path, {class: 'btn btn-info', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to '+', new_project_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </div>
     </div>
   </div>
@@ -38,14 +38,30 @@
 <table class="table table-hover table-striped" id="table-to-color">
   <thead class=thead-dark>
   <tr>
-    <th class="centerCell"><%= t('id_locale').upcase %></th>
-    <th><%= t('customer').capitalize %></th>
-    <th><%= t('project_title') %></th>
-    <th class="description-header"><%= t('description') %></th>
-    <th class="centerCell"><%= t('Date') %></th>
-    <th class="centerCell"><%= t('status') %></th>
-    <th class="rightCell"><%= t('gross_cost').to_s + ' (€)' %></th>
-    <th class="rightCell"><%= t('Total').to_s + ' (€)' %></th>
+    <th class="center-cell">
+      <%= sort_link(@search, :id, t('id_locale')) %>
+    </th>
+    <th>
+      <%= sort_link(@search, :customer_id, t('customer')) %>
+    </th>
+    <th>
+      <%= sort_link(@search, :name, t('project_title')) %>
+    </th>
+    <th class="description-header">
+      <%= sort_link(@search, :description, t('description')) %>
+    </th>
+    <th class="center-cell">
+      <%= sort_link(@search, :date, t('date_locale')) %>
+    </th>
+    <th class="center-cell">
+      <%= sort_link(@search, :status, t('status')) %>
+    </th>
+    <th class="right-cell">
+      <%= sort_link(@search, :gross_cost, t('gross_cost').to_s + ' (€)') %>
+    </th>
+    <th class="right-cell">
+      <%= sort_link(@search, :gross_cost, t('total').to_s + ' (€)') %>
+    </th>
     <th></th>
   </tr>
   </thead>
@@ -58,15 +74,15 @@
   <% end %>
   <% @projects.each do |project| %>
     <tr>
-      <td class="centerCell"><%= '#' + project.id.to_s %></td>
+      <td class="center-cell"><%= '#' + project.id.to_s %></td>
       <td><%= project.customer ? project.customer.name : nil %></td>
       <td><%= project.name %></td>
       <td><%= project.description %></td>
-      <td class="centerCell"><%= project.date ? l(project.date) : "" %></td>
-      <td class="centerCell" id="status-cell"><%= project.status %></td>
-      <td class="rightCell"><%= number_with_precision project.total_gross, :precision => 2 %></td>
-      <td class="rightCell"><%= number_with_precision project.total, :precision => 2 %></td>
-      <td class="centerCell">
+      <td class="center-cell"><%= project.date ? l(project.date) : "" %></td>
+      <td class="center-cell" id="status-cell"><%= project.status %></td>
+      <td class="right-cell"><%= number_with_precision project.total_gross, :precision => 2 %></td>
+      <td class="right-cell"><%= number_with_precision project.total, :precision => 2 %></td>
+      <td class="center-cell">
         <%= link_to project_path(project) do %>
           <%= image_tag("open-icon.png", size: "30x30") %>
         <% end %>

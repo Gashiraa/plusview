@@ -6,8 +6,8 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @search = Invoice.paginate(page: params[:page], per_page: 12).ransack(params[:q])
-    @invoices = @search.result(distinct: true).order(:status)
+    @search = Invoice.ransack(params[:q])
+    @invoices = @search.result(distinct: true).order(:status).paginate(page: params[:page], per_page: 12)
   end
 
   # GET /invoices/1
@@ -34,7 +34,7 @@ class InvoicesController < ApplicationController
                lowquality: true,
                zoom: 1,
                dpi: 75,
-               :margin => { :bottom => 35 },
+               :margin => {:bottom => 35},
                footer: {
                    html: {
                        template: 'layouts/pdf_footer.html.erb'
@@ -108,4 +108,5 @@ class InvoicesController < ApplicationController
   def invoice_params
     params.require(:invoice).permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], project_ids: [])
   end
+
 end

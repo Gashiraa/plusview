@@ -7,8 +7,8 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @search = Project.paginate(page: params[:page], per_page: 12).ransack(params[:q])
-    @projects = @search.result(distinct: true).order(date: :desc)
+    @search = Project.order(date: :desc).ransack(params[:q])
+    @projects = @search.result(distinct: true).paginate(page: params[:page], per_page: 12)
   end
 
   # GET /projects/1
@@ -80,4 +80,5 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross, :date, :description)
   end
+
 end

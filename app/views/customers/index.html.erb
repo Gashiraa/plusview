@@ -1,4 +1,4 @@
-<h2 id="titleBadge"><%= t('customer').pluralize %></h2>
+<h2 id="titleBadge" display="customers"><%= t('customer').pluralize %></h2>
 <hr>
 <%= search_form_for @search do |form| %>
   <div class="form">
@@ -12,7 +12,7 @@
         <%= form.select :locality_eq, Customer.distinct.order(:locality).pluck(:locality), {:include_blank => t('all_customer_localities')}, {class: 'form-control', id: 'customer_locality_select', onchange: 'this.form.submit();'} %>
       </div>
       <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
-        <%= link_to '+', new_customer_path, {class: 'btn btn-info', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to '+', new_customer_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </div>
     </div>
   </div>
@@ -20,14 +20,30 @@
 <table class="table table-hover table-striped" id="table-to-color">
   <thead class=thead-dark>
   <tr>
-    <th><%= t('Name') %></th>
-    <th><%= t('mail') %></th>
-    <th><%= t('tva_record') %></th>
-    <th><%= t('street') %></th>
-    <th><%= t('number') %></th>
-    <th><%= t('zip') %></th>
-    <th><%= t('locality') %></th>
-    <th><%= t('country') %></th>
+    <th>
+      <%= sort_link(@search, :name, t('customer_name')) %>
+    </th>
+    <th>
+      <%= sort_link(@search, :mail, t('mail')) %>
+    </th>
+    <th>
+      <%= sort_link(@search, :tva_record, t('tva_record')) %>
+    </th>
+    <th>
+      <%= sort_link(@search, :street, t('street')) %>
+    </th>
+    <th>
+      <%= sort_link(@search, :number, t('number')) %>
+    </th>
+    <th>
+      <%= sort_link(@search, :cp, t('zip')) %>
+    </th>
+    <th>
+      <%= sort_link(@search, :locality, t('locality')) %>
+    </th>
+    <th>
+      <%= sort_link(@search, :country, t('country')) %>
+    </th>
     <th></th>
   </tr>
   </thead>
@@ -48,7 +64,7 @@
       <td><%= customer.cp %></td>
       <td><%= customer.locality %></td>
       <td><%= customer.country %></td>
-      <td class="centerCell">
+      <td class="center-cell">
         <%= link_to edit_customer_path(customer), remote: true do %>
           <%= image_tag("edit-icon.png", size: "30x30") %>
         <% end %>

@@ -279,3 +279,8 @@ fr:
   locale_changed: Langue changée avec succès
   FR: FR
   EN: EN
+  customer_name: "Nom client"
+  TOTALS: "TOTAUX"
+  total: "Total TTC"
+  back: "Retour"
+  back_to_projects: "Retour aux projets"
