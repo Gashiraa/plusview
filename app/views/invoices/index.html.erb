@@ -26,6 +26,9 @@
   <thead class=thead-dark>
   <tr>
     <th>
+      <%= sort_link(@search, :id, t('invoice_number')) %>
+    </th>
+    <th>
       <%= sort_link(@search, :customer_id, t('customer')) %>
     </th>
     <th>
@@ -35,7 +38,7 @@
       <%= sort_link(@search, :status, t('status')) %>
     </th>
     <th>
-      <%= sort_link(@search, :total_gross, t('gross_cost').to_s + ' (€)' ) %>
+      <%= sort_link(@search, :total_gross, t('gross_cost').to_s + ' (€)') %>
     </th>
     <th>
       <%= sort_link(@search, :total, t('total').to_s + ' (€)') %>
@@ -51,6 +54,9 @@
   <% end %>
   <% @invoices.each do |invoice| %>
     <tr>
+      <td>
+        <%= invoice.id %>
+      </td>
       <td>
         <%= invoice.customer ? invoice.customer.name : '' %>
       </td>

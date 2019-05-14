@@ -1,4 +1,7 @@
+@import "bootstrap";
+
 .pdf {
+
   ol, ul {
     list-style: none;
   }
@@ -122,12 +125,22 @@
     #quotation-title {
       background: #55a1f4;
     }
+    #quotation-number {
+      h2 {
+        margin-left: 13%;
+        margin-top: 1%;
+      }
+      font-size: 25px;
+      margin-top: 4vh;
+    }
 
     #number {
-      margin-left: 10px;
+      h2 {
+        margin-left: 22%;
+        margin-top: 1%;
+      }
       font-size: 25px;
-      position: relative;
-      top: -5px;
+      margin-top: 4vh;
     }
   }
 
@@ -135,8 +148,9 @@
     position: absolute;
     float: left;
     min-width: 220px;
-    top: 125px;
-    left: 500px;
+    top: 40mm;
+    right: 55mm;
+    font-size: 19px;
   }
 
   table {
@@ -274,6 +288,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+
     h5 {
       text-align: center;
       margin-top: 30px;
@@ -292,9 +307,6 @@
     margin-left: 30px;
   }
 
-  .ib_bottom_row_commands {
-    margin-left: 30px !important;
-  }
   .avoidbreak {
     break-inside: avoid;
     page-break-inside: avoid;

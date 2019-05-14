@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         @project.invoice&.update_totals_invoice(@project.invoice, @project.invoice.projects, @project.invoice.wares)
-        format.html {redirect_to projects_url, notice: t('project_add_success')}
+        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('project_add_success')}
         format.json {render :show, status: :created, location: @project}
       else
         format.html {render :new}
@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         @project.invoice&.update_totals_invoice(@project.invoice, @project.invoice.projects, @project.invoice.wares)
-        format.html {redirect_to projects_url, notice: t('project_update_success')}
+        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('project_update_success')}
         format.json {render :show, status: :ok, location: @project}
       else
         format.html {render :edit}
@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html {redirect_to projects_url, notice: t('project_destroy_success')}
+      format.html {redirect_to request.env["HTTP_REFERER"], notice: t('project_destroy_success')}
       format.json {head :no_content}
     end
   end

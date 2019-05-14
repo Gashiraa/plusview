@@ -1,6 +1,10 @@
 <%= form_for(@project_extra_line) do |form| %>
   <div class="form center-div">
-    <h3>Ajout divers</h3>
+    <% if @project_extra_line.id %>
+      <h3><%= t('editing_extra_line') %></h3>
+    <% else %>
+      <h3><%= t('creating_extra_line') %></h3>
+    <% end %>
 
     <div class="form-row">
 

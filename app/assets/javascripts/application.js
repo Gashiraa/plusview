@@ -12,62 +12,72 @@
 
 $(document).on("turbolinks:load", function () {
 
-        {   // SELECT2 SECTION
+        {   // SELECT2 INITIALIZATION
 
-            $("#project_sort_select").select2({theme: "bootstrap", width: '100%'});
-            $("#customer_sort_select").select2({theme: "bootstrap", width: '100%'});
-            $("#status_sort_select").select2({theme: "bootstrap", width: '100%'});
+            $("#project_sort_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#customer_sort_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#status_sort_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
 
-            $("#project_edit_select").select2({theme: "bootstrap", width: '100%'});
-            $("#customer_edit_select").select2({theme: "bootstrap", width: '100%'});
-            $("#status_edit_select").select2({theme: "bootstrap", width: '100%'});
+            $("#project_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#customer_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#status_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
 
-            $("#project_extra_edit_select").select2({theme: "bootstrap", width: '100%'});
-            $("#extra_edit_select").select2({theme: "bootstrap", width: '100%'});
+            $("#project_extra_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#extra_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
 
-            $("#ware_edit_name_select").select2({theme: "bootstrap", width: '100%', tags: true});
+            $("#ware_edit_name_select").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
 
-            $("#customer_name_select").select2({theme: "bootstrap", width: '100%', tags: true});
-            $("#customer_locality_select").select2({theme: "bootstrap", width: '100%', tags: true});
-
+            $("#customer_name_select").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
+            $("#customer_locality_select").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
         }
+
         {  // DATEPICKER SECTION
 
-            //Calls for datepickers formatting
+            //Datepickers initilization
             autoFormatDatePicker("sortProjectFrom");
             autoFormatDatePicker("sortProjectTo");
 
             //Datepicker formatting
-            $("#sortProjectFrom,#sortProjectTo,#dateProject").datepicker({
-                altField: "#datepicker",
-                closeText: 'Fermer',
-                firstDay: 1,
-                prevText: 'Précédent',
-                nextText: 'Suivant',
-                currentText: 'Aujourd\'hui',
-                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-                dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-                weekHeader: 'Sem.',
-                dateFormat: 'dd/mm/yy'
-            });
+            if ($('.locale').data('locale') !== 'fr') {
+                $("#sortProjectFrom,#sortProjectTo,#dateProject").datepicker();
+            } else {
+                $("#sortProjectFrom,#sortProjectTo,#dateProject").datepicker({
+                    altField: "#datepicker",
+                    closeText: 'Fermer',
+                    firstDay: 1,
+                    prevText: 'Précédent',
+                    nextText: 'Suivant',
+                    currentText: 'Aujourd\'hui',
+                    monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                    monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                    dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                    dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                    weekHeader: 'Sem.',
+                    dateFormat: 'dd/mm/yy'
+                });
+            }
         }
+
+        //Clickable rows (remote true)
+        $("tr[data-link]").click(function () {
+            if (event.target.tagName === "IMG") {
+                return
+            }
+            $.ajax({
+                url: this.getAttribute('data-link'),
+                dataType: "script",
+                type: "GET"
+            });
+            event.preventDefault();
+        });
 
         //Navbar active
         $.each($('.navbar-nav').find('li'), function () {
             $(this).toggleClass('active',
-                window.location.pathname.indexOf($(this).find('a').attr('href')) > -1);
-        });
-
-        //Clickable rows
-        $("th[data-link]").click(function () {
-            console.log(event);
-            if (event.target.localName === "a") {
-                event.stopPropagation();
-            }
-            window.location = $(this).data("link")
+                (window.location.pathname.indexOf($(this).find('a').attr('href')) > -1) ||
+                $('.locale').data('locale') === this.childNodes[1].text.toLowerCase()
+            )
         });
 
         //Notification fader
@@ -76,12 +86,9 @@ $(document).on("turbolinks:load", function () {
         }, 3000);
 
         //Color lines status
-        if (document.getElementById("table-to-color")) {
-            if (document.getElementById("table-to-color2")) {
-                colorTable(document.getElementById("table-to-color2"));
-            }
-            colorTable(document.getElementById("table-to-color"));
-        }
+        $('table').each(function () {
+            colorTable(this)
+        });
 
         //Badges titles
         let title = document.getElementById("titleBadge");
@@ -129,7 +136,6 @@ function autoFormatDatePicker(picker) {
         }
     }
 }
-
 
 //Color lines status
 function colorTable(tableToColor) {

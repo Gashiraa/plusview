@@ -58,7 +58,6 @@ $(document).on("turbolinks:load", function () {
         if ($('#projectId').data('somedata')) {
             $("#project_edit_select").val($('#projectId').data('somedata'));
             $("#project_edit_select").prop("readonly", true);
-
         }
     }
 );

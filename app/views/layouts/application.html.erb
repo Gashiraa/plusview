@@ -23,7 +23,8 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <% if current_user %>
-
+      <%= content_tag :div, class: "locale", data: {locale: current_user.locale} do %>
+      <% end %>
       <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="/wares">Marchandises</a>
@@ -69,6 +70,7 @@
     <% end %>
   </div>
 </nav>
+
 <% if notice %>
   <p id="notice" class="alert alert-success"><%= notice %></p>
 <% end %>

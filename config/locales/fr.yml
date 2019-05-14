@@ -284,3 +284,8 @@ fr:
   total: "Total TTC"
   back: "Retour"
   back_to_projects: "Retour aux projets"
+  project_total_gross: "Total projet HT"
+  project_total: "Total projet TTC"
+  editing_extra_line: "Edition divers"
+  creating_extra_line: "Ajout divers"
+  invoice_number: "Num. Facture"

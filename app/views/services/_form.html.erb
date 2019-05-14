@@ -16,7 +16,7 @@
 
         <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
           <%= form.label t('status') %>
-          <%= form.select :status, Ware.statuses.map {|status| [status[0], status[0]]}, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
+          <%= form.select :status, Service.statuses.map {|status| [status[0], status[0]]}, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
         </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-4">

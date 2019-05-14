@@ -1,14 +1,16 @@
 --A FAIRE--
 
 [DEMANDER] Ajouter si présent, commentaire prestation/marchandise sur facture
+Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, ajout de suppléments
+Paiements ?
+Ou mettre tva/mail sur facture ?
+User management ?
+
+--10/05--
+
 Divers -> Nouvelle table pour des divers (extras)
 Page administration des prix
 User management
-
-[PRESTATIONS]
-
-[DEVIS]
-Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, ajout de suppléments
 
 --07/05--
 

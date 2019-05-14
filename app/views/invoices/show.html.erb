@@ -38,16 +38,16 @@
           <%= @invoice.customer.country %>
         </span>
       </div>
-<!--      <div>-->
-<!--        <span>-->
-          <%#= @invoice.customer.mail %>
-<!--        </span>-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <span>-->
-          <%#= "TVA : " + @invoice.customer.tva_record %>
-<!--        </span>-->
-<!--      </div>-->
+      <!--      <div>-->
+      <!--        <span>-->
+      <%#= @invoice.customer.mail %>
+      <!--        </span>-->
+      <!--      </div>-->
+      <!--      <div>-->
+      <!--        <span>-->
+      <%#= "TVA : " + @invoice.customer.tva_record %>
+      <!--        </span>-->
+      <!--      </div>-->
     </section>
     <div class="clearfix"></div>
 
@@ -57,12 +57,11 @@
       <span id="number">
         <h2>
           <%= '#' + @invoice.id.to_s %>
-            </h2>
-
         </h2>
       </span>
       <div class="clearfix"></div>
     </section>
+
     <div class="clearfix"></div>
     <span id="dateInvoice">
           <%= "Wonck le, " + l(@invoice.date).to_s %>
