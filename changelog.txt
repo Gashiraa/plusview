@@ -1,10 +1,79 @@
 --A FAIRE--
 
-[DEMANDER] Ajouter si présent, commentaire prestation/marchandise sur facture
-Le contenu d'un devis est inchangeable s'il a été accepté, si supplément, ajout de suppléments
+ajouter couleurs dans options select statuts
+
+boutons + projets
+
+tel client
+
 Paiements ?
 Ou mettre tva/mail sur facture ?
 User management ?
+
+Si marchandise -> projet, selectionner attribuée
+statuts
+Facturer depuis projet et go facture
+projet root
+Client + nom projet select wares form
+Sortir avec croix et sans cliquer à coté
+Quantités divers dans résumé projet
+virer dates prestations facture
+virer les tva comprises
+totaux par code tva
+remettre tva facture/devis
+date wonck en haut a droite
+Select nouveau champs numero facture
+Dans prestation, si projet -> attribué, si rien -> non attribué
+
+Catégorie de divers
+
+importer clients
+
+Ajouter détail des pretations flag facture
+
+STATUTS
+
+WARES
+
+Non attribué -> Rouge
+Attribué (projet) -> orange
+Attribué (client) -> orange
+Facturé -> jaune
+Payé -> vert
+
+INVOICE
+
+Emise -> jaune
+Payée -> vert
+
+SERVICES
+
+Attribué
+Facturé
+Payé
+
+PROJECT
+
+Devis -> bleu
+En réalisation -> orange
+Terminé -> rouge?
+Facturé -> jaune
+Payé -> vert
+
+
+PAIEMENTS
+
+Numéros d'extrait
+
+USER MANAGEMENT
+
+Marchandises
+Clients
+Paiements
+
+reste readonly
+
+30 LIGNES PAR PAGES
 
 --10/05--
 
