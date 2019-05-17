@@ -14,10 +14,12 @@ $(document).on("turbolinks:load", function () {
 
         {   // SELECT2 INITIALIZATION
 
-            $("#project_sort_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-            $("#customer_sort_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#project_sort").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#customer_sort").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
 
-            $("#project_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#ware_form_project").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#service_form_project").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+
             $("#customer_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
             $("#customer_select_invoice").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
             $("#number_select_invoice").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
@@ -31,7 +33,7 @@ $(document).on("turbolinks:load", function () {
             $("#customer_locality_select").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
         }
 
-        {  // DATEPICKER SECTION
+        {  // DATEPICK  ER SECTION
 
             //Datepickers initilization
             autoFormatDatePicker("sortProjectFrom");
@@ -59,7 +61,7 @@ $(document).on("turbolinks:load", function () {
             }
         }
 
-        //Clickable rows (remote true)
+        //Clickable rows (remote true) Not used ATM
         $("tr[data-link]").click(function () {
             if (event.target.tagName === "IMG") {
                 return
@@ -72,7 +74,7 @@ $(document).on("turbolinks:load", function () {
             event.preventDefault();
         });
 
-        //Navbar active
+        //Navbar active (also handling locale)
         $.each($('.navbar-nav').find('li'), function () {
             $(this).toggleClass('active',
                 (window.location.pathname.indexOf($(this).find('a').attr('href')) > -1) ||

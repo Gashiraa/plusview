@@ -28,12 +28,12 @@ $(document).on("turbolinks:load", function () {
             );
         $('#servicesForm').trigger('mouseover');
 
-        if ($('#projectId').data('somedata')) {
-            $("#project_edit_select").val($('#projectId').data('somedata'));
+        if ($('#project-id').data('somedata')) {
+            $("#service_form_project").val($('#project-id').data('somedata'));
         }
 
         //Disabling dropdowns for ware forms
-        $('select[id="project_edit_select"]').on('focus trigger mouseover change', function () {
+        $('select[id="service_form_project"]').on('focus trigger mouseover change', function () {
             if ($(this).val()) {
                 $('#status_edit_select option:eq(1)').prop('selected', true);
             }
@@ -41,6 +41,6 @@ $(document).on("turbolinks:load", function () {
                 $('#status_edit_select option:eq(0)').prop('selected', true);
             }
         });
-        $('select[id="project_edit_select"]').trigger('change');
+        $('select[id="service_form_project"]').trigger('change');
     }
 );
