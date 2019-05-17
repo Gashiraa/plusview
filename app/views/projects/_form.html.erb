@@ -1,3 +1,7 @@
+<button type="button" class="close" data-dismiss="modal">
+  <span aria-hidden="true">&times;</span>
+</button>
+
 <%= form_with(model: @project, local: true, class: "needs-validation") do |form| %>
   <div class="form center-div">
 
@@ -15,7 +19,7 @@
       </div>
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
         <%= form.label t('status') %>
-        <%= form.select :status, Project.statuses.map {|status| [status[0], status[0]]}, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
+        <%= form.select :status, Project.translated_statuses.map {|status| [status[0], status[1]]}, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
@@ -53,7 +57,7 @@
                             if @project
                               if @project.invoice
                                 {confirm: t('project_already_invoiced')}
-                              elsif @project.status == "Terminé"
+                              elsif @project.translated_status == "Terminé"
                                 {confirm: t('project_ready_invoiced')}
                               end
                             elsif {}

@@ -28,6 +28,21 @@ $(document).on("turbolinks:load", function () {
         });
         $('#extra_edit_select').trigger('change');
 
+        $('#category_select_extra_line').on('load trigger change', function () {
+            let category = this.options[this.selectedIndex].text;
+            $("#extra_edit_select > option").each(function () {
+                if (this.getAttribute("category") === category) {
+                    this.style.display = "block";
+                    $('#extra_edit_select').val(this.value);
+                } else {
+                    this.style.display = "none";
+                }
+            });
+            $('#extra_edit_select').trigger('change');
+        });
+        $('#category_select_extra_line').trigger('change');
+
+
         $('#extra_edit_select,#edit_project_extra_line,#extra_total_gross,#extra_total,#extra_quantity,#extra_tva_rate')
             .on('keyup keypress mouseover change', function () {
                 let quantity = document.getElementById('extra_quantity').value || 0;
@@ -43,5 +58,9 @@ $(document).on("turbolinks:load", function () {
                 extra_total.value = total.toFixed(2);
             });
         $('#extra_total_gross').trigger('mouseover');
+
+        if ($('#project-id').data('somedata')) {
+            $("#project_extra_edit_select").val($('#project-id').data('somedata'));
+        }
     }
 );

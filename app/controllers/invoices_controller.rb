@@ -2,12 +2,12 @@
 
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: %i[show edit update destroy]
-
+  load_and_authorize_resource
   # GET /invoices
   # GET /invoices.json
   def index
     @search = Invoice.ransack(params[:q])
-    @invoices = @search.result(distinct: true).order(:status).paginate(page: params[:page], per_page: 12)
+    @invoices = @search.result(distinct: true).order(:status).paginate(page: params[:page], per_page: 30)
   end
 
   # GET /invoices/1
@@ -61,7 +61,7 @@ class InvoicesController < ApplicationController
       if @invoice.save
         @invoice.update_statuses_invoice(@invoice)
         @invoice.update_totals_invoice(@invoice, @invoice.projects, @invoice.wares)
-        format.html {redirect_to invoices_url, notice: 'Invoice was successfully created.'}
+        format.html {redirect_to invoice_path(@invoice.id, :format => :pdf), notice: 'Invoice was successfully created.'}
         format.json {render :show, status: :created, location: @invoice}
       else
         format.html {render :new}
@@ -106,7 +106,7 @@ class InvoicesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def invoice_params
-    params.require(:invoice).permit(:payment_id, :date, :status, :total, :customer_id, ware_ids: [], project_ids: [])
+    params.require(:invoice).permit(:payment_id, :date, :status, :total, :display_number, :customer_id, ware_ids: [], project_ids: [])
   end
 
 end

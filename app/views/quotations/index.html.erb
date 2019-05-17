@@ -13,7 +13,7 @@
       </div>
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('status') %>
-        <%= form.select :status_eq, Quotation.statuses.map {|status| [status[0], status[1].to_i]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
+        <%= form.select :status_eq, Quotation.statuses.map {|status| [t(status[0]), status[1].to_i, {status: status[0]}]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
       </div>
       <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
         <%= link_to '+', new_quotation_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
@@ -28,16 +28,16 @@
     <th>
       <%= sort_link(@search, :customer_id, t('customer')) %>
     </th>
-    <th>
+    <th class="center-cell">
       <%= sort_link(@search, :date, t('date_locale')) %>
     </th>
-    <th>
+    <th class="center-cell">
       <%= sort_link(@search, :status, t('status')) %>
     </th>
-    <th>
+    <th class="right-cell">
       <%= sort_link(@search, :total_gross, t('gross_cost').to_s + ' (€)') %>
     </th>
-    <th>
+    <th class="right-cell">
       <%= sort_link(@search, :total, t('total').to_s + ' (€)') %>
     </th>
     <th></th>
@@ -54,10 +54,12 @@
       <td>
         <%= quotation.customer ? quotation.customer.name : '' %>
       </td>
-      <td><%= l(quotation.date) %></td>
-      <td id="status-cell"><%= quotation.status %></td>
-      <td><%= number_with_precision quotation.total_gross, :precision => 2 %></td>
-      <td><%= number_with_precision quotation.total, :precision => 2 %></td>
+      <td  class="center-cell"><%= l(quotation.date) %></td>
+      <%= tag.td class: 'center-cell', id: 'status-cell', status: quotation.status do %>
+        <%= quotation.translated_status %>
+      <% end %>
+      <td class="right-cell"><%= number_with_precision quotation.total_gross, :precision => 2 %></td>
+      <td class="right-cell"><%= number_with_precision quotation.total, :precision => 2 %></td>
       <td class="center-cell">
         <%= link_to edit_quotation_path(quotation), remote: true do %>
           <%= image_tag("edit-icon.png", size: "30x30") %>

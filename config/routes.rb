@@ -8,12 +8,11 @@ Rails.application.routes.draw do
     patch 'users' => 'devise/registrations#update', :as => 'user_registration'
   end
 
-  root to: 'wares#index'
+  root to: 'projects#index'
 
-  resources :services, constraints: lambda {|request| request.env['warden'].user.isAdmin}
-  resources :extras, constraints: lambda {|request| request.env['warden'].user.isAdmin}
-  resources :projects, constraints: lambda {|request| request.env['warden'].user.isAdmin}
-
+  resources :services
+  resources :extras
+  resources :projects
   resources :wares
   resources :project_extra_lines
   resources :customers

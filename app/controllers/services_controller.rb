@@ -1,11 +1,11 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /services
   # GET /services.json
   def index
     @search = Service.ransack(params[:q])
-    @services = @search.result.paginate(page: params[:page], per_page: 12)
+    @services = @search.result.paginate(page: params[:page], per_page: 30)
   end
 
   # GET /services/1

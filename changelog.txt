@@ -1,79 +1,30 @@
 --A FAIRE--
 
-ajouter couleurs dans options select statuts
-
-boutons + projets
-
-tel client
-
-Paiements ?
-Ou mettre tva/mail sur facture ?
-User management ?
-
-Si marchandise -> projet, selectionner attribuée
-statuts
-Facturer depuis projet et go facture
-projet root
-Client + nom projet select wares form
-Sortir avec croix et sans cliquer à coté
-Quantités divers dans résumé projet
-virer dates prestations facture
-virer les tva comprises
-totaux par code tva
-remettre tva facture/devis
-date wonck en haut a droite
-Select nouveau champs numero facture
-Dans prestation, si projet -> attribué, si rien -> non attribué
-
-Catégorie de divers
-
 importer clients
 
-Ajouter détail des pretations flag facture
+--14/05--
 
-STATUTS
-
-WARES
-
-Non attribué -> Rouge
-Attribué (projet) -> orange
-Attribué (client) -> orange
-Facturé -> jaune
-Payé -> vert
-
-INVOICE
-
-Emise -> jaune
-Payée -> vert
-
-SERVICES
-
-Attribué
-Facturé
-Payé
-
-PROJECT
-
-Devis -> bleu
-En réalisation -> orange
-Terminé -> rouge?
-Facturé -> jaune
-Payé -> vert
-
-
-PAIEMENTS
-
-Numéros d'extrait
-
-USER MANAGEMENT
-
-Marchandises
-Clients
-Paiements
-
-reste readonly
-
-30 LIGNES PAR PAGES
+Statuts mis à jour
+ajouter couleurs dans options select statuts
+boutons + projets
+Tva sur facture
+Date wonck en haut a droite
+30 lignes par page
+Virer dates prestations facture
+Ajouter quantités divers dans résumé projet
+Virer les tva comprises dans facture
+Ajouter numéro de téléphone client
+Si on attribue marchandise -> projet, selectionner attribué (projet)
+Si on attribue marchandise -> client, selectionner attribué (client)
+Pourvoir sortir des formulaires par la croix et SANS cliquer à coté
+Dans prestation, si un projet est choisi le statut devient attribué, sinon -> non attribué
+Passage à terminé depuis projet
+Passage à facturé depuis projet et création de la facture
+Possiblité de revoir la facture depuis le projet
+Possiblité de choisir le numéro de facture manuellement sur base des derniers encodés
+Gestion d'utilisateur pour Murielle
+Ajout des paiments et passage automatique des statuts à payé/facturé (à bien tester svp)
+Ajouter catégorie de divers
 
 --10/05--
 

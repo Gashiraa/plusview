@@ -1,6 +1,6 @@
 $(document).on("turbolinks:load", function () {
 
-        $('#customer_edit_select').on('focus load trigger mouseover change', function () {
+        $('#customer_select_invoice').on('focus load trigger mouseover change', function () {
             let customer = this.options[this.selectedIndex].value;
             $("#select_wares_invoice > option").each(function () {
                 if (this.getAttribute("customer") === customer) {
@@ -17,6 +17,6 @@ $(document).on("turbolinks:load", function () {
                 }
             });
         });
-        $('#customer_edit_select').trigger('change');
+        $('#customer_select_invoice').trigger('change');
     }
 );

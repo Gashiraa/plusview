@@ -30,6 +30,9 @@
       <%= sort_link(@search, :tva_record, t('tva_record')) %>
     </th>
     <th>
+      <%= sort_link(@search, :phone_number, t('phone_number')) %>
+    </th>
+    <th>
       <%= sort_link(@search, :street, t('street')) %>
     </th>
     <th>
@@ -59,6 +62,7 @@
       <td><%= customer.name %></td>
       <td><%= customer.mail %></td>
       <td><%= customer.tva_record %></td>
+      <td><%= customer.phone_number %></td>
       <td><%= customer.street %></td>
       <td><%= customer.number %></td>
       <td><%= customer.cp %></td>

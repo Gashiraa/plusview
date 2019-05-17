@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+
   protect_from_forgery with: :reset_session
+  include TranslateEnum
 
   before_action :authenticate_user!
   before_action :set_locale
@@ -24,5 +26,9 @@ class ApplicationController < ActionController::Base
         format.html { redirect_to root_path , notice: t('locale_changed')}
       end
     end
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to request.env["HTTP_REFERER"], alert: t('unauthorized_action')
   end
 end

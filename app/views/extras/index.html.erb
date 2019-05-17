@@ -17,6 +17,9 @@
       <%= sort_link(@search, :name, t('extra_name')) %>
     </th>
     <th>
+      <%= sort_link(@search, :category, t('category')) %>
+    </th>
+    <th>
       <%= sort_link(@search, :unit, t('unit')) %>
     </th>
     <th>
@@ -33,6 +36,7 @@
   <% @extras.each do |extra| %>
     <tr>
       <td><%= extra.name %></td>
+      <td><%= extra.category %></td>
       <td><%= extra.unit %></td>
       <td><%= extra.unit_price %></td>
       <td><%= extra.tva_rate %></td>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_11_151042) do
+ActiveRecord::Schema.define(version: 2019_05_15_193139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,12 +28,13 @@ ActiveRecord::Schema.define(version: 2019_05_11_151042) do
     t.string "mail"
     t.string "tva_record"
     t.string "street"
-    t.integer "number"
+    t.string "number"
     t.integer "cp"
     t.string "locality"
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone_number"
   end
 
   create_table "extras", force: :cascade do |t|
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_05_11_151042) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "tva_rate"
+    t.string "category"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -54,6 +56,8 @@ ActiveRecord::Schema.define(version: 2019_05_11_151042) do
     t.datetime "updated_at", null: false
     t.bigint "customer_id"
     t.float "total_gross"
+    t.integer "display_number"
+    t.boolean "services_details_flag"
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
     t.index ["payment_id"], name: "index_invoices_on_payment_id"
   end
@@ -63,6 +67,10 @@ ActiveRecord::Schema.define(version: 2019_05_11_151042) do
     t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "reference"
+    t.bigint "customer_id"
+    t.float "total"
+    t.index ["customer_id"], name: "index_payments_on_customer_id"
   end
 
   create_table "project_extra_lines", force: :cascade do |t|
@@ -167,6 +175,7 @@ ActiveRecord::Schema.define(version: 2019_05_11_151042) do
 
   add_foreign_key "invoices", "customers"
   add_foreign_key "invoices", "payments"
+  add_foreign_key "payments", "customers"
   add_foreign_key "project_extra_lines", "extras"
   add_foreign_key "project_extra_lines", "projects"
   add_foreign_key "projects", "customers"

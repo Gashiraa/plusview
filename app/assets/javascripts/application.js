@@ -16,14 +16,14 @@ $(document).on("turbolinks:load", function () {
 
             $("#project_sort_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
             $("#customer_sort_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-            $("#status_sort_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
 
             $("#project_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
             $("#customer_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-            $("#status_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#customer_select_invoice").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#number_select_invoice").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
 
             $("#project_extra_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-            $("#extra_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+            $("#category_select_extra_line").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
 
             $("#ware_edit_name_select").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
 
@@ -90,6 +90,10 @@ $(document).on("turbolinks:load", function () {
             colorTable(this)
         });
 
+        $('#status_sort_select > option').each(function () {
+            this.style.backgroundColor = assignColor(this.getAttribute('status'));
+        });
+
         //Badges titles
         let title = document.getElementById("titleBadge");
         switch (title.getAttribute('display')) {
@@ -140,40 +144,32 @@ function autoFormatDatePicker(picker) {
 //Color lines status
 function colorTable(tableToColor) {
     for (let i = 0, row; row = tableToColor.rows[i]; i++) {
-        for (let j = 0, col; col = row.cells[j]; j++) {
-            if (col.id === "status-cell") {
-                switch (col.innerHTML) {
-                    case 'Devis' : //Project, Ware
-                    case 'Créé' : //Quotation
-                    case 'Emise' : //Invoice
-                        row.style.backgroundImage = "linear-gradient(to right, #95d7db, #a0dce0, #abe0e4, #b5e5e9, #c0eaed)";
-                        break;
-                    case 'Atelier': //Ware
-                    case 'Encodé' : //Service
-                    case 'En réalisation' : //Project
-                    case 'Envoyé' : //Quotation
-                    case 'Envoyée' : //Invoice
-                        row.style.backgroundImage = "linear-gradient(to right, #fef07a, #fdf18b, #fcf39c, #fcf4ad, #fbf5bd)";
-                        break;
-                    case 'Terminé': //Project
-                    case 'Attribuée' : //Ware, Service
-                    case 'Accepté' : //Quotation
-                        row.style.backgroundImage = "linear-gradient(to right, #f9ae48, #f9b559, #f8bb6a, #f7c27b, #f6c88b)";
-                        break;
-                    case 'A facturer' : //Ware
-                        row.style.backgroundImage = "linear-gradient(to right, #ee8f55, #ee9864, #eea172, #eeaa81, #edb390";
-
-                        break;
-                    case 'Facturé' : //Project, Ware
-                        row.style.backgroundImage = "linear-gradient(to right, #ee7c6c, #ee8475, #ef8c7d, #ee9386, #ee9b8f)";
-                        break;
-                    case 'Payée' : //Invoice
-                    case 'Payé' : //Project, Ware
-                        row.style.backgroundImage = "linear-gradient(to right, #cedb4f, #d0db60, #d1dc6f, #d3dc7d, #d4dc8b)";
-                        break;
-                    default:
-                }
+        for (let j = 0, cell; cell = row.cells[j]; j++) {
+            if (cell.id === "status-cell") {
+                row.style.backgroundColor = assignColor(cell.getAttribute('status'));
             }
         }
+    }
+}
+
+function assignColor(status) {
+    switch (status) {
+        case 'quotation' : //Project, Ware
+            return "rgba(84,205,255,0.65)"; //BLUE
+        case 'invoiced' :
+        case 'created' :
+            return "rgba(255,234,0,0.65)"; //YELLOW
+        case 'assigned_project' :
+        case 'assigned_customer' :
+        case 'assigned' :
+        case 'in_progress' :
+            return "rgba(255,116,0,0.65)"; //ORANGE
+        case 'not_assigned' :
+        case 'done' :
+            return "rgba(255,7,9,0.65)"; //RED
+        case 'accepted' :
+        case 'paid' :
+            return "rgba(87,194,36,0.65)"; //GREEN
+        default:
     }
 }

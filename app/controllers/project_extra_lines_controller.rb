@@ -1,6 +1,6 @@
 class ProjectExtraLinesController < ApplicationController
   before_action :set_project_extra_line, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /project_extra_lines
   # GET /project_extra_lines.json
   def index

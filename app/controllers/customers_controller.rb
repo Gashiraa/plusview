@@ -1,11 +1,12 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /customers
   # GET /customers.json
   def index
     @search = Customer.ransack(params[:q])
-    @customers = @search.result(distinct: true).order(:name).paginate(page: params[:page], per_page: 12)
+    @customers = @search.result(distinct: true).order(:name).paginate(page: params[:page], per_page: 30)
   end
 
   # GET /customers/1
@@ -72,6 +73,6 @@ class CustomersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def customer_params
-    params.require(:customer).permit(:name, :mail, :tva_record, :street, :number, :cp, :locality, :country)
+    params.require(:customer).permit(:name, :mail, :tva_record, :street, :number, :cp, :locality, :country, :phone_number)
   end
 end

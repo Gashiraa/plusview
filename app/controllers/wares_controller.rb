@@ -1,11 +1,11 @@
 class WaresController < ApplicationController
   before_action :set_ware, only: %i[show edit update destroy]
-
+  load_and_authorize_resource
   # GET /wares
   # GET /wares.json
   def index
     @search = Ware.ransack(params[:q])
-    @wares = @search.result.paginate(page: params[:page], per_page: 12)
+    @wares = @search.result.paginate(page: params[:page], per_page: 30)
   end
 
   # GET /wares/1

@@ -38,16 +38,12 @@
           <%= @invoice.customer.country %>
         </span>
       </div>
-      <!--      <div>-->
-      <!--        <span>-->
-      <%#= @invoice.customer.mail %>
-      <!--        </span>-->
-      <!--      </div>-->
-      <!--      <div>-->
-      <!--        <span>-->
-      <%#= "TVA : " + @invoice.customer.tva_record %>
-      <!--        </span>-->
-      <!--      </div>-->
+
+      <div>
+              <span>
+      <%= "TVA : " + @invoice.customer.tva_record %>
+              </span>
+      </div>
     </section>
     <div class="clearfix"></div>
 
@@ -84,12 +80,10 @@
                 <thead class=thead-dark>
                 <tr>
                   <th><%= t('Name') %></th>
-                  <th><%= t('Date') %></th>
                   <th><%= t('duration') %></th>
                   <th><%= t('hourly_rate') + ' (€)' %></th>
                   <th><%= t('tva_rate') + ' (%)' %></th>
                   <th><%= t('total_gross') + ' (€)' %></th>
-                  <th><%= t('total_cost') + ' (€)' %></th>
                 </tr>
                 </thead>
 
@@ -97,12 +91,10 @@
                 <% project.services.each do |service| %>
                   <tr data-link="<%= edit_service_path service %>">
                     <td><%= service.name %></td>
-                    <td><%= service.date ? l(service.date) : "" %></td>
                     <td><%= service.duration.strftime('%H:%M') %></td>
                     <td><%= service.hourly_rate %></td>
                     <td><%= service.tva_rate %></td>
                     <td><%= service.total_gross %></td>
-                    <td><%= service.total_cost %></td>
                   </tr>
                 <% end %>
                 </tbody>
@@ -121,7 +113,6 @@
                   <th><%= t('sell_price') + ' (€)' %></th>
                   <th><%= t('tva_rate') + ' (%)' %></th>
                   <th><%= t('total_gross') + ' (€)' %></th>
-                  <th><%= t('total_cost') + ' (€)' %></th>
                 </tr>
                 </thead>
 
@@ -133,7 +124,6 @@
                     <td><%= ware.sell_price %></td>
                     <td><%= ware.tva_rate %></td>
                     <td><%= ware.total_gross %></td>
-                    <td><%= ware.total_cost %></td>
                   </tr>
                 <% end %>
                 </tbody>
@@ -154,7 +144,6 @@
                   <th><%= t('quantity') %></th>
                   <th><%= t('tva_rate') + ' (%)' %></th>
                   <th><%= t('total_gross') + ' (€)' %></th>
-                  <th><%= t('total_cost') + ' (€)' %></th>
                 </tr>
                 </thead>
 
@@ -172,7 +161,6 @@
                     <td><%= project_extra_line.quantity %></td>
                     <td><%= project_extra_line.extra.tva_rate %></td>
                     <td><%= project_extra_line.total_gross %></td>
-                    <td><%= project_extra_line.total %></td>
                   </tr>
                 <% end %>
                 </tbody>
@@ -222,7 +210,6 @@
             <th><%= t('sell_price') + ' (€)' %></th>
             <th><%= t('tva_rate') + ' (%)' %></th>
             <th><%= t('total_gross') + ' (€)' %></th>
-            <th><%= t('total_cost') + ' (€)' %></th>
           </tr>
           </thead>
 
@@ -234,7 +221,6 @@
               <td><%= ware.sell_price %></td>
               <td><%= ware.tva_rate %></td>
               <td><%= ware.total_gross %></td>
-              <td><%= ware.total_cost %></td>
             </tr>
           <% end %>
           </tbody>

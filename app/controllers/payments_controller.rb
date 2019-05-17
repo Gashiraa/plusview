@@ -1,10 +1,11 @@
 class PaymentsController < ApplicationController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /payments
   # GET /payments.json
   def index
-    @payments = Payment.all
+    @search = Payment.ransack(params[:q])
+    @payments = @search.result(distinct: true).order(:date).paginate(page: params[:page], per_page: 30)
   end
 
   # GET /payments/1
@@ -28,7 +29,9 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.save
-        format.html { redirect_to @payment, notice: 'Payment was successfully created.' }
+        @payment.update_statuses(@payment)
+        @payment.update_total(@payment, @payment.invoices)
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: 'Payment was successfully created.' }
         format.json { render :show, status: :created, location: @payment }
       else
         format.html { render :new }
@@ -42,7 +45,9 @@ class PaymentsController < ApplicationController
   def update
     respond_to do |format|
       if @payment.update(payment_params)
-        format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
+        @payment.update_statuses(@payment)
+        @payment.update_total(@payment, @payment.invoices)
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: 'Payment was successfully updated.' }
         format.json { render :show, status: :ok, location: @payment }
       else
         format.html { render :edit }
@@ -55,8 +60,9 @@ class PaymentsController < ApplicationController
   # DELETE /payments/1.json
   def destroy
     @payment.destroy
+    @payment.update_statuses(@payment)
     respond_to do |format|
-      format.html { redirect_to payments_url, notice: 'Payment was successfully destroyed.' }
+      format.html { redirect_to request.env["HTTP_REFERER"], notice: 'Payment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +75,6 @@ class PaymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
-      params.require(:payment).permit(:date, :amount)
+      params.require(:payment).permit(:date, :amount, :reference, :customer_id, invoice_ids: [])
     end
 end

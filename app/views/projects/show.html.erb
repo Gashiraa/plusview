@@ -13,16 +13,27 @@
   </table>
 </div>
 
-<div id="projectId" data-somedata="<%= @project.id %>">
-</div>
+<div id="project-id" data-somedata="<%= @project.id %>"></div>
+<div id="project-customer-id" data-somedata="<%= @project.customer.id %>"></div>
+
 <hr>
 <div class="project-content">
 
   <div class="panel">
     <div class="project-section project-recap">
-      <h5>
-        <%= link_to t('project').capitalize, edit_project_path(@project), {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
-      </h5>
+      <%= link_to t('project').capitalize, edit_project_path(@project), {class: 'btn btn-primary right-cell', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+      <% if Project.statuses[@project.status] == 3 && @project.invoice_id%>
+        <div class="btn-right">
+          <%= t('invoice') %>
+          <%= link_to image_tag("pdf-icon.png", size: "40x40"), invoice_path(@project.invoice_id, :format => :pdf) %>
+        </div>
+      <% end %>
+      <% if Project.statuses[@project.status] == 2 %>
+        <%= link_to t('invoice_project').capitalize, new_invoice_path, {class: 'btn btn-success btn-right', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+      <% end %>
+      <% if Project.statuses[@project.status] == 1 %>
+        <%= link_to t('do_done'), project_path(@project, project: {status: :done}), method: :put, class: 'btn btn-success btn-right' %>
+      <% end %>
       <table>
         <tr>
           <td>
@@ -53,7 +64,7 @@
                   <%= t('status') %>
                 </td>
                 <td>
-                  <%= @project.status %>
+                  <%= @project.translated_status %>
                 </td>
               </tr>
               <tr>
@@ -87,7 +98,8 @@
     </div>
     <div class="project-section">
       <h5>
-        <%= link_to t('service').pluralize.capitalize, new_service_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to t('service').pluralize.capitalize, "", {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to "+", new_service_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </h5>
 
       <table class="table table-hover table-striped" id="table-to-color2">
@@ -111,7 +123,7 @@
         <% @project.services.each do |service| %>
           <tr data-link="<%= edit_service_path(service) %>">
             <td><%= service.name %></td>
-            <td id="status-cell"><%= service.status %></td>
+            <td id="status-cell"><%= service.translated_status %></td>
             <td class="center-cell"><%= service.date %></td>
             <td class="right-cell total-cell"><%= number_with_precision service.total_gross, :precision => 2 %></td>
             <td class="right-cell total-cell"><%= number_with_precision service.total_cost, :precision => 2 %></td>
@@ -145,7 +157,8 @@
   <div class="panel">
     <div class="project-section project-wares">
       <h5>
-        <%= link_to t('ware').pluralize.capitalize, new_ware_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to t('ware').pluralize.capitalize, "", {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to "+", new_ware_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </h5>
       <table class="table table-hover table-striped" id="table-to-color">
         <thead class=thead-dark>
@@ -167,7 +180,7 @@
         <% @project.wares.each do |ware| %>
           <tr data-link="<%= edit_ware_path(ware) %>">
             <td><%= ware.ware_name %></td>
-            <td id="status-cell"><%= ware.status %></td>
+            <td id="status-cell"><%= ware.translated_status %></td>
             <td class="right-cell total-cell"><%= number_with_precision ware.total_gross, :precision => 2 %></td>
             <td class="right-cell total-cell"><%= number_with_precision ware.total_cost, :precision => 2 %></td>
             <td class="buttons-cell center-cell">
@@ -198,7 +211,8 @@
     <hr>
     <div class="project-section">
       <h5>
-        <%= link_to t('extra').pluralize.capitalize, new_project_extra_line_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to t('extra').pluralize.capitalize, "", {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to "+", new_project_extra_line_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </h5>
 
       <table class="table table-hover table-striped" id="table-to-color2">
@@ -206,6 +220,7 @@
         <tr>
           <th><%= t('Name') %></th>
           <th class="center-cell"><%= t('unit') %></th>
+          <th class="right-cell"><%= t('quantity') %></th>
           <th class="right-cell"><%= t('total_gross') %> (€)</th>
           <th class="right-cell"><%= t('total_cost') %> (€)</th>
           <th></th>
@@ -222,6 +237,7 @@
           <tr data-link="<%= edit_project_extra_line_path(project_extra_line) %>">
             <td><%= project_extra_line.extra.name %></td>
             <td class="center-cell"><%= project_extra_line.extra.unit %></td>
+            <td class="right-cell"><%= project_extra_line.quantity %></td>
             <td class="right-cell total-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
             <td class="right-cell total-cell"><%= number_with_precision project_extra_line.total, :precision => 2 %></td>
             <td class="buttons-cell center-cell">

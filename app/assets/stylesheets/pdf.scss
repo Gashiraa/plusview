@@ -125,11 +125,13 @@
     #quotation-title {
       background: #55a1f4;
     }
+
     #quotation-number {
       h2 {
         margin-left: 13%;
         margin-top: 1%;
       }
+
       font-size: 25px;
       margin-top: 4vh;
     }
@@ -139,6 +141,7 @@
         margin-left: 22%;
         margin-top: 1%;
       }
+
       font-size: 25px;
       margin-top: 4vh;
     }
@@ -304,7 +307,10 @@
   }
 
   #dateInvoice {
-    margin-left: 30px;
+    position: fixed;
+    right: 7%;
+    top: 5%;
+    font-size: 20px;
   }
 
   .avoidbreak {

@@ -1,3 +1,7 @@
+<button type="button" class="close" data-dismiss="modal">
+  <span aria-hidden="true">&times;</span>
+</button>
+
 <%= form_with(model: @ware, id: 'waresForm', html: {autocomplete: 'off'}) do |form| %>
   <div class="form center-div">
 
@@ -10,7 +14,7 @@
     <div class="form-row">
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('project') %>
-        <%= form.collection_select :project_id, Project.all, :id, :name, {:include_blank => true}, {class: 'form-control', id: 'project_edit_select'} %>
+        <%= form.select :project_id, Project.all.map {|project| [project.name + ' - ' + project.customer.name, project.id]}, {:include_blank => true}, {class: 'form-control', id: 'project_edit_select'} %>
       </div>
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('customer') %>
@@ -18,7 +22,7 @@
       </div>
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('status') %>
-        <%= form.select :status, Ware.statuses.map {|status| [status[0], status[0]]}, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
+        <%= form.select :status, Ware.translated_statuses.map {|status| [status[0], status[1], {customer: status[1]}]}, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
       </div>
     </div>
     <hr>
@@ -171,7 +175,7 @@
                           if @ware
                             if @ware.invoice or @ware.project&.invoice
                               {confirm: t('ware_already_invoiced')}
-                            elsif @ware.status == "A facturer"
+                            elsif @ware.translated_status == "A facturer"
                               {confirm: t('ware_ready_invoiced')}
                             end
                           elsif {}

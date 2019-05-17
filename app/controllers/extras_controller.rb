@@ -1,11 +1,11 @@
 class ExtrasController < ApplicationController
   before_action :set_extra, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /extras
   # GET /extras.json
   def index
     @search = Extra.ransack(params[:q])
-    @extras = @search.result(distinct: true).paginate(page: params[:page], per_page: 12)
+    @extras = @search.result(distinct: true).paginate(page: params[:page], per_page: 30)
   end
 
   # GET /extras/1
@@ -76,6 +76,6 @@ class ExtrasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def extra_params
-    params.require(:extra).permit(:name, :unit, :unit_price, :tva_rate)
+    params.require(:extra).permit(:name, :unit, :category, :unit_price, :tva_rate)
   end
 end

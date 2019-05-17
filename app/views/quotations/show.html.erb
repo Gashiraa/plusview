@@ -35,11 +35,6 @@
       </div>
       <div>
         <span>
-          <%= @quotation.customer.mail %>
-        </span>
-      </div>
-      <div>
-        <span>
           <%= "TVA : " + @quotation.customer.tva_record %>
         </span>
       </div>
@@ -82,7 +77,6 @@
               <th><%= t('hourly_rate') + ' (€)' %></th>
               <th><%= t('tva_rate') + ' (%)' %></th>
               <th><%= t('total_gross') + ' (€)' %></th>
-              <th><%= t('total_cost') + ' (€)' %></th>
             </tr>
             </thead>
 
@@ -95,7 +89,6 @@
                 <td><%= service.hourly_rate %></td>
                 <td><%= service.tva_rate %></td>
                 <td><%= service.total_gross %></td>
-                <td><%= service.total_cost %></td>
               </tr>
             <% end %>
             </tbody>
@@ -112,7 +105,6 @@
               <th><%= t('sell_price') + ' (€)' %></th>
               <th><%= t('tva_rate') + ' (%)' %></th>
               <th><%= t('total_gross') + ' (€)' %></th>
-              <th><%= t('total_cost') + ' (€)' %></th>
             </tr>
             </thead>
 
@@ -124,7 +116,6 @@
                 <td><%= ware.sell_price %></td>
                 <td><%= ware.tva_rate %></td>
                 <td><%= ware.total_gross %></td>
-                <td><%= ware.total_cost %></td>
               </tr>
             <% end %>
             </tbody>

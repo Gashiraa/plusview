@@ -1,18 +1,25 @@
 # frozen_string_literal: true
 
 class Invoice < ApplicationRecord
+  include TranslateEnum
+
   belongs_to :payment, optional: true
   belongs_to :customer, optional: true
 
   has_many :projects, dependent: :nullify
   has_many :wares, dependent: :nullify
 
-  enum status: [:'Emise', :'Envoyée', :'Payée']
-
+  enum status: [:created, :paid]
+  translate_enum :status
 
   def update_invoice_content_on_destroy(invoice)
-    invoice.wares.update(status: 'A facturer', invoice_id: nil)
-    invoice.projects.update(status: 'Terminé', invoice_id: nil)
+    invoice.wares.update(status: :assigned_customer, invoice_id: nil)
+    invoice.projects.update(status: :done, invoice_id: nil)
+
+    invoice.projects.each do |project|
+      project.wares.update(status: :assigned_project)
+      project.services.update(status: :assigned)
+    end
   end
 
   def update_totals_invoice(invoice, projects, wares)
@@ -21,10 +28,17 @@ class Invoice < ApplicationRecord
   end
 
   def update_statuses_invoice(invoice)
-    Project.all.where(status: 'Facturé', invoice_id: nil).update(status: 'Terminé')
-    Ware.all.where(status: 'Facturé', invoice_id: nil).update(status: 'A facturer')
-    invoice.wares.update(status: 'Facturé')
-    invoice.projects.update(status: 'Facturé')
+    Project.all.where(status: :invoiced, invoice_id: nil).update(status: :done)
+    Ware.all.where(status: :invoiced, invoice_id: nil).update(status: :assigned_project)
+    Ware.all.where(status: :invoiced, project_id: nil, invoice_id: nil).update(status: :assigned_customer)
+    Service.all.joins(:project).where("projects.invoice_id IS NULL").update(status: :assigned)
+    invoice.wares.update(status: :invoiced)
+    invoice.projects.update(status: :invoiced)
+
+    invoice.projects.each do |project|
+      project.wares.update(status: :invoiced)
+      project.services.update(status: :invoiced)
+    end
   end
 
   def do_total(projects, wares)

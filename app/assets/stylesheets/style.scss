@@ -1,11 +1,5 @@
 @import "bootstrap";
 
-
-html, body {
-  height: 100%;
-  background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
-}
-
 .content {
   font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif, serif;
   -webkit-font-smoothing: antialiased;
@@ -81,6 +75,16 @@ html, body {
     border-color: #31347B;
   }
 
+  .close {
+    position: absolute;
+    right: 3%;
+    top: 3%;
+
+    span{
+      font-size: 2vw;
+    }
+  }
+
   .project-content {
     width: 100%;
 
@@ -113,9 +117,12 @@ html, body {
     .project-recap {
       border: 2px solid black;
       border-radius: 2px;
-      text-align: center;
       padding: 1vw;
       margin-bottom: 3%;
+
+      .btn-right {
+        float: right;
+      }
 
       .left-cell {
         text-align: left;
@@ -323,3 +330,8 @@ html, body {
 .logout-button {
   margin-left: 2vw;
 }
+
+.select2-container--bootstrap .select2-results__option[aria-disabled=true] {
+  display: none!important;
+}
+

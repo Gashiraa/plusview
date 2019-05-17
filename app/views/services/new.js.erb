@@ -2,4 +2,4 @@ $("#modal-window").find(".modal-content").html("<%= j (render 'new') %>");
 
 $(document).trigger('turbolinks:load');
 
-$("#modal-window").modal();
+$("#modal-window").modal({backdrop: 'static'});

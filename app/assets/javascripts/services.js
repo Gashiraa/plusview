@@ -31,5 +31,16 @@ $(document).on("turbolinks:load", function () {
         if ($('#projectId').data('somedata')) {
             $("#project_edit_select").val($('#projectId').data('somedata'));
         }
+
+        //Disabling dropdowns for ware forms
+        $('select[id="project_edit_select"]').on('focus trigger mouseover change', function () {
+            if ($(this).val()) {
+                $('#status_edit_select option:eq(1)').prop('selected', true);
+            }
+            else {
+                $('#status_edit_select option:eq(0)').prop('selected', true);
+            }
+        });
+        $('select[id="project_edit_select"]').trigger('change');
     }
 );

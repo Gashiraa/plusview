@@ -3,12 +3,12 @@
 class ProjectsController < ApplicationController
 
   before_action :set_project, only: %i[show edit update destroy]
-
+  load_and_authorize_resource
   # GET /projects
   # GET /projects.json
   def index
     @search = Project.order(date: :desc).ransack(params[:q])
-    @projects = @search.result(distinct: true).paginate(page: params[:page], per_page: 12)
+    @projects = @search.result(distinct: true).paginate(page: params[:page], per_page: 30)
   end
 
   # GET /projects/1
