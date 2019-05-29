@@ -1,4 +1,8 @@
 $(document).on("turbolinks:load", function () {
+
+        $("#extra_line_form_project").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
+        $("#extra_line_form_category").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
+
         $('#extra_edit_select').on('focus load trigger mouseover change', function () {
             let extra = this.options[this.selectedIndex].value;
             $("#extra_unit_price > option").each(function () {
@@ -28,7 +32,7 @@ $(document).on("turbolinks:load", function () {
         });
         $('#extra_edit_select').trigger('change');
 
-        $('#category_select_extra_line').on('load trigger change', function () {
+        $('#extra_line_form_category').on('load trigger change', function () {
             let category = this.options[this.selectedIndex].text;
             $("#extra_edit_select > option").each(function () {
                 if (this.getAttribute("category") === category) {
@@ -40,7 +44,7 @@ $(document).on("turbolinks:load", function () {
             });
             $('#extra_edit_select').trigger('change');
         });
-        $('#category_select_extra_line').trigger('change');
+        $('#extra_line_form_category').trigger('change');
 
 
         $('#extra_edit_select,#edit_project_extra_line,#extra_total_gross,#extra_total,#extra_quantity,#extra_tva_rate')
@@ -60,7 +64,8 @@ $(document).on("turbolinks:load", function () {
         $('#extra_total_gross').trigger('mouseover');
 
         if ($('#project-id').data('somedata')) {
-            $("#project_extra_edit_select").val($('#project-id').data('somedata'));
+            $("#extra_line_form_project").val($('#project-id').data('somedata'));
+            $('select[id="extra_line_form_project"]').trigger('change');
         }
     }
 );

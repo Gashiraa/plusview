@@ -1,11 +1,8 @@
 $(document).on("turbolinks:load", function () {
 
-    if ($('#project-customer-id').data('somedata')) {
-        $("#customer_select_invoice").val([$('#project-customer-id').data('somedata')]);
-        $('#customer_select_invoice').select2({theme: "bootstrap", width: '100%', selectOnClose: true}).trigger('change');
-    }
+    $("#project_form_customer").select2({theme: "bootstrap", width: '100%', selectOnClose: true}); //PICKING A CUSTOMER IN PROJECT FORM
 
     if ($('#project-id').data('somedata')) {
-        $("#select_projects_invoice").val([$('#project-id').data('somedata')]);
+        $("#invoice_form_projects").val([$('#project-id').data('somedata')]);
     }
 });

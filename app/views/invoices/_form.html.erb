@@ -15,12 +15,12 @@
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('invoice_number') %>
-        <%= form.collection_select :display_number, Invoice.all.order(display_number: :desc), :display_number, :display_number, {:include_blank => true}, {required: true, class: 'form-control', id: 'number_select_invoice'} %>
+        <%= form.collection_select :display_number, Invoice.all.order(display_number: :desc), :display_number, :display_number, {:include_blank => true}, {required: true, class: 'form-control', id: 'invoice_form_number'} %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('customer') %>
-        <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {required: true, class: 'form-control', id: 'customer_select_invoice'} %>
+        <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {required: true, class: 'form-control', id: 'invoice_form_customer'} %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
@@ -41,7 +41,7 @@
         <%= form.label t('wares_to_invoice') %>
         <%= form.select(:ware_ids, Ware.where(status: :assigned_customer, project_id: nil)
             .or(Ware.where(invoice_id: @invoice ? @invoice : -1, project_id: nil))
-            .collect {|ware| [ware.ware_name, ware.id, {customer: ware.customer ? ware.customer.id : ware.project ? ware.project.customer.id : -1}]}, {}, {class: 'form-control', id: 'select_wares_invoice', autocomplete: 'nope', :multiple => true}) %>
+            .collect {|ware| [ware.ware_name, ware.id, {customer: ware.customer ? ware.customer.id : ware.project ? ware.project.customer.id : -1}]}, {}, {class: 'form-control', id: 'invoice_form_wares', autocomplete: 'nope', :multiple => true}) %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
@@ -49,10 +49,10 @@
         <% if @invoice.id %>
           <%= form.select(:project_ids, Project.where(status: :done)
               .or(Project.where(invoice_id: @invoice.id))
-              .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'select_projects_invoice', autocomplete: 'nope', :multiple => true}) %>
+              .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'invoice_form_projects', autocomplete: 'nope', :multiple => true}) %>
         <% else %>
           <%= form.select(:project_ids, Project.where(status: :done)
-              .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'select_projects_invoice', autocomplete: 'nope', :multiple => true}) %>
+              .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'invoice_form_projects', autocomplete: 'nope', :multiple => true}) %>
         <% end %>
       </div>
 

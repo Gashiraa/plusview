@@ -25,7 +25,7 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: t('invoice') + "_#{@invoice.id}",
+        render pdf: t('invoice') + "_#{@invoice.display_number}",
                page_size: 'A4',
                template: 'invoices/show.html.erb',
                layout: 'pdf.html',

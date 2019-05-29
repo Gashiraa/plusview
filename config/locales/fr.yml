@@ -328,3 +328,8 @@ fr:
   unpayed_invoice: "Factures impayée"
   category: "Catégorie"
   extra_name: "Dénomination"
+  switch_in_progress: "Passer en réalisation"
+  no_data_display: "Aucune données à afficher"
+  filtering: "Filtrage :"
+  filtres: "Filtres :"
+  create_new_project: "Créér un nouveau projet"

@@ -15,7 +15,7 @@
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
         <%= form.label t('customer') %>
-        <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {class: 'form-control', id: 'customer_edit_select'} %>
+        <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {class: 'form-control', id: 'project_form_customer'} %>
       </div>
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
         <%= form.label t('status') %>

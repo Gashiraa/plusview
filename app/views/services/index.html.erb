@@ -23,14 +23,14 @@
   </div>
 <% end %>
 
-<table class="table table-hover table-striped" id="table-to-color">
+<table class="table table-to-color">
   <thead class=thead-dark>
   <tr>
     <th class="center-cell">
       <%= sort_link(@search, :project_id, t('project')) %>
     </th>
     <th>
-      <%= sort_link(@search, :description, t('description')) %>
+      <%= sort_link(@search, :name, t('description')) %>
     </th>
     <th>
       <%= sort_link(@search, :comment, t('comment')) %>
@@ -66,7 +66,7 @@
   <% @services.each do |service| %>
     <tr>
       <td class="center-cell">
-        <%= service.project ? (link_to '#' + service.project.id.to_s, project_path(service.project.id)) : '' %>
+        <%= service.project ? (link_to '#' + service.project.id.to_s, project_path(service.project.id), class: 'btn btn-info') : '' %>
       </td>
       <td><%= service.name %></td>
       <td><%= service.comment %></td>

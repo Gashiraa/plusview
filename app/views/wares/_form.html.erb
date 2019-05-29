@@ -18,7 +18,7 @@
       </div>
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('customer') %>
-        <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {class: 'form-control', id: 'customer_edit_select'} %>
+        <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {class: 'form-control', id: 'ware_form_customer'} %>
       </div>
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('status') %>
@@ -30,7 +30,7 @@
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('ware_name') %>
-        <%= form.select :ware_name, Ware.where("ware_name != ''").distinct.order(:ware_name).pluck(:ware_name), {:include_blank => true}, {class: 'form-control', id: 'ware_edit_name_select'} %>
+        <%= form.select :ware_name, Ware.where("ware_name != ''").distinct.order(:ware_name).pluck(:ware_name), {:include_blank => true}, {class: 'form-control', id: 'ware_form_name'} %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">

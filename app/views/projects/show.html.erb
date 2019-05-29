@@ -2,12 +2,12 @@
   <table>
     <tr>
       <td>
+        <%= link_to t('back_to_projects'), projects_path, {class: 'btn btn-secondary'} %>
       </td>
       <td>
         <h2 id="titleBadge" display="project"><%= t('project') %></h2>
       </td>
-      <td class="right-cell">
-        <%= link_to t('back_to_projects'), projects_path, {class: 'btn btn-secondary'} %>
+      <td>
       </td>
     </tr>
   </table>
@@ -22,19 +22,24 @@
   <div class="panel">
     <div class="project-section project-recap">
       <%= link_to t('project').capitalize, edit_project_path(@project), {class: 'btn btn-primary right-cell', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
-      <% if Project.statuses[@project.status] == 3 && @project.invoice_id%>
-        <div class="btn-right">
-          <%= t('invoice') %>
-          <%= link_to image_tag("pdf-icon.png", size: "40x40"), invoice_path(@project.invoice_id, :format => :pdf) %>
-        </div>
-      <% end %>
-      <% if Project.statuses[@project.status] == 2 %>
-        <%= link_to t('invoice_project').capitalize, new_invoice_path, {class: 'btn btn-success btn-right', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
-      <% end %>
-      <% if Project.statuses[@project.status] == 1 %>
+      <% case @project.status %>
+      <% when "quotation" %>
+        <%= link_to t('switch_in_progress'), project_path(@project, project: {status: :in_progress}), method: :put, class: 'btn btn-success btn-right' %>
+      <% when "in_progress" %>
         <%= link_to t('do_done'), project_path(@project, project: {status: :done}), method: :put, class: 'btn btn-success btn-right' %>
+      <% when "done" %>
+        <%= link_to t('invoice_project').capitalize, new_invoice_path, {class: 'btn btn-success btn-right', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+      <% when "invoiced" %>
+        <% if @project.invoice %>
+          <div class="btn btn-success btn-right">
+            <%= t('invoice') %>
+            <%= link_to image_tag("pdf-icon.png", size: "30x30"), invoice_path(@project.invoice&.id, :format => :pdf) %>
+          </div>
+        <% end %>
+      <% else %>
+
       <% end %>
-      <table>
+      <table class=" table table-hover table-striped">
         <tr>
           <td>
             <table class="project-info">
@@ -42,7 +47,7 @@
                 <td>
                   <%= t('project_title') %>
                 </td>
-                <td>
+                <td class="center-cell">
                   <%= @project.name %>
                 </td>
               </tr>
@@ -50,7 +55,7 @@
                 <td>
                   <%= t('customer') %>
                 </td>
-                <td>
+                <td class="center-cell">
                   <% if @project.customer %>
                     <%= @project.customer.name %>
                     <%= link_to edit_customer_path(@project.customer), remote: true do %>
@@ -63,15 +68,15 @@
                 <td>
                   <%= t('status') %>
                 </td>
-                <td>
+                <%= tag.td id: 'status-project', status: @project.status do %>
                   <%= @project.translated_status %>
-                </td>
+                <% end %>
               </tr>
               <tr>
                 <td>
                   <%= t('date_locale') %>
                 </td>
-                <td>
+                <td class="center-cell">
                   <%= l(@project.date) %>
                 </td>
               </tr>
@@ -98,11 +103,11 @@
     </div>
     <div class="project-section">
       <h5>
-        <%= link_to t('service').pluralize.capitalize, "", {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= t('service').pluralize.capitalize%>
         <%= link_to "+", new_service_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </h5>
 
-      <table class="table table-hover table-striped" id="table-to-color2">
+      <table class="table table-to-color" >
         <thead class=thead-dark>
         <tr>
           <th><%= t('Name') %></th>
@@ -157,10 +162,10 @@
   <div class="panel">
     <div class="project-section project-wares">
       <h5>
-        <%= link_to t('ware').pluralize.capitalize, "", {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= t('ware').pluralize.capitalize%>
         <%= link_to "+", new_ware_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </h5>
-      <table class="table table-hover table-striped" id="table-to-color">
+      <table class="table table-to-color">
         <thead class=thead-dark>
         <tr>
           <th><%= t('ware_name') %></th>
@@ -211,11 +216,11 @@
     <hr>
     <div class="project-section">
       <h5>
-        <%= link_to t('extra').pluralize.capitalize, "", {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= t('extra').pluralize.capitalize%>
         <%= link_to "+", new_project_extra_line_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </h5>
 
-      <table class="table table-hover table-striped" id="table-to-color2">
+      <table class="table table-to-color">
         <thead class=thead-dark>
         <tr>
           <th><%= t('Name') %></th>

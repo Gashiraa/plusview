@@ -1,9 +1,24 @@
-<h2 id="titleBadge" display="projects"><%= t('project').pluralize %></h2>
+<div class="header-project">
+  <table>
+    <tr>
+      <td>
+        <%= link_to t('create_new_project'), new_project_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+      </td>
+      <td>
+        <h2 id="titleBadge" display=<%= controller_name %>>
+          <%= t('project').pluralize %>
+        </h2>
+      </td>
+      <td>
+      </td>
+    </tr>
+  </table>
+</div>
 <hr>
 <%= search_form_for @search do |form| %>
   <div class="form">
     <div class="row">
-
+      <h3> <%= form.label t('filtres') %> </h3>
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('project') %>
         <%= form.collection_select :id_eq, Project.all, :id, :name, {:include_blank => t('all_projects')}, {class: 'form-control', id: 'project_sort', onchange: 'this.form.submit();'} %>
@@ -28,20 +43,17 @@
           <%= form.text_field :date_lteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off', id: "sortProjectTo", class: "form-control", onchange: 'this.form.submit();' %>
         </div>
       </div>
-      <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
-        <%= link_to '+', new_project_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
-      </div>
     </div>
   </div>
 <% end %>
 
-<table class="table table-hover table-striped" id="table-to-color">
+<table class="table table-to-color">
   <thead class=thead-dark>
   <tr>
     <th class="center-cell">
       <%= sort_link(@search, :id, t('id_locale')) %>
     </th>
-    <th>
+    <th class="small-column">
       <%= sort_link(@search, :customer_id, t('customer')) %>
     </th>
     <th>
@@ -69,12 +81,14 @@
   <tbody>
   <% unless @projects.any? %>
     <tr>
-      <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+      <td class="emptyTable" colspan="9"><%= t('no_data_display') %></td>
     </tr>
   <% end %>
   <% @projects.each do |project| %>
     <tr>
-      <td class="center-cell"><%= '#' + project.id.to_s %></td>
+      <td class="center-cell">
+        <%= link_to '#' + project.id.to_s, project_path(project.id), class: 'btn btn-info' %>
+      </td>
       <td><%= project.customer ? project.customer.name : nil %></td>
       <td><%= project.name %></td>
       <td><%= project.description %></td>

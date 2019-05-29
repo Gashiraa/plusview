@@ -5,11 +5,11 @@
     <div class="row">
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('Name') %>
-        <%= form.select :name_eq, Customer.pluck(:name), {:include_blank => t('all_customer_names')}, {class: 'form-control', id: 'customer_name_select', onchange: 'this.form.submit();'} %>
+        <%= form.select :name_eq, Customer.pluck(:name), {:include_blank => t('all_customer_names')}, {class: 'form-control', id: 'customer_form_name', onchange: 'this.form.submit();'} %>
       </div>
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('locality') %>
-        <%= form.select :locality_eq, Customer.distinct.order(:locality).pluck(:locality), {:include_blank => t('all_customer_localities')}, {class: 'form-control', id: 'customer_locality_select', onchange: 'this.form.submit();'} %>
+        <%= form.select :locality_eq, Customer.distinct.order(:locality).pluck(:locality), {:include_blank => t('all_customer_localities')}, {class: 'form-control', id: 'customer_form_locality', onchange: 'this.form.submit();'} %>
       </div>
       <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
         <%= link_to '+', new_customer_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>

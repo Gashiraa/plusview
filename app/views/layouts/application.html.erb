@@ -1,27 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Greday</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <% filename = controller.controller_name %>
+  <head>
+    <title>Greday</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-  <%# if Rails.application.assets.find_asset("#{filename}.js") %>
-    <%#= javascript_include_tag "#{filename}" %>
-  <%# end %>
-
-  <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type => 'image/png' %>
-</head>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type => 'image/png' %>
+  </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Greday</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+  <div class="collapse navbar-collapse" >
     <% if current_user %>
       <%= content_tag :div, class: "locale", data: {locale: current_user.locale} do %>
       <% end %>
@@ -73,11 +63,12 @@
 <% if alert %>
   <p id="notice" class="alert alert-danger"><%= alert %></p>
 <% end %>
-<body>
-<div class="content" id="primary-content">
-  <%= yield %>
-</div>
-</body>
+
+  <body>
+    <div class="content" id="primary-content">
+      <%= yield %>
+    </div>
+  </body>
 
 </html>
 

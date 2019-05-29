@@ -1,6 +1,8 @@
 $(document).on("turbolinks:load", function () {
 
-        $('#customer_edit_select').on('focus load trigger mouseover change', function () {
+    $("#quotation_form_customer").select2({theme: "bootstrap", width: '100%', selectOnClose: true}); //PICKING A CUSTOMER IN QUOTATION FORM
+
+    $('#quotation_form_customer').on('focus load trigger mouseover change', function () {
             let customer = this.options[this.selectedIndex].value;
             $("#edit_quotation_projects > option").each(function () {
                 if (this.getAttribute("customer") === customer || this.innerText === "") {
@@ -16,6 +18,6 @@ $(document).on("turbolinks:load", function () {
                 }
             });
         });
-        $('#customer_edit_select').trigger('change');
+        $('#quotation_form_customer').trigger('change');
     }
 );

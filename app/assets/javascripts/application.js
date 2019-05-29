@@ -1,40 +1,23 @@
 //= require jquery3
 //= require jquery
-//= require select2
+//= require select2-full
 //= require rails-ujs
 //= require jquery-ui
 //= require bootstrap-sprockets
 //= require bootstrap
 //= require activestorage
 //= require turbolinks
+//= require select2_locale_fr
 //= require_tree .
-
 
 $(document).on("turbolinks:load", function () {
 
-        {   // SELECT2 INITIALIZATION
-
-            $("#project_sort").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-            $("#customer_sort").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-
-            $("#ware_form_project").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-            $("#service_form_project").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-
-            $("#customer_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-            $("#customer_select_invoice").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-            $("#number_select_invoice").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
-
-            $("#project_extra_edit_select").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-            $("#category_select_extra_line").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
-
-            $("#ware_edit_name_select").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
-
-            $("#customer_name_select").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
-            $("#customer_locality_select").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
+        {   // SELECT2 INITIALISATIONS
+            $("#project_sort").select2({theme: "bootstrap", width: '100%', selectOnClose: true, language: $('.locale').data('locale')}); //SORTING BY PROJECT NAME IN LISTINGS
+            $("#customer_sort").select2({theme: "bootstrap", width: '100%', selectOnClose: true, language: $('.locale').data('locale')}); //SORTING BY CUSTOMER NAME IN LISTINGS
         }
 
-        {  // DATEPICK  ER SECTION
-
+        {  // DATEPICKER SECTION
             //Datepickers initilization
             autoFormatDatePicker("sortProjectFrom");
             autoFormatDatePicker("sortProjectTo");
@@ -87,9 +70,13 @@ $(document).on("turbolinks:load", function () {
             $('#notice').fadeOut();
         }, 3000);
 
-        //Color lines status
-        $('table').each(function () {
+        //Color lines from a table
+        $('.table-to-color').each(function () {
             colorTable(this)
+        });
+
+        $('#status-project').each(function () {
+            this.style.backgroundColor = assignColor(this.getAttribute('status'));
         });
 
         $('#status_sort_select > option').each(function () {
@@ -100,7 +87,6 @@ $(document).on("turbolinks:load", function () {
         let title = document.getElementById("titleBadge");
         switch (title.getAttribute('display')) {
             case 'projects' :
-            case 'project' :
                 title.style.backgroundColor = "#32469b";
                 break;
             case 'wares' :
@@ -149,29 +135,31 @@ function colorTable(tableToColor) {
         for (let j = 0, cell; cell = row.cells[j]; j++) {
             if (cell.id === "status-cell") {
                 row.style.backgroundColor = assignColor(cell.getAttribute('status'));
+                break;
             }
         }
     }
 }
 
+//Color picker based on status enum
 function assignColor(status) {
     switch (status) {
         case 'quotation' : //Project, Ware
-            return "rgba(84,205,255,0.65)"; //BLUE
+            return "rgba(84,205,255,0.55)"; //BLUE
         case 'invoiced' :
         case 'created' :
-            return "rgba(255,234,0,0.65)"; //YELLOW
+            return "rgba(255,234,0,0.55)"; //YELLOW
         case 'assigned_project' :
         case 'assigned_customer' :
         case 'assigned' :
         case 'in_progress' :
-            return "rgba(255,116,0,0.65)"; //ORANGE
+            return "rgba(255,116,0,0.55)"; //ORANGE
         case 'not_assigned' :
         case 'done' :
-            return "rgba(255,7,9,0.65)"; //RED
+            return "rgba(255,7,9,0.55)"; //RED
         case 'accepted' :
         case 'paid' :
-            return "rgba(87,194,36,0.65)"; //GREEN
+            return "rgba(87,194,36,0.55)"; //GREEN
         default:
     }
 }
