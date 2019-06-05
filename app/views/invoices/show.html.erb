@@ -230,20 +230,19 @@
 
     <section id="sums" class="avoidbreak">
       <div class="clearfix"></div>
-      <div class="clearfix"></div>
       <table>
         <tr class="amount-total">
           <th>TOTAL HT (€)</th>
           <td><%= number_with_precision @invoice.total_gross, :precision => 2 %></td>
         </tr>
-        <tr data-hide-on-quote="true">
+        <tr>
           <th>Total TVA (€)</th>
           <td><%= # noinspection RubyArgumentParentheses
                   number_with_precision (@invoice.total - @invoice.total_gross), :precision => 2 %></td>
         </tr>
-        <tr data-hide-on-quote="true">
+        <tr>
           <th>TOTAL TTC (€)</th>
-          <td><%= number_with_precision @invoice.total, :precision => 2 %></td>
+          <td class="invoice_total"><%= number_with_precision @invoice.total, :precision => 2 %></td>
         </tr>
       </table>
       <div class="clearfix"></div>

@@ -33,20 +33,16 @@
   </script>
 </head>
 <body onload="number_pages()">
-<section id="notes">
-  <h5>
-    Les paiements se feront au compte BNP Fortis : <b>BE47 0015 7715 0480</b>
-  </h5>
-  <p>
-    Le montant de la facture est payable dans les 8 jours. Toute réclamation devra être formulée au plus tard dans les
-    huit jours de la réception par lettre
-    recommandée. En cas de retard de paiement, un intérêt de 1% par mois est dû de plein droit, ainsi qu'une indemnité
-    égale à 15% du montant de la facture avec un minimum de 50€, sans sommation ni mise en demeure.
-    Pour tous litiges, seuls les tribunaux de Liège sont compétents.
-  </p>
-  <h5>
-    <span class="page"></span>/<span class="topage"></span>
-  </h5>
-</section>
-</body>
+    <section id="notes">
+      <h5>
+        <%= t('invoice_account') %><b> BE47 0015 7715 0480</b>
+      </h5>
+      <p>
+        <%= t('invoice_notice') %>
+      </p>
+      <h5>
+        <span class="page"></span>/<span class="topage"></span>
+      </h5>
+    </section>
+  </body>
 </html>

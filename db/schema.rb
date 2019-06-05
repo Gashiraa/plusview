@@ -15,14 +15,6 @@ ActiveRecord::Schema.define(version: 2019_05_26_082946) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "admins", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "pwd"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.string "mail"
@@ -71,28 +63,6 @@ ActiveRecord::Schema.define(version: 2019_05_26_082946) do
     t.bigint "customer_id"
     t.float "total"
     t.index ["customer_id"], name: "index_payments_on_customer_id"
-  end
-
-  create_table "products", force: :cascade do |t|
-    t.bigint "project_id"
-    t.bigint "invoice_id"
-    t.bigint "customer_id"
-    t.bigint "quotation_id"
-    t.string "name"
-    t.string "comment"
-    t.integer "quantity"
-    t.float "provider_discount"
-    t.float "margin"
-    t.float "unit_price"
-    t.integer "status"
-    t.float "tva_rate"
-    t.float "total_cost"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_products_on_customer_id"
-    t.index ["invoice_id"], name: "index_products_on_invoice_id"
-    t.index ["project_id"], name: "index_products_on_project_id"
-    t.index ["quotation_id"], name: "index_products_on_quotation_id"
   end
 
   create_table "project_extra_lines", force: :cascade do |t|

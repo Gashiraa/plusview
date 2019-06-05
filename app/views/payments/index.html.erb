@@ -1,11 +1,24 @@
-<h2 id="titleBadge" display="payments"><%= t('payment').pluralize %></h2>
+<div class="header-project">
+  <table>
+    <tr>
+      <td>
+        <%= link_to t('create_new_payment'), new_payment_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+      </td>
+      <td>
+        <h2 id="titleBadge" display=<%= controller_name %>>
+          <%= t(controller_name).to_s %>
+        </h2>
+      </td>
+      <td>
+      </td>
+    </tr>
+  </table>
+</div>
 <hr>
 <%= search_form_for @search do |form| %>
   <div class="form">
     <div class="row">
-      <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
-        <%= link_to '+', new_payment_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
-      </div>
+      <h5> <%= form.label t('filtres') %> </h5>
     </div>
   </div>
 <% end %>

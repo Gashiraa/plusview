@@ -1,52 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Greday</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Greday</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type => 'image/png' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type => 'image/png' %>
+
+</head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Greday</a>
-  <div class="collapse navbar-collapse" >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <% if current_user %>
       <%= content_tag :div, class: "locale", data: {locale: current_user.locale} do %>
       <% end %>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/projects"> Projets</a>
+          <a class="nav-link" href="/projects"> <%= t('projects').capitalize %>  </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/wares">Marchandises</a>
+          <a class="nav-link" href="/wares"> <%= t('wares').capitalize %> </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/services">Prestations</a>
+          <a class="nav-link" href="/services"> <%= t('services').capitalize %> </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/customers">Clients</a>
+          <a class="nav-link" href="/customers"> <%= t('customers').capitalize %> </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/extras">Divers</a>
+          <a class="nav-link" href="/extras"> <%= t('extras').capitalize %> </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/quotations">Devis</a>
+          <a class="nav-link" href="/quotations"> <%= t('quotations').capitalize %> </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/invoices">Facture</a>
+          <a class="nav-link" href="/invoices"> <%= t('invoices').capitalize %> </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/payments">Paiements</a>
+          <a class="nav-link" href="/payments"> <%= t('payments').capitalize %> </a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <%= link_to t('FR'), {:controller => 'application', :action => 'change_locale', :id => 'fr'}, class: "nav-link" %>
+          <%= link_to t('FR'), {:controller => '/application', :action => 'change_locale', :id => 'fr'}, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to t('EN'), {:controller => 'application', :action => 'change_locale', :id => 'en'}, class: "nav-link" %>
+          <%= link_to t('EN'), {:controller => '/application', :action => 'change_locale', :id => 'en'}, class: "nav-link" %>
         </li>
         <li class="nav-item">
           <%= link_to(t('logout'), destroy_user_session_path, method: :delete, class: "nav-link logout-button") %>
@@ -64,11 +68,13 @@
   <p id="notice" class="alert alert-danger"><%= alert %></p>
 <% end %>
 
-  <body>
-    <div class="content" id="primary-content">
-      <%= yield %>
-    </div>
-  </body>
+<body>
+<div class="content" id="primary-content">
+  <%= yield %>
+</div>
+
+
+</body>
 
 </html>
 

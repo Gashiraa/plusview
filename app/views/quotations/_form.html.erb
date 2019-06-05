@@ -16,18 +16,18 @@
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
         <%= form.label t('customer') %>
-        <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {class: 'form-control', id: 'quotation_form_customer'} %>
+        <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {required: true, class: 'form-control', id: 'quotation_form_customer'} %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
         <%= form.label t('status') %>
-        <%= form.select(:status, Quotation.statuses.keys {|status| [status.value, status.value]}, {}, {class: 'form-control', id: "quotation_status", autocomplete: 'nope'}) %>
+        <%= form.select(:status, Quotation.translated_statuses.map {|status| [status[0], status[1]]}, {}, {class: 'form-control', id: "quotation_status", autocomplete: 'nope'}) %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
         <%= form.label t('date_locale') %>
         <div class="picker-container">
-          <%= form.text_field :date, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", value: Time.zone.now.to_date.strftime("%d/%m/%Y"), autocomplete: 'off', id: "dateProject", class: "form-control" %>
+          <%= form.text_field :date, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", value: @quotation.date ? l(@quotation.date) : Time.zone.now.to_date.strftime("%d/%m/%Y"), autocomplete: 'off', id: "dateProject", class: "form-control" %>
         </div>
       </div>
 

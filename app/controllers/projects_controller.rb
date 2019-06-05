@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @search = Project.order(date: :desc).ransack(params[:q])
-    @projects = @search.result(distinct: true).paginate(page: params[:page], per_page: 10)
+    @projects = @search.result(distinct: true).paginate(page: params[:page], per_page: 30)
   end
 
   # GET /projects/1
@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   def show;
   end
 
-  # GET /projects/new
+    # GET /projects/new
   def new
     @project = Project.new
     respond_to(&:js)

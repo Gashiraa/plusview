@@ -13,8 +13,18 @@
 $(document).on("turbolinks:load", function () {
 
         {   // SELECT2 INITIALISATIONS
-            $("#project_sort").select2({theme: "bootstrap", width: '100%', selectOnClose: true, language: $('.locale').data('locale')}); //SORTING BY PROJECT NAME IN LISTINGS
-            $("#customer_sort").select2({theme: "bootstrap", width: '100%', selectOnClose: true, language: $('.locale').data('locale')}); //SORTING BY CUSTOMER NAME IN LISTINGS
+            $("#project_sort").select2({
+                theme: "bootstrap",
+                width: '100%',
+                selectOnClose: true,
+                language: $('.locale').data('locale')
+            }); //SORTING BY PROJECT NAME IN LISTINGS
+            $("#customer_sort").select2({
+                theme: "bootstrap",
+                width: '100%',
+                selectOnClose: true,
+                language: $('.locale').data('locale')
+            }); //SORTING BY CUSTOMER NAME IN LISTINGS
         }
 
         {  // DATEPICKER SECTION
@@ -72,6 +82,17 @@ $(document).on("turbolinks:load", function () {
 
         //Color lines from a table
         $('.table-to-color').each(function () {
+            let original;
+            $("tr").not(':first').hover(
+                function () {
+                    original = $(this).css("background-color");
+                    let rgb = original.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
+                    $(this).css("background-color", "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + 0.75 + ")");
+                },
+                function () {
+                    $(this).css("background-color", original);
+                }
+            );
             colorTable(this)
         });
 

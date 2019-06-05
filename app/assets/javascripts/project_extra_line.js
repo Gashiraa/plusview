@@ -1,7 +1,18 @@
 $(document).on("turbolinks:load", function () {
 
-        $("#extra_line_form_project").select2({theme: "bootstrap", width: '100%', selectOnClose: true});
-        $("#extra_line_form_category").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true});
+        $("#extra_line_form_project").select2({
+            theme: "bootstrap",
+            width: '100%',
+            sselectOnClose: true,
+            language: $('.locale').data('locale')
+        });
+        $("#extra_line_form_category").select2({
+            theme: "bootstrap",
+            width: '100%',
+            tags: true,
+            selectOnClose: true,
+            language: $('.locale').data('locale')
+        });
 
         $('#extra_edit_select').on('focus load trigger mouseover change', function () {
             let extra = this.options[this.selectedIndex].value;

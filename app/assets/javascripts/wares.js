@@ -1,17 +1,35 @@
 $(document).on("turbolinks:load", function () {
 
-        $("#ware_form_project").select2({theme: "bootstrap", width: '100%', selectOnClose: true}); //PICKING A PROJECT IN WARE FORM
-        $("#ware_form_customer").select2({theme: "bootstrap", width: '100%', selectOnClose: true}); //PICKING A CUSTOMER IN WARE FORM
-        $("#ware_form_name").select2({theme: "bootstrap", width: '100%', tags: true, selectOnClose: true}); //PICKING A NAME IN WARE FORM
+        $("#ware_form_project").select2({
+            theme: "bootstrap",
+            width: '100%',
+            selectOnClose: true,
+            language: $('.locale').data('locale')
+        }); //PICKING A PROJECT IN WARE FORM
+
+        $("#ware_form_customer").select2({
+            theme: "bootstrap",
+            width: '100%',
+            selectOnClose: true,
+            language: $('.locale').data('locale')
+        }); //PICKING A CUSTOMER IN WARE FORM
+
+        $("#ware_form_name").select2({
+            theme: "bootstrap",
+            width: '100%',
+            tags: true,
+            selectOnClose: true,
+            language: $('.locale').data('locale')
+        }); //PICKING A NAME IN WARE FORM
 
         //Disabling dropdowns for ware forms
         $('select[id="ware_form_project"]').on('focus trigger mouseover change', function () {
             if ($(this).val()) {
                 $('#ware_form_customer').prop("disabled", true);
-                $('#status_edit_select option:eq(2)').prop('selected', true);
+                changeStatusSelect("assigned_project")
             } else {
                 $('#ware_form_customer').prop("disabled", false);
-                $('#status_edit_select option:eq(0)').prop('selected', true);
+                changeStatusSelect(0)
             }
         });
         $('select[id="ware_form_project"]').trigger('change');
@@ -19,14 +37,13 @@ $(document).on("turbolinks:load", function () {
         $('select[id="ware_form_customer"]').on('focus trigger mouseover change', function () {
             if ($(this).val()) {
                 $('#ware_form_project').prop("disabled", true);
-                $('#status_edit_select option:eq(3)').prop('selected', true);
+                changeStatusSelect("assigned_customer")
             } else {
                 $('#ware_form_project').prop("disabled", false);
-                $('#status_edit_select option:eq(0)').prop('selected', true);
+                changeStatusSelect(0)
             }
         });
         $('select[id="ware_form_customer"]').trigger('change');
-
 
         //WARES PROVIDER PRICES auto-complete
         $('#provider_price,#provider_discount')
@@ -68,3 +85,11 @@ $(document).on("turbolinks:load", function () {
         }
     }
 );
+
+function changeStatusSelect(status) {
+    console.log(document.getElementById('ware_id').value);
+    if (document.getElementById('ware_id').value === "0") {
+        console.log(status);
+        $('#status_edit_select').val(status)
+    }
+}

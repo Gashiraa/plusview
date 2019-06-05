@@ -1,13 +1,27 @@
-<h2 id="titleBadge" display="extras"><%= t('extras').pluralize %></h2>
+<div class="header-project">
+  <table>
+    <tr>
+      <td>
+        <%= link_to t('create_new_extra'), new_extra_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+      </td>
+      <td>
+        <h2 id="titleBadge" display=<%= controller_name %>>
+          <%= t(controller_name).to_s %>
+        </h2>
+      </td>
+      <td>
+      </td>
+    </tr>
+  </table>
+</div>
 <hr>
 <%= search_form_for @search do |form| %>
   <div class="form">
     <div class="row">
-
+      <h5> <%= form.label t('filtres') %> </h5>
     </div>
   </div>
 <% end %>
-<%= link_to '+', new_extra_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
 
 <table class="table table-hover table-striped" id="table-to-color">
   <thead class=thead-dark>

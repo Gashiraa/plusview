@@ -3,7 +3,6 @@ class Ability
 
   def initialize(user)
     user ||= User.new
-
     if user.isAdmin
       can :manage, :all
     else

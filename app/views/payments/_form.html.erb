@@ -16,7 +16,7 @@
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
         <%= form.label t('date_locale') %>
         <div class="picker-container">
-          <%= form.text_field :date, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", value: Time.zone.now.to_date.strftime("%d/%m/%Y"), autocomplete: 'off', id: "dateProject", class: "form-control" %>
+          <%= form.text_field :date, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", value: @payment.date ? l(@payment.date) : Time.zone.now.to_date.strftime("%d/%m/%Y"), autocomplete: 'off', id: "dateProject", class: "form-control" %>
         </div>
       </div>
 

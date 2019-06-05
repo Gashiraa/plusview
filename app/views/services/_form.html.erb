@@ -11,6 +11,8 @@
       <h3><%= t('creating_services') %></h3>
     <% end %>
 
+    <%= form.hidden_field :id, value: @service.id || 0 , id: "service_id"%>
+
     <div class="form-row">
 
         <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
@@ -26,7 +28,7 @@
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-4">
         <%= form.label t('date_locale') %>
         <div class="input-group mb-3">
-          <%= form.text_field :date, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", value: Time.zone.now.to_date.strftime("%d/%m/%Y"), autocomplete: 'off', id: "dateProject", class: "form-control" %>
+          <%= form.text_field :date, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", value: @service.date ? l(@service.date) : Time.zone.now.to_date.strftime("%d/%m/%Y"), autocomplete: 'off', id: "dateProject", class: "form-control" %>
           <div class="input-group-append">
             <div class="input-group-text">
               <%= fa_icon "calendar" %>
@@ -61,7 +63,7 @@
       <div class="col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-6">
         <%= form.label t('hourly_rate')%>
         <div class="input-group mb-3">
-          <%= form.text_field :hourly_rate, value: '45', class: "form-control", autocomplete: 'nope', id: 'hourly_rate' %>
+          <%= form.text_field :hourly_rate, value: @service.hourly_rate || '45', class: "form-control", autocomplete: 'nope', id: 'hourly_rate' %>
           <div class="input-group-append">
             <div class="input-group-text">
               <%= fa_icon "euro" %>
@@ -78,7 +80,7 @@
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('tva_rate')%>
         <div class="input-group mb-3">
-          <%= form.text_field :tva_rate, value: '21', class: "form-control", id: "tva_rate_s", autocomplete: 'nope' %>
+          <%= form.text_field :tva_rate, value: @service.tva_rate || '21', class: "form-control", id: "tva_rate_s", autocomplete: 'nope' %>
           <div class="input-group-append">
             <div class="input-group-text">
               <%= fa_icon "percent" %>

@@ -65,7 +65,7 @@
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('country') %>
-        <%= form.text_field :country, value: "Belgique", class: "form-control", autocomplete: 'nope' %>
+        <%= form.text_field :country, value: @customer.country || "Belgique", class: "form-control", autocomplete: 'nope' %>
       </div>
     </div>
     <div class="form-row">

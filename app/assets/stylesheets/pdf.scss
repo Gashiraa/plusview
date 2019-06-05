@@ -112,7 +112,7 @@
 
     #invoice-title, #quotation-title {
       text-transform: uppercase;
-      padding: 0px 2px 0px 60px;
+      padding: 0 40px 0 40px;
       font-size: 50px;
       color: white;
       margin-left: 3%;
@@ -128,20 +128,18 @@
 
     #quotation-number {
       h2 {
-        margin-left: 13%;
+        margin-left: 8%;
         margin-top: 1%;
       }
-
       font-size: 25px;
       margin-top: 4vh;
     }
 
     #number {
       h2 {
-        margin-left: 22%;
+        margin-left: 14%;
         margin-top: 1%;
       }
-
       font-size: 25px;
       margin-top: 4vh;
     }
@@ -152,7 +150,7 @@
     float: left;
     min-width: 220px;
     top: 40mm;
-    right: 55mm;
+    left: 125mm;
     font-size: 19px;
   }
 
@@ -171,6 +169,7 @@
       background: rgba(12, 84, 96, 0.63);
       color: white;
       display: inline;
+      padding: 0.5% 1.5%;
     }
 
     .title-project-container {
@@ -225,7 +224,7 @@
     }
 
     tr th, tr td {
-      min-width: 100px;
+      min-width: 150px;
       padding: 3px 8px;
       text-align: right;
       font-size: 12px;
@@ -246,7 +245,6 @@
       float: right;
 
       tr th, tr td {
-        min-width: 100px;
         padding: 9px 8px;
         text-align: right;
       }
@@ -254,15 +252,7 @@
       tr th {
         font-weight: bold;
         text-align: left;
-        padding-right: 35px;
-      }
-
-      tr td.last {
-        min-width: 0 !important;
-        max-width: 0 !important;
-        width: 0 !important;
-        padding: 0 !important;
-        border: none !important;
+        margin-right: 35px;
       }
 
       tr.amount-total th {
@@ -282,6 +272,7 @@
         font-size: 15px;
         font-weight: bold;
         color: white;
+        width: 80%;
       }
     }
   }
@@ -293,28 +284,31 @@
     right: 0;
 
     h5 {
+      margin: 0;
       text-align: center;
-      margin-top: 30px;
+      font-size: 15px;
     }
 
     p {
+      color: grey;
       text-align: justify;
-      font-size: 11px;
-      margin-left: 50px;
-      margin-right: 50px;
-      margin-bottom: 0;
+      font-size: 10px;
+      margin-left: 65px;
+      margin-right: 65px;
     }
   }
 
   #dateInvoice {
+    min-width: 30%;
     position: fixed;
-    right: 7%;
+    left: 70%;
     top: 5%;
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .avoidbreak {
     break-inside: avoid;
     page-break-inside: avoid;
   }
+
 }

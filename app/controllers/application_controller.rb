@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     current_user.locale = locale
     respond_to do |format|
       if current_user.save
-        format.html { redirect_to root_path , notice: t('locale_changed')}
+        format.html {redirect_to root_path, notice: t('locale_changed')}
       end
     end
   end
@@ -31,4 +31,5 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to request.env["HTTP_REFERER"], alert: t('unauthorized_action')
   end
+
 end

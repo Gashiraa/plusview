@@ -1,14 +1,21 @@
 fr:
-  wares:
   id_locale: ID
   date_locale: Date
 
   ware: Marchandise
+  wares: Marchandises
   project: Projet
+  projects: Projets
   invoice: Facture
+  invoices: Factures
   customer: Client
+  customers: Clients
   quotation: Devis
+  quotations: Devis
   service: Prestation
+  services: Prestations
+  payment: Paiement
+  payments: Paiements
 
   project_title: Titre projet
   Name: Nom
@@ -321,7 +328,6 @@ fr:
   invoice_project: "Facturer"
   do_done: "Terminer"
   unauthorized_action: "Action non autorisée"
-  payment: "Paiement"
   payment_reference: "Référence de paiement"
   editing_payment: "Edition paiement"
   creating_payment: "Création paiement"
@@ -332,4 +338,13 @@ fr:
   no_data_display: "Aucune données à afficher"
   filtering: "Filtrage :"
   filtres: "Filtres :"
-  create_new_project: "Créér un nouveau projet"
+  create_new_project: "Créer un nouveau projet"
+  create_new_service: "Créer une nouvelle prestation"
+  create_new_ware: "Créer une nouvelle marchandise"
+  create_new_quotation: "Créer un nouveau devis"
+  create_new_payment: "Créer un nouveau paiement"
+  create_new_invoice: "Créer une nouvelle facture"
+  create_new_extra: "Créer un nouveau divers"
+  create_new_customer: "Créer un nouveau client"
+  invoice_notice: "Le montant de la facture est payable dans les 8 jours. Toute réclamation devra être formulée au plus tard dans les huit jours de la réception par lettre recommandée. En cas de retard de paiement, un intérêt de 1% par mois est dû de plein droit, ainsi qu'une indemnité égale à 15% du montant de la facture avec un minimum de 50€, sans sommation ni mise en demeure. Pour tous litiges, seuls les tribunaux de Liège sont compétents."
+  invoice_account: "Les paiements se feront au compte BNP Fortis :"

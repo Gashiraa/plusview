@@ -27,6 +27,16 @@ class Invoice < ApplicationRecord
                    total_gross: do_total_gross(projects, wares))
   end
 
+  def do_total(projects, wares)
+    wares.collect {|w| w.valid? ? w.total_cost : 0}.sum +
+        projects.collect {|p| p.valid? ? p.total : 0}.sum
+  end
+
+  def do_total_gross(projects, wares)
+    wares.collect {|w| w.valid? ? w.total_gross : 0}.sum +
+        projects.collect {|p| p.valid? ? p.total_gross : 0}.sum
+  end
+
   def update_statuses_invoice(invoice)
     Project.all.where(status: :invoiced, invoice_id: nil).update(status: :done)
     Ware.all.where(status: :invoiced, invoice_id: nil).update(status: :assigned_project)
@@ -41,13 +51,4 @@ class Invoice < ApplicationRecord
     end
   end
 
-  def do_total(projects, wares)
-    wares.collect {|w| w.valid? ? w.total_cost : 0}.sum +
-        projects.collect {|p| p.valid? ? p.total : 0}.sum
-  end
-
-  def do_total_gross(projects, wares)
-    wares.collect {|w| w.valid? ? w.total_gross : 0}.sum +
-        projects.collect {|p| p.valid? ? p.total_gross : 0}.sum
-  end
 end

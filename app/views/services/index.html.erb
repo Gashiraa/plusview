@@ -1,9 +1,24 @@
-<h2 id="titleBadge" display="services"><%= t(:service).pluralize %></h2>
+<div class="header-project">
+  <table>
+    <tr>
+      <td>
+        <%= link_to t('create_new_service'), new_service_path, {class: 'btn btn-success', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+      </td>
+      <td>
+        <h2 id="titleBadge" display=<%= controller_name %>>
+          <%= t(controller_name).to_s %>
+        </h2>
+      </td>
+      <td>
+      </td>
+    </tr>
+  </table>
+</div>
 <hr>
 <%= search_form_for @search do |form| %>
   <div class="form">
     <div class="row">
-
+      <h5> <%= form.label t('filtres') %> </h5>
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('project') %>
         <%= form.collection_select :project_id_eq, Project.all, :id, :name, {:include_blank => t('all_projects')}, {class: 'form-control', id: 'project_sort', onchange: 'this.form.submit();'} %>
@@ -15,9 +30,6 @@
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-2">
         <%= form.label t('status') %>
         <%= form.select :status_eq, Service.statuses.map {|status| [t(status[0]), status[1].to_i, {status: status[0]}]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
-      </div>
-      <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-auto button-add">
-        <%= link_to '+', new_service_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </div>
     </div>
   </div>

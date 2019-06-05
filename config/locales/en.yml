@@ -1,103 +1,184 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  id_locale: ID
+  date_locale: Date
 
-  devise:
-    confirmations:
-      confirmed: "Your email address has been successfully confirmed."
-      send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
-      send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes."
-    failure:
-      already_authenticated: "You are already signed in."
-      inactive: "Your account is not activated yet."
-      invalid: "Invalid %{authentication_keys} or password."
-      locked: "Your account is locked."
-      last_attempt: "You have one more attempt before your account is locked."
-      not_found_in_database: "Invalid %{authentication_keys} or password."
-      timeout: "Your session expired. Please sign in again to continue."
-      unauthenticated: "You need to sign in or sign up before continuing."
-      unconfirmed: "You have to confirm your email address before continuing."
-    mailer:
-      confirmation_instructions:
-        subject: "Confirmation instructions"
-      reset_password_instructions:
-        subject: "Reset password instructions"
-      unlock_instructions:
-        subject: "Unlock instructions"
-      email_changed:
-        subject: "Email Changed"
-      password_change:
-        subject: "Password Changed"
-    omniauth_callbacks:
-      failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
-      success: "Successfully authenticated from %{kind} account."
-    passwords:
-      no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
-      send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."
-      send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
-      updated: "Your password has been changed successfully. You are now signed in."
-      updated_not_active: "Your password has been changed successfully."
-    registrations:
-      destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
-      signed_up: "Welcome! You have signed up successfully."
-      signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
-      signed_up_but_locked: "You have signed up successfully. However, we could not sign you in because your account is locked."
-      signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
-      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirm link to confirm your new email address."
-      updated: "Your account has been updated successfully."
-      updated_but_not_signed_in: "Your account has been updated successfully, but since your password was changed, you need to sign in again"
-    sessions:
-      signed_in: "Signed in successfully."
-      signed_out: "Signed out successfully."
-      already_signed_out: "Signed out successfully."
-    unlocks:
-      send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
-      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
-      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
-  errors:
-    messages:
-      already_confirmed: "was already confirmed, please try signing in"
-      confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-      expired: "has expired, please request a new one"
-      not_found: "not found"
-      not_locked: "was not locked"
-      not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
-  project: "project"
-  ware: "ware"
-  service: "service"
-  customer: "customer"
-  status: "status"
-  ware_already_invoiced: ""
-  editing_wares: "Edition marchandise"
+  ware: Ware
+  wares: Wares
+  project: project
+  projects: projects
+  invoice: Invoice
+  invoices: Invoices
+  customer: Customer
+  customers: Customers
+  quotation: Quotation
+  quotations: Quotations
+  service: Service
+  services: Services
+  payment: Payment
+  payments: Payments
+
+  project_title: Project title
+  Name: Name
+  ware_name: Ware name
+  comment: Commentary
+  Quantity: Quantity
+  provider_invoice: Provider invoice
+  provider_discount: Discount
+  provider_price: Provider price
+  bought_price: Bouhght price
+  sell_price: Sell price
+  margin: Margin
+  unit_price: Unit price
+  gross_cost: Gross cost
+  total_gross: Total cost
+  provider_name: Provider
+
+  hourly_rate: hourly rate
+  coefficient: Coefficent
+  duration: Duration
+  status: Status
+  tva_rate: VAT rate
+  total_cost: Total cost
+
+  description: Description
+
+  mail: Email
+  tva_record: VAT number
+  street: Street
+  number: Number
+  zip: Zip code
+  locality: Locality
+  country: Country
+
+  from: From
+  to: To
+
+  all_projects: All projects
+  all_customers: All customers
+  all_status: All status
+
+  ware_add_success: Ware successfully added
+  ware_update_success: Ware successfully updated
+  ware_destroy_success: Ware successfully deleted
+  ware_already_invoiced: This ware is already invoiced, continue ?
+  ware_ready_invoiced: This ware is ready to be invoiced, continue ?
+
+  service_add_success: Service successfully added
+  service_update_success: Service successfully updated
+  service_destroy_success: Service successfully deleted
+  service_already_invoiced: This service is already invoiced, continue ?
+
+  customer_add_success: Customer successfully added
+  customer_update_success: Customer successfully updated
+  customer_detroy_success: Customer successfully deleted
+  all_customer_names: All names
+  all_customer_localities: All localities
+
+  project_add_success: Project successfully added
+  project_update_success: Project successfully updated
+  project_destroy_success: Project successfully deleted
+  project_already_invoiced: This project is already invoiced, continue ?
+  project_ready_invoiced: This project is ready to be invoiced, continue ?
+
+  project_extra_line_add_success: Extra successfully added to project
+  project_extra_line_update_success: Extra successfully updated in project
+  project_extra_line_delete_success: Extra successfully deleted from project
+
+  extra_add_success: Extra successfully added
+  extra_update_success: Extra successfully updated
+  extra_delete_success: Extra successfully deleted
+
+  create: Validate
+  will_paginate:
+    previous_label: Previous
+    next_label: Next
+    page_gap: '&hellip;'
+  attributes:
+    status_list:
+      in_progress: "In progress"
+      done: "Done"
+      invoiced: "invoiced"
+      paid: "Paid"
+      created: "Created"
+      paid_fem: "Paid"
+      assigned: "Assigned"
+      not_assigned: "Not assigned"
+      assigned_customer: "Assigned (customer)"
+      assigned_project: "Assigned (project)"
+      quotation: "Quotation"
+      accepted: "Accepted"
+  pm: pm
+  confirm_delete: Delete this item ?
+  Description: Description
+  none: none
+  wares_to_invoice: Ware to invoice
+  projects_done: Done projects
+  extras: Extras
+  extra: Extra
+  unit: Unit
+  quantity: Quantity
+  extra_price: Price/unit
+  editing_extra: Editing extra
+  creating_extra: Creating extra
+  creating_wares: Creating ware
+  editing_invoice: Editing invoice
+  creating_invoice: Creating invoice
+  editing_customers: Editing customer
+  creating_customers: Creating customer
+  editing_wares: Editing ware
+  editing_services: Editing service
+  creating_services: Creating service
+  editing_quotation: Editing quotation
+  creating_quotation: Creating quotation
+  editing_project: Editing project
+  creating_project: Creating project
+  logout: logout
+  locale_changed: Successfully switched locale
+  FR: FR
+  EN: EN
+  customer_name: "Customer name"
+  TOTALS: "Total excl. taxes"
+  total: "Total incl. taxes"
+  back: "Back"
+  back_to_projects: "Retour aux projects"
+  project_total_gross: "Total project excl. taxes"
+  project_total: "Total project incl. taxes"
+  editing_extra_line: "Editing extra"
+  creating_extra_line: "Creating extra"
+  invoice_number: "Invoice number"
+  in_progress: "In progress"
+  done: "Done"
+  invoiced: "Invoiced"
+  paid: "Paid"
+  created: "Created"
+  paid_fem: "Paid"
+  assigned: "Assigned"
+  not_assigned: "Not assigned"
+  assigned_customer: "Assigned (customer)"
+  assigned_project: "Assigned (project)"
+  accepted: "Accepted"
+  phone_number: "Phone number"
+  invoice_project: "Invoice"
+  do_done: "Done"
+  unauthorized_action: "Unauthorized action"
+  payment_reference: "Payment reference"
+  editing_payment: "Payment edition"
+  creating_payment: "Payment creation"
+  unpayed_invoice: "Unpaid invoices"
+  category: "Category"
+  extra_name: "Ware name"
+  switch_in_progress: "Switch in progress"
+  no_data_display: "No data to display"
+  filtering: "Filtering :"
+  filtres: "Filtres :"
+  create_new_project: "Create a new project"
+  create_new_service: "Create a new service"
+  create_new_ware: "Create a new ware"
+  create_new_quotation: "Create a new quotation"
+  create_new_payment: "Create a new payment"
+  create_new_invoice: "Create a new invoice"
+  create_new_extra: "Create a new extra"
+  create_new_customer: "Create a new customer"
+  invoice_notice: "The invoice total is payable within 8 days. All claims must be made by registered letter at the latest within 8 days following reception. In case of payment delay, a monthly interest of 1% is automatically due, plus an allowance equivalent to 15% of the amount of the invoice with a minimum of 50 euros, without warning or formal notice. For any and all disputes, the competent courts are only those of Liège."
+  invoice_account: " All payments are to be made on the BNP Fortis account :"
+

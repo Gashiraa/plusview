@@ -29,11 +29,8 @@ class InvoicesController < ApplicationController
                page_size: 'A4',
                template: 'invoices/show.html.erb',
                layout: 'pdf.html',
-               orientation: 'Portrait',
                encoding: 'utf8',
-               lowquality: true,
-               zoom: 1,
-               dpi: 75,
+               show_as_html: params.key?('debug'),
                :margin => {:bottom => 35},
                footer: {
                    html: {
@@ -56,16 +53,13 @@ class InvoicesController < ApplicationController
   # POST /invoices.json
   def create
     @invoice = Invoice.new(invoice_params)
-
     respond_to do |format|
       if @invoice.save
         @invoice.update_statuses_invoice(@invoice)
         @invoice.update_totals_invoice(@invoice, @invoice.projects, @invoice.wares)
         format.html {redirect_to invoice_path(@invoice.id, :format => :pdf), notice: 'Invoice was successfully created.'}
-        format.json {render :show, status: :created, location: @invoice}
       else
         format.html {render :new}
-        format.json {render json: @invoice.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -89,7 +83,7 @@ class InvoicesController < ApplicationController
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy
-    @invoice.update_invoice_content_on_destroy(@invoice)
+    @invoice. update_invoice_content_on_destroy(@invoice)
     @invoice.destroy
     respond_to do |format|
       format.html {redirect_to invoices_url, notice: 'Invoice was successfully destroyed.'}
