@@ -32,7 +32,6 @@
       <% when "done" %>
         <%= link_to t('invoice_project').capitalize, new_invoice_path, {class: 'btn btn-success btn-right', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       <% when "invoiced" %>
-      <% when "paid" %>
     <% if @project.invoice %>
           <div class="btn btn-success btn-right">
             <%= t('invoice') %>
