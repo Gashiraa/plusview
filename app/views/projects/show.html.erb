@@ -134,7 +134,7 @@
           <tr data-link="<%= edit_service_path(service) %>">
             <td><%= service.name %></td>
             <td id="status-cell"><%= service.translated_status %></td>
-            <td class="center-cell"><%= service.date %></td>
+            <td class="center-cell"><%= service.date ? l(service.date) : "" %></td>
             <td class="right-cell"><%= number_with_precision service.hourly_rate, :precision => 2 %></td>
             <td class="right-cell total-cell"><%= number_with_precision service.total_gross, :precision => 2 %></td>
             <td class="right-cell total-cell"><%= number_with_precision service.total_cost, :precision => 2 %></td>

@@ -61,69 +61,106 @@
 
     <% if @quotation.project %>
       <section id="items" class="project">
-        <div class="title-project-container">
-          <h4 class="title-project">Projet #<%= @quotation.project.id %> : <%= @quotation.project.name %></h4>
+        <div class="avoidbreak">
+
+          <div class="title-project-container">
+            <h4 class="title-project">Projet #<%= @quotation.project.id %> : <%= @quotation.project.name %></h4>
+          </div>
+          <p><%= @quotation.project.description %></p>
+          <% if @quotation.project.services.any? %>
+            <h5>Prestations</h5>
+
+            <table class="table table-hover table-striped avoidbreak">
+              <thead class=thead-dark>
+              <tr>
+                <th class="name-cell"><%= t('Name') %></th>
+                <th class="quantity-cell"><%= t('duration') %></th>
+                <th class="number-cell"><%= t('hourly_rate') + ' (€)' %></th>
+                <th class="number-cell"><%= t('tva_rate') + ' (%)' %></th>
+                <th class="number-cell"><%= t('total_gross') + ' (€)' %></th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <% @quotation.project.services.each do |service| %>
+                <tr>
+                  <td class="name-cell"><%= service.name %></td>
+                  <td class="quantity-cell"><%= service.duration.strftime('%H:%M') %></td>
+                  <td class="number-cell"><%= number_with_precision service.hourly_rate, :precision => 2 %></td>
+                  <td class="number-cell"><%= number_with_precision service.tva_rate, :precision => 2 %></td>
+                  <td class="number-cell"><%= number_with_precision service.total_gross, :precision => 2 %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% end %>
         </div>
-        <p><%= @quotation.project.description %></p>
-        <% if @quotation.project.services.any? %>
-          <h5>Prestations</h5>
+        <div class="avoidbreak">
+          <% if @quotation.project.wares.any? %>
+            <h5>Marchandises</h5>
 
-          <table class="table table-hover table-striped">
-            <thead class=thead-dark>
-            <tr>
-              <th><%= t('Name') %></th>
-              <th><%= t('Date') %></th>
-              <th><%= t('duration') %></th>
-              <th><%= t('hourly_rate') + ' (€)' %></th>
-              <th><%= t('tva_rate') + ' (%)' %></th>
-              <th><%= t('total_gross') + ' (€)' %></th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <% @quotation.project.services.each do |service| %>
-              <tr data-link="<%= edit_service_path service %>">
-                <td><%= service.name %></td>
-                <td><%= service.date ? l(service.date) : "" %></td>
-                <td><%= service.duration.strftime('%H:%M') %></td>
-                <td><%= service.hourly_rate %></td>
-                <td><%= service.tva_rate %></td>
-                <td><%= service.total_gross %></td>
+            <table class="table table-hover table-striped">
+              <thead class=thead-dark>
+              <tr>
+                <th class="name-cell"><%= t('ware_name') %></th>
+                <th class="quantity-cell"><%= t('Quantity') %></th>
+                <th class="number-cell"><%= t('sell_price') + ' (€)' %></th>
+                <th class="number-cell"><%= t('tva_rate') + ' (%)' %></th>
+                <th class="number-cell"><%= t('total_gross') + ' (€)' %></th>
               </tr>
-            <% end %>
-            </tbody>
-          </table>
-        <% end %>
-        <% if @quotation.project.wares.any? %>
-          <h5>Marchandises</h5>
+              </thead>
 
-          <table class="table table-hover table-striped">
-            <thead class=thead-dark>
-            <tr>
-              <th><%= t('ware_name') %></th>
-              <th><%= t('Quantity') %></th>
-              <th><%= t('sell_price') + ' (€)' %></th>
-              <th><%= t('tva_rate') + ' (%)' %></th>
-              <th><%= t('total_gross') + ' (€)' %></th>
-            </tr>
-            </thead>
+              <tbody>
+              <% @quotation.project.wares.each do |ware| %>
+                <tr>
+                  <td class="name-cell"><%= ware.ware_name %></td>
+                  <td class="quantity-cell"><%= ware.quantity %></td>
+                  <td class="number-cell"><%= number_with_precision ware.sell_price, :precision => 2 %></td>
+                  <td class="number-cell"><%= number_with_precision ware.tva_rate, :precision => 2 %></td>
+                  <td class="number-cell"><%= number_with_precision ware.total_gross, :precision => 2 %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+        <div class="avoidbreak">
+          <% if @quotation.project.project_extra_lines.any? %>
+            <h5><%= t('extra').pluralize %>
+            </h5>
 
-            <tbody>
-            <% @quotation.project.wares.each do |ware| %>
-              <tr data-link="<%= edit_ware_path ware %>">
-                <td><%= ware.ware_name %></td>
-                <td><%= ware.quantity %></td>
-                <td><%= ware.sell_price %></td>
-                <td><%= ware.tva_rate %></td>
-                <td><%= ware.total_gross %></td>
+            <table class="table table-hover table-striped">
+              <thead class=thead-dark>
+              <tr>
+                <th class="name-cell"><%= t('Name') %></th>
+                <th class="quantity-cell"><%= t('quantity') %></th>
+                <th class="number-cell"><%= t('unit_price') + ' (€)' %></th>
+                <th class="number-cell"><%= t('tva_rate') + ' (%)' %></th>
+                <th class="number-cell"><%= t('total_gross') + ' (€)' %></th>
               </tr>
-            <% end %>
-            </tbody>
-          </table>
-        <% end %>
+              </thead>
+
+              <tbody>
+              <% unless @quotation.project.project_extra_lines.any? %>
+                <tr>
+                  <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+                </tr>
+              <% end %>
+              <% @quotation.project.project_extra_lines.each do |project_extra_line| %>
+                <tr>
+                  <td class="name-cell"><%= project_extra_line.extra.name %></td>
+                  <td class="quantity-cell"><%= project_extra_line.quantity.to_s + ' ' + project_extra_line.extra.unit %></td>
+                  <td class="number-cell"><%= number_with_precision project_extra_line.extra.unit_price, :precision => 2 %></td>
+                  <td class="number-cell"><%= number_with_precision project_extra_line.extra.tva_rate, :precision => 2 %></td>
+                  <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
       </section>
     <% end %>
-    </section>
 
     <section id="sums">
       <div class="clearfix"></div>

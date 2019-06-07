@@ -183,6 +183,7 @@
     }
 
     table {
+      table-layout: fixed;
       border-collapse: separate;
       width: 100%;
 
@@ -190,19 +191,30 @@
         background: #4e555b;
         font-weight: bold;
         padding: 5px 8px;
-        text-align: right;
         color: white;
         text-transform: uppercase;
       }
 
-      th:last-child {
+      td {
+        padding: 9px 8px;
+        border-bottom: 1px solid #ddd;
+
+        ::first-letter {
+          text-transform: uppercase;
+        }
+      }
+
+      .name-cell {
+        width: 35%;
+        text-align: left;
+      }
+
+      .quantity-cell {
         text-align: right;
       }
 
-      td {
-        padding: 9px 8px;
+      .number-cell {
         text-align: right;
-        border-bottom: 1px solid #ddd;
       }
     }
   }
