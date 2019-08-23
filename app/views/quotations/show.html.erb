@@ -34,9 +34,11 @@
         </span>
       </div>
       <div>
+        <% if @quotation.customer.tva_record %>
         <span>
           <%= "TVA : " + @quotation.customer.tva_record %>
         </span>
+        <% end %>
       </div>
     </section>
     <div class="clearfix"></div>
@@ -119,6 +121,13 @@
                   <td class="number-cell"><%= number_with_precision ware.tva_rate, :precision => 2 %></td>
                   <td class="number-cell"><%= number_with_precision ware.total_gross, :precision => 2 %></td>
                 </tr>
+                <% if ware.show_desc_quot %>
+                  <tr>
+                    <td colspan="5">
+                      <%= simple_format(ware.comment) %>
+                    </td>
+                  </tr>
+                <% end %>
               <% end %>
               </tbody>
             </table>
@@ -162,7 +171,7 @@
       </section>
     <% end %>
 
-    <section id="sums">
+    <section id="sums" class="avoidbreak">
       <div class="clearfix"></div>
       <div class="clearfix"></div>
       <table>

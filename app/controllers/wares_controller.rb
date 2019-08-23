@@ -4,7 +4,7 @@ class WaresController < ApplicationController
   # GET /wares
   # GET /wares.json
   def index
-    @search = Ware.ransack(params[:q])
+    @search = Ware.order(id: :desc).ransack(params[:q])
     @wares = @search.result.paginate(page: params[:page], per_page: 30)
   end
 
@@ -96,7 +96,7 @@ class WaresController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ware_params
-    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :margin, :provider_price, :bought_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :sell_price, :provider_invoice, :ware_name)
+    params.require(:ware).permit(:project_id, :invoice_id, :customer_id, :quotation_id, :name, :comment, :quantity, :margin, :provider_price, :bought_price, :status, :tva_rate, :total_cost, :total_gross, :provider_name, :provider_discount, :sell_price, :provider_invoice, :ware_name, :show_desc_quot)
   end
 
 end

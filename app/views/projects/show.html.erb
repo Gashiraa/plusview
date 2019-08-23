@@ -152,11 +152,14 @@
       </table>
       <table class="table totals-table">
         <tr class="totals-row">
-          <td class="right-cell total-cell">
+          <td class="total-cell">
+            <%= t('total_duration') + ' : ' + Service.where(project_id: @project.id).sum(:duration).to_s.chop.chop.chop %>
+          </td>
+          <td class="total-cell">
             <%= t('total_gross') + ' : ' + (number_with_precision @project.services.collect {|s| s.valid? ? s.total_gross : 0}.sum, :precision => 2).to_s %>
             €
           </td>
-          <td class="right-cell total-cell">
+          <td class="total-cell">
             <%= t('total') + ' : ' + (number_with_precision @project.services.collect {|s| s.valid? ? s.total_cost : 0}.sum, :precision => 2).to_s %>
             €
           </td>
@@ -208,11 +211,11 @@
       </table>
       <table class="table totals-table">
         <tr class="totals-row">
-          <td class="right-cell total-cell">
+          <td class="total-cell">
             <%= t('total_gross') + ' : ' + (number_with_precision @project.wares.collect {|s| s.valid? ? s.total_gross : 0}.sum, :precision => 2).to_s %>
             €
           </td>
-          <td class="right-cell total-cell">
+          <td class="total-cell">
             <%= t('total') + ' : ' + (number_with_precision @project.wares.collect {|s| s.valid? ? s.total_cost : 0}.sum, :precision => 2).to_s %>
             €
           </td>
@@ -265,11 +268,11 @@
       </table>
       <table class="table totals-table">
         <tr class="totals-row">
-          <td class="right-cell total-cell">
+          <td class="total-cell">
             <%= t('total_gross') + ' : ' + (number_with_precision @project.project_extra_lines.collect {|s| s.valid? ? s.total_gross : 0}.sum, :precision => 2).to_s %>
             €
           </td>
-          <td class="right-cell total-cell">
+          <td class="total-cell">
             <%= t('total') + ' : ' + (number_with_precision @project.project_extra_lines.collect {|s| s.valid? ? s.total : 0}.sum, :precision => 2).to_s %>
             €
           </td>

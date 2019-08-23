@@ -38,13 +38,32 @@ class Invoice < ApplicationRecord
   end
 
   def update_statuses_invoice(invoice)
-    Project.all.where(status: :invoiced, invoice_id: nil).update(status: :done)
-    Ware.all.where(status: :invoiced, invoice_id: nil).update(status: :assigned_project)
-    Ware.all.where(status: :invoiced, project_id: nil, invoice_id: nil).update(status: :assigned_customer)
-    Service.all.joins(:project).where("projects.invoice_id IS NULL").update(status: :assigned)
+
+    Project.all
+        .where(status: :invoiced)
+        .where("invoice_id IS NULL")
+        .update(status: :done)
+
+    Ware.all
+        .joins(:project)
+        .where(status: :invoiced)
+        .where("projects.invoice_id IS NULL")
+        .update(status: :assigned_project)
+
+    Ware.all
+        .where(status: :invoiced)
+        .where("invoice_id IS NULL")
+        .where(project_id: nil)
+        .update(status: :assigned_customer)
+
+    Service.all
+        .joins(:project)
+        .where(status: :invoiced)
+        .where("projects.invoice_id IS NULL")
+        .update(status: :assigned)
+
     invoice.wares.update(status: :invoiced)
     invoice.projects.update(status: :invoiced)
-
     invoice.projects.each do |project|
       project.wares.update(status: :invoiced)
       project.services.update(status: :invoiced)

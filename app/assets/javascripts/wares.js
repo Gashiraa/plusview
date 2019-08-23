@@ -54,7 +54,7 @@ $(document).on("turbolinks:load", function () {
 
                 let total = parseFloat(provider_price) - ((parseFloat(provider_price) / 100) * parseFloat(provider_discount));
 
-                bought_price.value = total.toFixed(2);
+                bought_price.value = total.toFixed(3);
             });
         $('#provider_price').trigger('mouseover');
 
@@ -73,9 +73,9 @@ $(document).on("turbolinks:load", function () {
                 let gross = (parseInt(quantity) * parseFloat(sell));
                 let total = gross * (1 + parseFloat(tva_rate) / 100);
 
-                sell_price.value = sell.toFixed(2);
-                total_gross.value = gross.toFixed(2);
-                total_cost.value = total.toFixed(2);
+                sell_price.value = sell.toFixed(3);
+                total_gross.value = (Math.round(gross * 100) / 100).toFixed(2);
+                total_cost.value = (Math.round(total * 100) / 100).toFixed(2);
             });
         $('#waresForm').trigger('mouseover');
 

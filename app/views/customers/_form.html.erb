@@ -15,7 +15,7 @@
     <div class="form-row">
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('Name') %>
-        <%= form.text_field :name, class: "form-control", autocomplete: 'nope' %>
+        <%= form.text_field :name, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
@@ -40,7 +40,7 @@
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-5">
         <%= form.label t('street') %>
-        <%= form.text_field :street, class: "form-control", autocomplete: 'nope' %>
+        <%= form.text_field :street, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-3">
@@ -60,12 +60,12 @@
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('locality') %>
-        <%= form.text_field :locality, class: "form-control", autocomplete: 'nope' %>
+        <%= form.text_field :locality, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('country') %>
-        <%= form.text_field :country, value: @customer.country || "Belgique", class: "form-control", autocomplete: 'nope' %>
+        <%= form.text_field :country, value: @customer.country || "Belgique", class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
       </div>
     </div>
     <div class="form-row">

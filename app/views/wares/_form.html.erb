@@ -11,12 +11,18 @@
       <h3><%= t('creating_wares') %></h3>
     <% end %>
 
-    <%= form.hidden_field :id, value: @ware.id || 0 , id: "ware_id"%>
+    <%= form.hidden_field :id, value: @ware.id || 0, id: "ware_id" %>
 
     <div class="form-row">
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('project') %>
-        <%= form.select :project_id, Project.all.map {|project| [project.name + ' - ' + project.customer.name, project.id]}, {:include_blank => true}, {class: 'form-control', id: 'ware_form_project'} %>
+        <%= form.select :project_id, Project.all.map {|project| [
+            if project.customer
+              project.name + ' - ' + project.customer.name
+            else
+              project.name
+            end, project.id
+        ]}, {:include_blank => true}, {class: 'form-control', id: 'ware_form_project'} %>
       </div>
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('customer') %>
@@ -32,12 +38,12 @@
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('ware_name') %>
-        <%= form.select :ware_name, Ware.where("ware_name != ''").distinct.order(:ware_name).pluck(:ware_name), {:include_blank => true}, {class: 'form-control', id: 'ware_form_name'} %>
+        <%= form.select :ware_name, Ware.where("ware_name != ''").distinct.order(:ware_name).pluck(:ware_name), {:include_blank => true}, {class: 'form-control', onkeyup: "javascript:capitalize(this.id, this.value);", id: 'ware_form_name'} %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
         <%= form.label t('provider_name') %>
-        <%= form.text_field :provider_name, class: "form-control", autocomplete: 'nope' %>
+        <%= form.text_field :provider_name, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
       </div>
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-4 col-xl-4">
@@ -51,11 +57,17 @@
 
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-12">
         <%= form.label t('comment') %>
-        <%= form.text_area :comment, class: "form-control", autocomplete: 'nope' %>
+        <%= form.text_area :comment, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
       </div>
 
     </div>
 
+    <div class="form-row">
+      <div class="form-check">
+        <%= form.check_box :show_desc_quot, class: "form-check-input", id: "show_desc_quot" %>
+        <%= form.label t('showInQuot'), class: "form-check-label", for: "show_desc_quot" %>
+      </div>
+    </div>
     <hr>
 
     <div class="form-row">

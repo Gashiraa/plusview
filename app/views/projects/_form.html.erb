@@ -36,7 +36,7 @@
 
       <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
         <%= form.label t('Name') %>
-        <%= form.text_field :name, class: "form-control", :required => true, autocomplete: 'nope' %>
+        <%= form.text_field :name, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", :required => true, autocomplete: 'nope' %>
       </div>
     </div>
 
@@ -44,7 +44,7 @@
     <div class="form-row">
       <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-12">
         <%= form.label t('description') %>
-        <%= form.text_area :description, rows: "5", class: "form-control", autocomplete: 'nope' %>
+        <%= form.text_area :description, rows: "5", class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
       </div>
     </div>
 

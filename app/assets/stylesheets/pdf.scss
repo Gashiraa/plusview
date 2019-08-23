@@ -159,7 +159,7 @@
   table {
     th, table td {
       vertical-align: top;
-      word-break: keep-all;
+      word-break: break-word;
       word-wrap: break-word;
     }
   }
@@ -186,6 +186,9 @@
       table-layout: fixed;
       border-collapse: separate;
       width: 100%;
+      word-break: break-word;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
 
       th {
         background: #4e555b;
@@ -198,23 +201,21 @@
       td {
         padding: 9px 8px;
         border-bottom: 1px solid #ddd;
-
-        ::first-letter {
-          text-transform: uppercase;
-        }
       }
 
       .name-cell {
-        width: 35%;
+        width: 40%;
         text-align: left;
       }
 
       .quantity-cell {
         text-align: right;
+        width: 15%
       }
 
       .number-cell {
         text-align: right;
+        width: 15%
       }
     }
   }
@@ -316,7 +317,7 @@
     min-width: 30%;
     position: fixed;
     left: 70%;
-    top: 5%;
+    top: 40px;
     font-size: 18px;
   }
 

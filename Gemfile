@@ -70,5 +70,6 @@ gem 'select2-rails'
 gem "font-awesome-rails"
 gem 'translate_enum'
 gem 'cancancan', '~> 1.10'
+gem 'semantic-ui-sass'
 
 # gem 'mini_racer'

@@ -10,15 +10,22 @@
 //= require select2_locale_fr
 //= require_tree .
 
+
+document.addEventListener('turbolinks:before-cache', function () {
+    $('.select2-hidden-accessible').select2('destroy');
+});
+
 $(document).on("turbolinks:load", function () {
 
-        {   // SELECT2 INITIALISATIONS
+        {
+            // SELECT2 INITIALISATIONS
             $("#project_sort").select2({
                 theme: "bootstrap",
                 width: '100%',
                 selectOnClose: true,
                 language: $('.locale').data('locale')
             }); //SORTING BY PROJECT NAME IN LISTINGS
+
             $("#customer_sort").select2({
                 theme: "bootstrap",
                 width: '100%',
@@ -83,23 +90,28 @@ $(document).on("turbolinks:load", function () {
         //Color lines from a table
         $('.table-to-color').each(function () {
             let original;
+            let rgb;
             $("tr").not(':first').hover(
                 function () {
                     original = $(this).css("background-color");
-                    let rgb = original.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
+                    rgb = original.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
                     $(this).css("background-color", "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + 0.75 + ")");
                 },
                 function () {
-                    $(this).css("background-color", original);
+                    original = $(this).css("background-color");
+                    rgb = original.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
+                    $(this).css("background-color", "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + 0.55 + ")");
                 }
             );
             colorTable(this)
         });
 
+        //Color status in project dashboard
         $('#status-project').each(function () {
             this.style.backgroundColor = assignColor(this.getAttribute('status'));
         });
 
+        //Color status in selects
         $('#status_sort_select > option').each(function () {
             this.style.backgroundColor = assignColor(this.getAttribute('status'));
         });
@@ -181,6 +193,18 @@ function assignColor(status) {
         case 'accepted' :
         case 'paid' :
             return "rgba(87,194,36,0.55)"; //GREEN
+        case 'bin' :
+            return "rgba(140,156,193,0.55)"; //GREEN
         default:
     }
+}
+
+function capitalize(textboxid, str) {
+    // string with alteast one character
+    if (str && str.length >= 1) {
+        var firstChar = str.charAt(0);
+        var remainingStr = str.slice(1);
+        str = firstChar.toUpperCase() + remainingStr;
+    }
+    document.getElementById(textboxid).value = str;
 }

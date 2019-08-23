@@ -67,7 +67,7 @@
       <td>
         <%= quotation.customer ? quotation.customer.name : '' %>
       </td>
-      <td  class="center-cell"><%= l(quotation.date) %></td>
+      <td  class="center-cell"> <%= quotation.date ? l(quotation.date) : "" %></td>
       <%= tag.td class: 'center-cell', id: 'status-cell', status: quotation.status do %>
         <%= quotation.translated_status %>
       <% end %>
