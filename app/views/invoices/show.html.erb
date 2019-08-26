@@ -4,15 +4,20 @@
       <div class="logo">
         <%= wicked_pdf_image_tag "logo_greday.png" %>
       </div>
+
       <div class="company-info">
-        <div>THOMAS GREDAY</div>
-        <span>Rue Pachlauw, 4</span>
+        <div>
+          <%= @company.name %>
+        </div>
+        <span>
+          <%= @company.street %>
+        </span>
         <br/>
-        <span>4690 Wonck</span>
+        <span><%= @company.postcode %> <%= @company.locality %></span>
         <br/>
-        <span>0479/26.44.17</span>
+        <span><%= @company.phone %></span>
         <br/>
-        <span>thomas.greday@gmail.com</span>
+        <span><%= @company.email %></span>
       </div>
 
     </section>
@@ -45,6 +50,7 @@
               </span>
       </div>
     </section>
+
     <div class="clearfix"></div>
 
     <section id="invoice-title-number">
@@ -59,9 +65,11 @@
     </section>
 
     <div class="clearfix"></div>
+
     <span id="dateInvoice">
           <%= "Wonck le, " + l(@invoice.date).to_s %>
     </span>
+
     <hr>
 
     <% if @invoice.projects.any? %>
@@ -155,7 +163,7 @@
                 <% project.project_extra_lines.each do |project_extra_line| %>
                   <tr>
                     <td class="name-cell"><%= project_extra_line.extra.name %></td>
-                    <td class="quantity-cell"><%= project_extra_line.quantity.to_s+' '+project_extra_line.extra.unit %></td>
+                    <td class="quantity-cell"><%= project_extra_line.quantity.to_s + ' ' + project_extra_line.extra.unit %></td>
                     <td class="number-cell"><%= number_with_precision project_extra_line.extra.unit_price, :precision => 2 %></td>
                     <td class="number-cell"><%= number_with_precision project_extra_line.extra.tva_rate, :precision => 2 %></td>
                     <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>

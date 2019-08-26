@@ -1,57 +1,53 @@
-<button type="button" class="close" data-dismiss="modal">
-  <span aria-hidden="true">&times;</span>
-</button>
-
+<div class="close">
+  <i class="big close icon" onclick="$('.ui.modal').modal('hide');"></i>
+</div>
 <%= form_with(model: @project, local: true) do |form| %>
-  <div class="form center-div">
+  <div class="ui form">
 
-    <% if @project.id %>
-      <h3><%= t('editing_project') %></h3>
-    <% else %>
-      <h3><%= t('creating_project') %></h3>
-    <% end %>
+    <h2 class="centered">
+      <% if @project.id %>
+        <%= t('editing_project') %>
+      <% else %>
+        <%= t('creating_project') %>
+      <% end %>
+    </h2>
 
-    <div class="form-row">
 
-      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
-        <%= form.label t('customer') %>
+    <div class="four fields">
+
+      <div class="field">
+        <%= form.label t('customer'), class: ''%>
         <%= form.collection_select :customer_id, Customer.all, :id, :name, {:include_blank => true}, {class: 'form-control', id: 'project_form_customer'} %>
       </div>
-      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
+      <div class="field">
         <%= form.label t('status') %>
-        <%= form.select :status, Project.translated_statuses.map {|status| [status[0], status[1]]}, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
+        <%= form.select :status, Project.translated_statuses.map { |status| [status[0], status[1]] }, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
       </div>
 
-      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
+      <div class="field">
         <%= form.label t('date_locale') %>
         <div class="input-group mb-3">
           <%= form.text_field :date, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", value: @project.date ? l(@project.date) : Time.zone.now.to_date.strftime("%d/%m/%Y"), autocomplete: 'off', id: "dateProject", class: "form-control" %>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <%= fa_icon "calendar" %>
-            </div>
-          </div>
+
         </div>
       </div>
 
-      <div class="form-group col-xs-12 col-sm-4 col-md-12 col-lg-3 col-xl-3">
+      <div class="field">
         <%= form.label t('Name') %>
         <%= form.text_field :name, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", :required => true, autocomplete: 'nope' %>
       </div>
     </div>
 
     <hr>
-    <div class="form-row">
-      <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-12">
-        <%= form.label t('description') %>
-        <%= form.text_area :description, rows: "5", class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
-      </div>
+    <div class="field">
+      <%= form.label t('description') %>
+      <%= form.text_area :description, rows: "5", class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
     </div>
 
-    <div class="form-row">
+    <div class="field">
 
-      <div class="col-12 createButton">
-        <%= form.submit t('create'), :class => "btn btn-dark form-group",
+      <div class="centered">
+        <%= form.submit t('create'), :class => "ui green button",
                         data:
                             if @project
                               if @project.invoice

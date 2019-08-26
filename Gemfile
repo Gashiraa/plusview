@@ -70,6 +70,7 @@ gem 'select2-rails'
 gem "font-awesome-rails"
 gem 'translate_enum'
 gem 'cancancan', '~> 1.10'
-gem 'semantic-ui-sass'
-
+gem 'fomantic-ui-sass'
+gem 'jquery-ui-themes'
+gem "will_paginate_semantic_ui"
 # gem 'mini_racer'

@@ -339,7 +339,7 @@ fr:
   switch_in_progress: "Passer en réalisation"
   no_data_display: "Aucune données à afficher"
   filtering: "Filtrage :"
-  filtres: "Filtres :"
+  filters: "Filtres :"
   create_new_project: "Créer un nouveau projet"
   create_new_service: "Créer une nouvelle prestation"
   create_new_ware: "Créer une nouvelle marchandise"

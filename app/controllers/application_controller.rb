@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
 
+  helper_method :company
   protect_from_forgery with: :reset_session
   include TranslateEnum
 
@@ -30,6 +31,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to request.env["HTTP_REFERER"], alert: t('unauthorized_action')
+  end
+
+  def company
+    @company = Company.first
   end
 
 end

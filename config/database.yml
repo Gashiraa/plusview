@@ -8,7 +8,7 @@ default: &default
 
 development:
   <<: *default
-  database: greday_dev
+  database: opto_dev
 
 production:
   <<: *default

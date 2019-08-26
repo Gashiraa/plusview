@@ -4,15 +4,20 @@
       <div class="logo">
         <%= wicked_pdf_image_tag "logo_greday.png" %>
       </div>
+
       <div class="company-info">
-        <div>THOMAS GREDAY</div>
-        <span>Rue Pachlauw, 4</span>
+        <div>
+          <%= @company.name %>
+        </div>
+        <span>
+          <%= @company.street %>
+        </span>
         <br/>
-        <span>4690 Wonck</span>
+        <span><%= @company.postcode %> <%= @company.locality %></span>
         <br/>
-        <span>0479/26.44.17</span>
+        <span><%= @company.phone %></span>
         <br/>
-        <span>thomas.greday@gmail.com</span>
+        <span><%= @company.email %></span>
       </div>
 
     </section>

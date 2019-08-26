@@ -20,6 +20,7 @@ class InvoicesController < ApplicationController
   end
 
   def show
+    @company = Company.first
     @invoice = scope.find(params[:id])
 
     respond_to do |format|

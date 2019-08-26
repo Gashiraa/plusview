@@ -3,8 +3,7 @@
 //= require select2-full
 //= require rails-ujs
 //= require jquery-ui
-//= require bootstrap-sprockets
-//= require bootstrap
+//= require semantic-ui
 //= require activestorage
 //= require turbolinks
 //= require select2_locale_fr
@@ -20,14 +19,12 @@ $(document).on("turbolinks:load", function () {
         {
             // SELECT2 INITIALISATIONS
             $("#project_sort").select2({
-                theme: "bootstrap",
                 width: '100%',
                 selectOnClose: true,
                 language: $('.locale').data('locale')
             }); //SORTING BY PROJECT NAME IN LISTINGS
 
             $("#customer_sort").select2({
-                theme: "bootstrap",
                 width: '100%',
                 selectOnClose: true,
                 language: $('.locale').data('locale')
@@ -39,7 +36,7 @@ $(document).on("turbolinks:load", function () {
             autoFormatDatePicker("sortProjectFrom");
             autoFormatDatePicker("sortProjectTo");
 
-            //Datepicker formatting
+            // Datepicker formatting
             if ($('.locale').data('locale') !== 'fr') {
                 $("#sortProjectFrom,#sortProjectTo,#dateProject").datepicker();
             } else {
@@ -62,23 +59,26 @@ $(document).on("turbolinks:load", function () {
         }
 
         //Clickable rows (remote true) Not used ATM
-        $("tr[data-link]").click(function () {
-            if (event.target.tagName === "IMG") {
-                return
-            }
-            $.ajax({
-                url: this.getAttribute('data-link'),
-                dataType: "script",
-                type: "GET"
-            });
-            event.preventDefault();
-        });
-
+        // $("tr[data-link]").click(function () {
+        //     if (event.target.tagName === "IMG") {
+        //         return
+        //     }
+        //     $.ajax({
+        //         url: this.getAttribute('data-link'),
+        //         dataType: "script",
+        //         type: "GET"
+        //     });
+        //     event.preventDefault();
+        // });
+        //
         //Navbar active (also handling locale)
-        $.each($('.navbar-nav').find('li'), function () {
+        $.each($('.ui.menu').find('a'), function () {
+            console.log($(this).attr('href'));
             $(this).toggleClass('active',
-                (window.location.pathname.indexOf($(this).find('a').attr('href')) > -1) ||
-                $('.locale').data('locale') === this.childNodes[1].text.toLowerCase()
+                ((window.location.pathname.indexOf($(this).attr('href')) > -1) ||
+                $('.locale').data('locale') === this.text.toLowerCase() ||
+                (window.location.pathname === "/" && $(this).attr('href') === "/projects")) &&
+                $(this).attr('id') !== "logo"
             )
         });
 
@@ -87,26 +87,26 @@ $(document).on("turbolinks:load", function () {
             $('#notice').fadeOut();
         }, 3000);
 
-        //Color lines from a table
+        // //Color lines from a table
         $('.table-to-color').each(function () {
             let original;
             let rgb;
-            $("tr").not(':first').hover(
-                function () {
-                    original = $(this).css("background-color");
-                    rgb = original.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
-                    $(this).css("background-color", "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + 0.75 + ")");
-                },
-                function () {
-                    original = $(this).css("background-color");
-                    rgb = original.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
-                    $(this).css("background-color", "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + 0.55 + ")");
-                }
-            );
-            colorTable(this)
+            // $("tr").not(':first').hover(
+            //     function () {
+            //         original = $(this).css("background-color");
+            //         rgb = original.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
+            //         $(this).css("background-color", "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + 0.75 + ")");
+            //     },
+            //     function () {
+            //         original = $(this).css("background-color");
+            //         rgb = original.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
+            //         $(this).css("background-color", "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + 0.55 + ")");
+            //     }
+            // );
+            colorTable();
         });
 
-        //Color status in project dashboard
+        // Color status in project dashboard
         $('#status-project').each(function () {
             this.style.backgroundColor = assignColor(this.getAttribute('status'));
         });
@@ -116,36 +116,36 @@ $(document).on("turbolinks:load", function () {
             this.style.backgroundColor = assignColor(this.getAttribute('status'));
         });
 
-        //Badges titles
-        let title = document.getElementById("titleBadge");
-        switch (title.getAttribute('display')) {
-            case 'projects' :
-                title.style.backgroundColor = "#32469b";
-                break;
-            case 'wares' :
-                title.style.backgroundColor = "#6f3e9b";
-                break;
-            case 'services' :
-                title.style.backgroundColor = "#9b4b5b";
-                break;
-            case 'customers' :
-                title.style.backgroundColor = "#9b724c";
-                break;
-            case 'quotations' :
-                title.style.backgroundColor = "#3c769b";
-                break;
-            case 'invoices' :
-                title.style.backgroundColor = "#819b4c";
-                break;
-            case 'payments' :
-                title.style.backgroundColor = "#479b46";
-                break;
-            case 'extras' :
-                title.style.backgroundColor = "#9b7311";
-                break;
-            default:
-                console.log(title.value);
-        }
+        // //Badges titles
+        // let title = document.getElementById("titleBadge");
+        // switch (title.getAttribute('display')) {
+        //     case 'projects' :
+        //         title.style.backgroundColor = "#32469b";
+        //         break;
+        //     case 'wares' :
+        //         title.style.backgroundColor = "#6f3e9b";
+        //         break;
+        //     case 'services' :
+        //         title.style.backgroundColor = "#9b4b5b";
+        //         break;
+        //     case 'customers' :
+        //         title.style.backgroundColor = "#9b724c";
+        //         break;
+        //     case 'quotations' :
+        //         title.style.backgroundColor = "#3c769b";
+        //         break;
+        //     case 'invoices' :
+        //         title.style.backgroundColor = "#819b4c";
+        //         break;
+        //     case 'payments' :
+        //         title.style.backgroundColor = "#479b46";
+        //         break;
+        //     case 'extras' :
+        //         title.style.backgroundColor = "#9b7311";
+        //         break;
+        //     default:
+        //         console.log(title.value);
+        // }
     }
 );
 
@@ -157,44 +157,43 @@ function autoFormatDatePicker(picker) {
             let yyyy = oldDate.substring(0, 4);
             let mm = oldDate.substring(5, 7);
             let dd = oldDate.substring(8, 10);
-            element.value = dd + "-" + mm + "-" + yyyy;
+            element.value = dd + "/" + mm + "/" + yyyy;
         }
     }
 }
 
 //Color lines status
-function colorTable(tableToColor) {
-    for (let i = 0, row; row = tableToColor.rows[i]; i++) {
-        for (let j = 0, cell; cell = row.cells[j]; j++) {
-            if (cell.id === "status-cell") {
-                row.style.backgroundColor = assignColor(cell.getAttribute('status'));
-                break;
-            }
-        }
-    }
+function colorTable() {
+    $('.status-cell').each(function () {
+        this.firstElementChild.classList.add("ui");
+        this.firstElementChild.classList.add(assignColor(this.getAttribute('status')));
+        this.firstElementChild.classList.add("button")
+        this.firstElementChild.classList.add("status-button")
+        // this.parentElement.classList.add(assignColor(this.getAttribute('status')))
+    });
 }
 
 //Color picker based on status enum
 function assignColor(status) {
     switch (status) {
         case 'quotation' : //Project, Ware
-            return "rgba(84,205,255,0.55)"; //BLUE
+            return "blue"; //BLUE
         case 'invoiced' :
         case 'created' :
-            return "rgba(255,234,0,0.55)"; //YELLOW
+            return "yellow"; //YELLOW
         case 'assigned_project' :
         case 'assigned_customer' :
         case 'assigned' :
         case 'in_progress' :
-            return "rgba(255,116,0,0.55)"; //ORANGE
+            return "orange"; //ORANGE
         case 'not_assigned' :
         case 'done' :
-            return "rgba(255,7,9,0.55)"; //RED
+            return "red"; //RED
         case 'accepted' :
         case 'paid' :
-            return "rgba(87,194,36,0.55)"; //GREEN
+            return "green"; //GREEN
         case 'bin' :
-            return "rgba(140,156,193,0.55)"; //GREEN
+            return "grey"; //GREEN
         default:
     }
 }

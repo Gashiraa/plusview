@@ -14,6 +14,7 @@ class QuotationsController < ApplicationController
   # GET /quotations/1
   # GET /quotations/1.json
   def show
+    @company = Company.first
     @quotation = scope.find(params[:id])
 
     respond_to do |format|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_14_121737) do
+ActiveRecord::Schema.define(version: 2019_08_23_122641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 2019_08_14_121737) do
     t.string "pwd"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "street"
+    t.string "postcode"
+    t.string "locality"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "short_name"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -174,7 +186,7 @@ ActiveRecord::Schema.define(version: 2019_08_14_121737) do
     t.bigint "invoice_id"
     t.bigint "customer_id"
     t.string "ware_name"
-    t.string "comment"
+    t.text "comment"
     t.integer "quantity"
     t.float "provider_discount"
     t.float "margin"
