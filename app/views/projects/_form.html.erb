@@ -1,6 +1,7 @@
 <div class="close">
   <i class="big close icon" onclick="$('.ui.modal').modal('hide');"></i>
 </div>
+
 <%= form_with(model: @project, local: true) do |form| %>
   <div class="ui form">
 
@@ -11,7 +12,6 @@
         <%= t('creating_project') %>
       <% end %>
     </h2>
-
 
     <div class="four fields">
 

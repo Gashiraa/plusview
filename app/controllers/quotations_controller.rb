@@ -29,11 +29,11 @@ class QuotationsController < ApplicationController
                lowquality: true,
                zoom: 1,
                dpi: 75,
-               margin: { bottom: 35 },
+               margin: {bottom: 35},
                footer: {
-                 html: {
-                   template: 'layouts/pdf_footer.html.erb'
-                 }
+                   html: {
+                       template: 'layouts/pdf_footer.html.erb'
+                   }
                }
       end
     end
@@ -50,7 +50,8 @@ class QuotationsController < ApplicationController
   end
 
   # GET /quotations/1/edit
-  def edit; end
+  def edit;
+  end
 
   # POST /quotations
   # POST /quotations.json
@@ -58,9 +59,15 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.new(quotation_params)
 
     respond_to do |format|
+      project = Project.new
+      project.customer = @quotation.customer
+      project.date = @quotation.date
+
+      @quotation.project = project
+
       if @quotation.save
         @quotation.update_totals_quotation(@quotation)
-        format.html { redirect_to quotations_url, notice: 'Quotation was successfully created.' }
+        format.html { redirect_to project_path(@quotation.project), notice: 'Quotation was successfully created.' }
         format.json { render :show, status: :created, location: @quotation }
       else
         format.html { render :new }

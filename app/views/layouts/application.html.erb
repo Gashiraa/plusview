@@ -17,21 +17,17 @@
     <% if current_user %>
       <%= content_tag :div, class: "locale", data: {locale: current_user.locale} do %>
       <% end %>
-      <a class="blue item" href="/projects"> <%= t('projects').capitalize %>  </a>
 
-      <a class="violet item" href="/wares"> <%= t('wares').capitalize %> </a>
+      <a class="blue item" href="/projects"> <%= t('quotations').capitalize %> </a>
 
-      <a class="red item" href="/services"> <%= t('services').capitalize %> </a>
-
-      <a class="brown item" href="/customers"> <%= t('customers').capitalize %> </a>
-
-      <a class="yellow item" href="/extras"> <%= t('extras').capitalize %> </a>
-
-      <a class="teal item" href="/quotations"> <%= t('quotations').capitalize %> </a>
-
-      <a class="olive item" href="/invoices"> <%= t('invoices').capitalize %> </a>
+      <a class="teal item" href="/invoices"> <%= t('invoices').capitalize %> </a>
 
       <a class="green item" href="/payments"> <%= t('payments').capitalize %> </a>
+
+      <a class="violet item" href="/customers"> <%= t('customers').capitalize %> </a>
+
+      <a class="brown item" href="/extras"> <%= t('extras').capitalize %> </a>
+
       </div>
     <% end %>
 

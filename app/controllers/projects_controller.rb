@@ -13,13 +13,40 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   # GET /projects/1.json
-  def show;
+  def show
+    @company = Company.first
+    @project = scope.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: t('quotation') + "_#{@project.id}",
+               page_size: 'A4',
+               template: 'quotations/show.html.erb',
+               layout: 'pdf.html',
+               orientation: 'Portrait',
+               encoding: 'utf8',
+               lowquality: true,
+               zoom: 1,
+               dpi: 75,
+               margin: {bottom: 35},
+               footer: {
+                   html: {
+                       template: 'layouts/pdf_footer.html.erb'
+                   }
+               }
+      end
+    end
   end
 
     # GET /projects/new
   def new
     @project = Project.new
     respond_to(&:js)
+  end
+
+  def scope
+    ::Project.all
   end
 
   # GET /projects/1/edit

@@ -80,13 +80,13 @@ fr:
   project_already_invoiced: Ce projet est déjà facturé, continuer ?
   project_ready_invoiced: Ce projet est prêt à être facturé, continuer ?
 
-  project_extra_line_add_success: Divers ajouté au projet
-  project_extra_line_update_success: Divers mis à jour dans le projet
-  project_extra_line_delete_success: Divers supprimé du projet
+  project_extra_line_add_success: Article ajouté au projet
+  project_extra_line_update_success: Article mis à jour dans le projet
+  project_extra_line_delete_success: Article supprimé du projet
 
-  extra_add_success: Divers ajouté
-  extra_update_success: Divers mis à jour
-  extra_delete_success: Divers supprimé
+  extra_add_success: Article ajouté
+  extra_update_success: Article mis à jour
+  extra_delete_success: Article supprimé
 
   create: Valider
   will_paginate:
@@ -281,13 +281,13 @@ fr:
   none: aucun
   wares_to_invoice: Marchandises à facturer
   projects_done: Projets terminés
-  extras: Divers
-  extra: Divers
+  extras: Articles
+  extra: Article
   unit: Unité
   quantity: Quantité
   extra_price: Prix/Unité
-  editing_extra: Modification divers
-  creating_extra: Création divers
+  editing_extra: Modification article
+  creating_extra: Création article
   creating_wares: Création marchandise
   editing_invoice: Edition facture
   creating_invoice: Création facture
@@ -311,8 +311,8 @@ fr:
   back_to_projects: "Retour aux projets"
   project_total_gross: "Total projet HT"
   project_total: "Total projet TTC"
-  editing_extra_line: "Edition divers"
-  creating_extra_line: "Ajout divers"
+  editing_extra_line: "Edition article"
+  creating_extra_line: "Ajout article"
   invoice_number: "Num. Facture"
   in_progress: "En réalisation"
   done: "Terminé"
@@ -346,7 +346,7 @@ fr:
   create_new_quotation: "Créer un nouveau devis"
   create_new_payment: "Créer un nouveau paiement"
   create_new_invoice: "Créer une nouvelle facture"
-  create_new_extra: "Créer un nouveau divers"
+  create_new_extra: "Créer un nouvel article"
   create_new_customer: "Créer un nouveau client"
   invoice_notice: "Le montant de la facture est payable dans les 8 jours. Toute réclamation devra être formulée au plus tard dans les huit jours de la réception par lettre recommandée. En cas de retard de paiement, un intérêt de 1% par mois est dû de plein droit, ainsi qu'une indemnité égale à 15% du montant de la facture avec un minimum de 50€, sans sommation ni mise en demeure. Pour tous litiges, seuls les tribunaux de Liège sont compétents."
   invoice_account: "Les paiements se feront au compte BNP Fortis :"

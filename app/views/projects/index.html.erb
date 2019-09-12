@@ -1,10 +1,9 @@
 
 <%= search_form_for @search do |form| %>
   <div class="ui form">
-
     <div class="six fields">
       <div class="two wide field add-button">
-        <%= link_to t('create_new_project'), new_project_path, {class: 'ui green button', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to t('create_new_project'), new_project_path, {class: 'ui blue button', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </div>
       <div class="field">
         <%= form.label t('project') %>
@@ -31,13 +30,11 @@
           <%= form.text_field :date_lteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off', id: "sortProjectTo", class: "form-control", onchange: 'this.form.submit();' %>
         </div>
       </div>
-
     </div>
-
   </div>
 <% end %>
 
-<table class="ui striped selectable table table-to-color">
+<table class="ui striped selectable blue table table-to-color">
   <thead class=thead-dark>
   <tr>
     <th class="center aligned">
@@ -89,6 +86,8 @@
       <td class="right aligned"><%= number_with_precision project.total_gross, :precision => 2 %></td>
       <td class="right aligned"><%= number_with_precision project.total, :precision => 2 %></td>
       <td class="center aligned">
+        <%= link_to image_tag("pdf-icon.png", size: "27x27"), project_path(project, :format => :pdf) %>
+
         <%= link_to project_path(project) do %>
           <%= image_tag("open-icon.png", size: "27x27") %>
         <% end %>

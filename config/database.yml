@@ -13,4 +13,3 @@ development:
 production:
   <<: *default
   database: greday
-

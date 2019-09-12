@@ -59,18 +59,20 @@ $(document).on("turbolinks:load", function () {
         }
 
         //Clickable rows (remote true) Not used ATM
-        // $("tr[data-link]").click(function () {
-        //     if (event.target.tagName === "IMG") {
-        //         return
-        //     }
-        //     $.ajax({
-        //         url: this.getAttribute('data-link'),
-        //         dataType: "script",
-        //         type: "GET"
-        //     });
-        //     event.preventDefault();
-        // });
-        //
+        $("tr[data-link]").click(function () {
+            if (event.target.tagName === "IMG") {
+                return
+            }
+            window.location = this.dataset.link;
+
+            // $.ajax({
+            //     url: this.getAttribute('data-link'),
+            //     dataType: "script",
+            //     type: "GET"
+            // });
+            event.preventDefault();
+        });
+
         //Navbar active (also handling locale)
         $.each($('.ui.menu').find('a'), function () {
             console.log($(this).attr('href'));
