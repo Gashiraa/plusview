@@ -12,7 +12,9 @@
 
 </head>
 <div class="ui inverted attached menu">
-  <a class="item" href="/projects" id="logo"> <%= company.short_name.upcase %> </a>
+  <a class="item" href="/projects" id="logo">
+    <%= company.short_name.upcase %>
+  </a>
   <div class="menu">
     <% if current_user %>
       <%= content_tag :div, class: "locale", data: {locale: current_user.locale} do %>
@@ -28,7 +30,7 @@
 
       <a class="brown item" href="/extras"> <%= t('extras').capitalize %> </a>
 
-      </div>
+  </div>
     <% end %>
 
     <div class="right menu">
@@ -40,7 +42,7 @@
       <%= link_to(t('logout'), destroy_user_session_path, method: :delete, class: "item logout-button") %>
     </div>
 
-    </div>
+</div>
 
 <% if notice %>
   <div id="notice" class="ui success floating message">
@@ -59,6 +61,7 @@
 <% end %>
 
 <body>
+
 <div class="content" id="primary-content">
   <%= yield %>
 </div>
