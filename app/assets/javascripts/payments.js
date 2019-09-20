@@ -1,6 +1,13 @@
 $(document).on("turbolinks:load", function () {
 
-        $('#customer_select_invoice').on('focus load trigger mouseover change', function () {
+    $("#payment_form_customer").select2({
+        theme: "bootstrap",
+        width: '100%',
+        selectOnClose: true,
+        language: $('.locale').data('locale')
+    }); //PICKING A CUSTOMER IN INVOICE FORM
+
+        $('#payment_form_customer').on('focus load trigger mouseover change', function () {
             let invoice = this.options[this.selectedIndex].value;
             $("#select_invoices_payment > option").each(function () {
                 if (this.getAttribute("invoice") === invoice) {
@@ -10,6 +17,6 @@ $(document).on("turbolinks:load", function () {
                 }
             });
         });
-        $('#customer_select_invoice').trigger('change');
+        $('#payment_form_customer').trigger('change');
     }
 );

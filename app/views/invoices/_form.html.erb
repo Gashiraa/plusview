@@ -37,14 +37,6 @@
         </div>
       </div>
     </div>
-    <div class="two fields">
-
-      <div class="field">
-        <%= form.label t('wares_to_invoice') %>
-        <%= form.select(:ware_ids, Ware.where(status: :assigned_customer, project_id: nil)
-            .or(Ware.where(invoice_id: @invoice ? @invoice : -1, project_id: nil))
-            .collect {|ware| [ware.ware_name, ware.id, {customer: ware.customer ? ware.customer.id : ware.project ? ware.project.customer.id : -1}]}, {}, {class: 'form-control', id: 'invoice_form_wares', autocomplete: 'nope', :multiple => true}) %>
-      </div>
 
       <div class="field">
         <%= form.label t('projects_done').pluralize %>
@@ -58,9 +50,8 @@
         <% end %>
       </div>
 
-      <div class="field">
+      <div class="field centered">
         <%= form.submit t('create'), :class => "ui green button" %>
       </div>
     </div>
-  </div>
 <% end %>

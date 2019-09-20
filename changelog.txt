@@ -1,8 +1,9 @@
 --A FAIRE--
 
-CONSOLIDATION
-ICONES PARTOUT
-COLORER DANS PROJET ?
+#PO et Nom demandeur dans projet
+Affichage facture
+Changer status
+Page show projet
 
 --14/05--
 
