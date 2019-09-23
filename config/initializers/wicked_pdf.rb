@@ -10,7 +10,7 @@
 
 WickedPdf.config = {
 # :exe_path => "C:/Users/DGJE458/Downloads/wkhtmltox-0.12.5-1.mxe-cross-win64/wkhtmltox/bin/wkhtmltopdf.exe"
-:exe_path => "C:/Users/Gashira/Downloads/wkhtmltox-0.12.5-1.mxe-cross-win64/wkhtmltox/bin/wkhtmltopdf.exe"
+#:exe_path => "C:/Users/Gashira/Downloads/wkhtmltox-0.12.5-1.mxe-cross-win64/wkhtmltox/bin/wkhtmltopdf.exe"
 
 # Path to the wkhtmltopdf executable: This usually isn't needed if using
 # one of the wkhtmltopdf-binary family of gems.
@@ -18,7 +18,7 @@ WickedPdf.config = {
 #   or
 # exe_path: Gem.bin_path('wkhtmltopdf-binary', 'wkhtmltopdf')
 # one of the wkhtmltopdf-binary family of gems.
-# exe_path: '/usr/local/bin/wkhtmltopdf',
+ exe_path: '/usr/local/bin/wkhtmltopdf',
 #   or
 # exe_path: Gem.bin_path('wkhtmltopdf-binary', 'wkhtmltopdf')
 

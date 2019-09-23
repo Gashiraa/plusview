@@ -4,6 +4,7 @@
 Affichage facture
 Changer status
 Page show projet
+Rendre tarifs éditables
 
 --14/05--
 

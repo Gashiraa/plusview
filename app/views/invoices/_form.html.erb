@@ -38,20 +38,20 @@
       </div>
     </div>
 
-      <div class="field">
-        <%= form.label t('projects_done').pluralize %>
-        <% if @invoice.id %>
-          <%= form.select(:project_ids, Project.where(status: :done)
-              .or(Project.where(invoice_id: @invoice.id))
-              .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'invoice_form_projects', autocomplete: 'nope', :multiple => true}) %>
-        <% else %>
-          <%= form.select(:project_ids, Project.where(status: :done)
-              .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'invoice_form_projects', autocomplete: 'nope', :multiple => true}) %>
-        <% end %>
-      </div>
-
-      <div class="field centered">
-        <%= form.submit t('create'), :class => "ui green button" %>
-      </div>
+    <div class="field">
+      <%= form.label t('projects_done').pluralize %>
+      <% if @invoice.id %>
+        <%= form.select(:project_ids, Project.where(status: :quotation)
+            .or(Project.where(invoice_id: @invoice.id))
+            .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'invoice_form_projects', autocomplete: 'nope', :multiple => true}) %>
+      <% else %>
+        <%= form.select(:project_ids, Project.where(status: :quotation)
+            .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'invoice_form_projects', autocomplete: 'nope', :multiple => true}) %>
+      <% end %>
     </div>
+
+    <div class="field centered">
+      <%= form.submit t('create'), :class => "ui green button" %>
+    </div>
+  </div>
 <% end %>

@@ -5,7 +5,7 @@
 }
 
 select {
-  -webkit-appearance:none;
+  -webkit-appearance: none;
 }
 
 img {
@@ -38,12 +38,12 @@ img {
   margin: auto;
 }
 
-.add-button{
-  margin:auto 0 !important;
+.add-button {
+  margin: auto 0 !important;
   text-align: center;
 }
 
-.centered{
+.centered {
   text-align: center;
 }
 
@@ -75,6 +75,22 @@ img {
   padding-left: 15px !important;
 }
 
+.edit-project-button {
+  float: right;
+}
+
+.total-project {
+  font-size: 1.2em;
+}
+
+.flex {
+  display: flex;
+}
+
+.project-section {
+  width: -webkit-fill-available;
+  margin-left: 1em;
+}
 
 //::first-letter {
 //  text-transform: uppercase;

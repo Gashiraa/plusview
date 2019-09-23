@@ -169,7 +169,7 @@ function colorTable() {
     $('.status-cell').each(function () {
         this.firstElementChild.classList.add("ui");
         this.firstElementChild.classList.add(assignColor(this.getAttribute('status')));
-        this.firstElementChild.classList.add("button")
+        this.firstElementChild.classList.add("button");
         this.firstElementChild.classList.add("status-button")
         // this.parentElement.classList.add(assignColor(this.getAttribute('status')))
     });
