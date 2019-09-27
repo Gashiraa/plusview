@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @search = Project.order(date: :desc).ransack(params[:q])
+    @search = Project.order(id: :desc).ransack(params[:q])
     @projects = @search.result(distinct: true).paginate(page: params[:page], per_page: 30)
   end
 
@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: t('quotation') + "_#{@project.id}",
+        render pdf: "plusview sprl-devis" + @project.id.to_s,
                page_size: 'A4',
                template: 'quotations/show.html.erb',
                layout: 'pdf.html',
@@ -32,14 +32,15 @@ class ProjectsController < ApplicationController
                margin: {bottom: 35},
                footer: {
                    html: {
-                       template: 'layouts/pdf_footer.html.erb'
+                       template: 'layouts/pdf_footer_quotation.html.erb'
                    }
                }
+        redirect_to projects_path(@project.id)
       end
     end
   end
 
-    # GET /projects/new
+  # GET /projects/new
   def new
     @project = Project.new
     respond_to(&:js)
@@ -61,11 +62,11 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         @project.invoice&.update_totals_invoice(@project.invoice, @project.invoice.projects, @project.invoice.wares)
-        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('project_add_success')}
-        format.json {render :show, status: :created, location: @project}
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: t('project_add_success') }
+        format.json { render :show, status: :created, location: @project }
       else
-        format.html {render :new}
-        format.json {render json: @project.errors, status: :unprocessable_entity}
+        format.html { render :new }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -76,11 +77,11 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         @project.invoice&.update_totals_invoice(@project.invoice, @project.invoice.projects, @project.invoice.wares)
-        format.html {redirect_to request.env["HTTP_REFERER"], notice: t('project_update_success')}
-        format.json {render :show, status: :ok, location: @project}
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: t('project_update_success') }
+        format.json { render :show, status: :ok, location: @project }
       else
-        format.html {render :edit}
-        format.json {render json: @project.errors, status: :unprocessable_entity}
+        format.html { render :edit }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -90,11 +91,23 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html {redirect_to request.env["HTTP_REFERER"], notice: t('project_destroy_success')}
-      format.json {head :no_content}
+      format.html { redirect_to request.env["HTTP_REFERER"], notice: t('project_destroy_success') }
+      format.json { head :no_content }
     end
   end
 
+  def accepted
+    respond_to do |format|
+      if @project.update(status: 1)
+        @project.invoice&.update_totals_invoice(@project.invoice, @project.invoice.projects, @project.invoice.wares)
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: t('project_update_success') }
+        format.json { render :show, status: :ok, location: @project }
+      else
+        format.html { render :edit }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   private
 
@@ -105,7 +118,7 @@ class ProjectsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
-    params.require(:project).permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross, :date, :description)
+    params.require(:project).permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross, :date, :description, :po, :applicant)
   end
 
 end

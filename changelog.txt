@@ -1,10 +1,28 @@
 --A FAIRE--
 
+TVA 0% autoliquidation Autoliquidation, article 21 du code TVA Belge
+Champ autre adresse
+Champs catégorie
+Articles/unité
+
+--23/09--
+Devis :
+
+ROUGE CREE
+JAUNE ACCEPTE
+VERT FACTURE
+
+Facture
+
+CREE
+ENVOYE
+PAYE
+nom fichier devis plusview sprl-devis numéro
+nom fichier facture plusview sprl-facture numéro
+ouvir pdf dans nouvel onglet
 #PO et Nom demandeur dans projet
-Affichage facture
 Changer status
 Page show projet
-Rendre tarifs éditables
 
 --14/05--
 

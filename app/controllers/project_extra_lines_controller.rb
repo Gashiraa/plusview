@@ -21,8 +21,24 @@ class ProjectExtraLinesController < ApplicationController
     end
   end
 
+  def new_manual
+    @project_extra_line = ProjectExtraLine.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   # GET /project_extra_lines/1/edit
   def edit
+    @extra = ProjectExtraLine.find(params[:id])
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def edit_manual
     @extra = ProjectExtraLine.find(params[:id])
     respond_to do |format|
       format.js
@@ -34,7 +50,6 @@ class ProjectExtraLinesController < ApplicationController
   # POST /project_extra_lines.json
   def create
     @project_extra_line = ProjectExtraLine.new(project_extra_line_params)
-
     respond_to do |format|
       if @project_extra_line.save
         format.html { redirect_to request.env["HTTP_REFERER"], notice: t('project_extra_line_add_success')}
@@ -79,6 +94,6 @@ class ProjectExtraLinesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_extra_line_params
-    params.require(:project_extra_line).permit(:project_id, :extra_id, :quantity, :total, :total_gross)
+    params.require(:project_extra_line).permit(:project_id, :extra_id, :quantity,:total, :total_gross, :manual_name, :manual_price, :manual_vat, :unit, :is_manual)
   end
 end

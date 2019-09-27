@@ -31,6 +31,11 @@
   </thead>
 
   <tbody>
+  <% unless @extras.any? %>
+    <tr>
+      <td class="center aligned" colspan="9"><%= t('no_data_display') %></td>
+    </tr>
+  <% end %>
   <% @extras.each do |extra| %>
     <tr>
       <td>

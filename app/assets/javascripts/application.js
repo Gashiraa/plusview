@@ -75,11 +75,10 @@ $(document).on("turbolinks:load", function () {
 
         //Navbar active (also handling locale)
         $.each($('.ui.menu').find('a'), function () {
-            console.log($(this).attr('href'));
             $(this).toggleClass('active',
                 ((window.location.pathname.indexOf($(this).attr('href')) > -1) ||
-                $('.locale').data('locale') === this.text.toLowerCase() ||
-                (window.location.pathname === "/" && $(this).attr('href') === "/projects")) &&
+                    $('.locale').data('locale') === this.text.toLowerCase() ||
+                    (window.location.pathname === "/" && $(this).attr('href') === "/projects")) &&
                 $(this).attr('id') !== "logo"
             )
         });
@@ -168,34 +167,25 @@ function autoFormatDatePicker(picker) {
 function colorTable() {
     $('.status-cell').each(function () {
         this.firstElementChild.classList.add("ui");
+        if ((this.getAttribute('status') === "created") && (window.location.pathname === "/projects" || window.location.pathname === "/invoices" || window.location.pathname === "/")) {
+            this.firstElementChild.classList.add("animated");
+        }
         this.firstElementChild.classList.add(assignColor(this.getAttribute('status')));
         this.firstElementChild.classList.add("button");
-        this.firstElementChild.classList.add("status-button")
-        // this.parentElement.classList.add(assignColor(this.getAttribute('status')))
     });
 }
 
 //Color picker based on status enum
 function assignColor(status) {
     switch (status) {
-        case 'quotation' : //Project, Ware
-            return "blue"; //BLUE
-        case 'invoiced' :
         case 'created' :
-            return "yellow"; //YELLOW
-        case 'assigned_project' :
-        case 'assigned_customer' :
-        case 'assigned' :
-        case 'in_progress' :
-            return "orange"; //ORANGE
-        case 'not_assigned' :
-        case 'done' :
             return "red"; //RED
         case 'accepted' :
+        case 'sent' :
+            return "yellow"; //YELLOW
+        case 'invoiced' :
         case 'paid' :
             return "green"; //GREEN
-        case 'bin' :
-            return "grey"; //GREEN
         default:
     }
 }

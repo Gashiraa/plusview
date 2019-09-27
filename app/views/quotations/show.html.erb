@@ -9,6 +9,9 @@
         <div>
           <%= @company.name %>
         </div>
+        <div>
+          <%= "BE0693763596" %>
+        </div>
         <span>
           <%= @company.street %>
         </span>
@@ -57,18 +60,31 @@
       </h2>
       </span>
       <div class="clearfix"></div>
+
     </section>
 
 
     <div class="clearfix"></div>
     <span id="dateInvoice">
-          <%= "Wonck le, " + l(@project.date).to_s %>
+          <%= "Roclenge le, " + l(@project.date).to_s %>
     </span>
     <hr>
 
     <% if @project %>
       <section id="items" class="project">
         <div class="avoidbreak">
+
+          <div class="title-project-container">
+            <h4 class="title-project">Projet : <%= @project.name %></h4>
+          </div>
+          <p><%= @project.description %>
+            <br>
+            <%= t('PO') + ":" %>
+            <%= @project.po ? @project.po : "/" %>
+            <br>
+            <%= t('applicant') + ":" %>
+            <%= @project.applicant ? @project.applicant : "/" %>
+          </p>
           <% if @project.project_extra_lines.any? %>
             <h5><%= t('extra').pluralize %>
             </h5>
@@ -85,19 +101,24 @@
               </thead>
 
               <tbody>
-              <% unless @project.project_extra_lines.any? %>
-                <tr>
-                  <td class="emptyTable" colspan="9">Aucune données à afficher</td>
-                </tr>
-              <% end %>
               <% @project.project_extra_lines.each do |project_extra_line| %>
-                <tr>
-                  <td class="name-cell"><%= project_extra_line.extra.name %></td>
-                  <td class="quantity-cell"><%= project_extra_line.quantity.to_s + ' ' + project_extra_line.extra.unit %></td>
-                  <td class="number-cell"><%= number_with_precision project_extra_line.extra.unit_price, :precision => 2 %></td>
-                  <td class="number-cell"><%= number_with_precision project_extra_line.extra.tva_rate, :precision => 2 %></td>
-                  <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
-                </tr>
+                <% if project_extra_line.is_manual %>
+                  <tr>
+                    <td class="name-cell"><%= project_extra_line.manual_name %></td>
+                    <td class="quantity-cell"><%= project_extra_line.quantity.to_s + ' ' + project_extra_line.unit %></td>
+                    <td class="number-cell"><%= number_with_precision project_extra_line.manual_price, :precision => 2 %></td>
+                    <td class="number-cell"><%= number_with_precision project_extra_line.manual_vat, :precision => 2 %></td>
+                    <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
+                  </tr>
+                <% else %>
+                  <tr>
+                    <td class="name-cell"><%= project_extra_line.extra.name %></td>
+                    <td class="quantity-cell"><%= project_extra_line.quantity.to_s + ' ' + project_extra_line.extra.unit %></td>
+                    <td class="number-cell"><%= number_with_precision project_extra_line.extra.unit_price, :precision => 2 %></td>
+                    <td class="number-cell"><%= number_with_precision project_extra_line.extra.tva_rate, :precision => 2 %></td>
+                    <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
+                  </tr>
+                <% end %>
               <% end %>
               </tbody>
             </table>

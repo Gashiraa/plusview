@@ -1,9 +1,8 @@
-
 <%= search_form_for @search do |form| %>
   <div class="ui form">
     <div class="six fields">
       <div class="two wide field add-button">
-        <%= link_to t('create_new_project'), new_project_path, {class: 'ui blue button', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
+        <%= link_to t('create_new_quotation'), new_project_path, {class: 'ui blue button', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </div>
       <div class="field">
         <%= form.label t('project') %>
@@ -37,38 +36,38 @@
 <table class="ui striped selectable blue table table-to-color">
   <thead class=thead-dark>
   <tr>
-    <th class="center aligned">
+    <th class="one wide center aligned">
       <%= sort_link(@search, :id, t('id_locale')) %>
     </th>
-    <th class="small-column">
+    <th class="two wide small-column">
       <%= sort_link(@search, :customer_id, t('customer')) %>
     </th>
-    <th>
+    <th class="two wide">
       <%= sort_link(@search, :name, t('project_title')) %>
     </th>
-    <th class="description-header">
+    <th class="five wide">
       <%= sort_link(@search, :description, t('description')) %>
     </th>
-    <th class="center aligned">
+    <th class="one wide center aligned">
       <%= sort_link(@search, :date, t('date_locale')) %>
     </th>
-    <th class="center aligned">
+    <th class="one wide center aligned">
       <%= sort_link(@search, :status, t('status')) %>
     </th>
-    <th class="right aligned">
+    <th class="one wideright aligned">
       <%= sort_link(@search, :total_gross, t('gross_cost').to_s + ' (€)') %>
     </th>
-    <th class="right aligned">
+    <th class="one wide right aligned">
       <%= sort_link(@search, :total, t('total').to_s + ' (€)') %>
     </th>
-    <th></th>
+    <th class="two wide"></th>
   </tr>
   </thead>
 
   <tbody>
   <% unless @projects.any? %>
     <tr>
-      <td class="emptyTable" colspan="9"><%= t('no_data_display') %></td>
+      <td class="center aligned" colspan="9"><%= t('no_data_display') %></td>
     </tr>
   <% end %>
   <% @projects.each do |project| %>
@@ -81,12 +80,21 @@
       <td><%= project.description %></td>
       <td class="center aligned"><%= project.date ? l(project.date) : "" %></td>
       <%= tag.td class: 'center aligned status-cell', status: project.status do %>
-        <div> <%= project.translated_status %> </div>
+        <div>
+          <div class="visible content">
+            <%= project.translated_status %>
+          </div>
+          <% if project.status == "created" %>
+            <div class="hidden content">
+              <%= link_to "Accepté", id: project.id, controller: :projects, action: :accepted, method: :get %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
       <td class="right aligned"><%= number_with_precision project.total_gross, :precision => 2 %></td>
       <td class="right aligned"><%= number_with_precision project.total, :precision => 2 %></td>
       <td class="center aligned">
-        <%= link_to image_tag("pdf-icon.png", size: "27x27"), project_path(project, :format => :pdf) %>
+        <%= link_to image_tag("pdf-icon.png", size: "27x27"), project_path(project, :format => :pdf), target: "_blank" %>
 
         <%= link_to project_path(project) do %>
           <%= image_tag("open-icon.png", size: "27x27") %>
@@ -102,7 +110,8 @@
   <% end %>
   </tbody>
 </table>
-  <%= will_paginate @projects %>
+
+<%= will_paginate @projects %>
 
 <div id="modal-window" class="ui modal">
   <div class="content">

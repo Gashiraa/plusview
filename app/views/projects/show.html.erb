@@ -29,6 +29,17 @@
         </div>
       </div>
       <div class="content center aligned">
+        <div class="description">
+          <%= t('PO') + ":" %>
+          <%= @project.po ? @project.po : "/" %>
+          <br>
+          <%= t('applicant') + ":" %>
+          <%= @project.applicant ? @project.applicant : "/" %>
+        </div>
+      </div>
+
+      <div class="content center aligned">
+
         <p class="center aligned">
           <%= t('status') %>
         </p>
@@ -51,7 +62,7 @@
       </div>
       <div class="content">
         <div class="center aligned">
-          <%= button_to project_path(@project, :format => :pdf), class: "ui blue labeled icon button" do %>
+          <%= button_to project_path(@project, :format => :pdf), :method => :get, form: { target: "_blank" }, class: "ui blue labeled icon button" do %>
             Voir le devis
             <i class="file pdf icon"></i>
           <% end %>
@@ -59,7 +70,7 @@
         <br>
         <div class="center aligned">
           <% if @project.invoice %>
-            <%= button_to invoice_path(@project.invoice, :format => :pdf), class: "ui yellow  labeled icon button" do %>
+            <%= button_to invoice_path(@project.invoice, :format => :pdf), :method => :get, form: { target: "_blank" }, class: "ui yellow  labeled icon button", :target => "_blank"  do %>
               Voir la facture
               <i class="file pdf icon"></i>
             <% end %>
@@ -94,43 +105,77 @@
       <tbody>
       <% unless @project.project_extra_lines.any? %>
         <tr>
-          <td class="center aligned" colspan="9">
-            Aucune données à afficher
-          </td>
+          <td class="center aligned" colspan="9"><%= t('no_data_display') %></td>
         </tr>
       <% end %>
       <% @project.project_extra_lines.each do |project_extra_line| %>
-        <tr data-link="<%= edit_project_extra_line_path(project_extra_line) %>">
-          <td>
-            <%= project_extra_line.extra.name %>
-          </td>
-          <td class="center-cell">
-            <%= project_extra_line.extra.unit %>
-          </td>
-          <td class="right-cell">
-            <%= project_extra_line.quantity %>
-          </td>
-          <td class="right-cell total-cell">
-            <%= number_with_precision project_extra_line.total_gross, :precision => 2 %>
-          </td>
-          <td class="right-cell total-cell">
-            <%= number_with_precision project_extra_line.total, :precision => 2 %>
-          </td>
-          <td class="buttons-cell center-cell">
-            <%= link_to edit_project_extra_line_path(project_extra_line), remote: true do %>
-              <%= image_tag("edit-icon.png", size: "30x30") %>
-            <% end %>
-            <%= link_to project_extra_line, method: :delete, data: {confirm: t('confirm_delete')} do %>
-              <%= image_tag("delete-icon.png", size: "30x30") %>
-            <% end %>
-          </td>
-        </tr>
+        <% if project_extra_line.is_manual %>
+          <tr>
+            <td>
+              <%= project_extra_line.manual_name %>
+            </td>
+            <td class="center-cell">
+              <%= project_extra_line.unit %>
+            </td>
+            <td class="right-cell">
+              <%= project_extra_line.quantity %>
+            </td>
+            <td class="right-cell total-cell">
+              <%= number_with_precision project_extra_line.total_gross, :precision => 2 %>
+            </td>
+            <td class="right-cell total-cell">
+              <%= number_with_precision project_extra_line.total, :precision => 2 %>
+            </td>
+            <td class="buttons-cell center-cell">
+              <%= link_to "project_extra_lines/edit_manual/"+project_extra_line.id.to_s, remote: true do %>
+                <%= image_tag("edit-icon.png", size: "30x30") %>
+              <% end %>
+              <%= link_to project_extra_line, method: :delete, data: {confirm: t('confirm_delete')} do %>
+                <%= image_tag("delete-icon.png", size: "30x30") %>
+              <% end %>
+            </td>
+          </tr>
+        <% else %>
+          <tr>
+            <td>
+              <%= project_extra_line.extra.name %>
+            </td>
+            <td class="center-cell">
+              <%= project_extra_line.extra.unit %>
+            </td>
+            <td class="right-cell">
+              <%= project_extra_line.quantity %>
+            </td>
+            <td class="right-cell total-cell">
+              <%= number_with_precision project_extra_line.total_gross, :precision => 2 %>
+            </td>
+            <td class="right-cell total-cell">
+              <%= number_with_precision project_extra_line.total, :precision => 2 %>
+            </td>
+            <td class="buttons-cell center-cell">
+              <%= link_to edit_project_extra_line_path(project_extra_line), remote: true do %>
+                <%= image_tag("edit-icon.png", size: "30x30") %>
+              <% end %>
+              <%= link_to project_extra_line, method: :delete, data: {confirm: t('confirm_delete')} do %>
+                <%= image_tag("delete-icon.png", size: "30x30") %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
       <tr>
         <td colspan="9">
           <%= link_to(new_project_extra_line_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'}) do %>
             <button class="ui blue compact labeled icon button">
               Ajouter un article
+              <i class="plus icon"></i>
+            </button>
+          <% end %>
+          <br>
+          <br>
+          <%= link_to("project_extra_lines/new_manual", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window') do %>
+            <button class="ui teal compact labeled icon button">
+              Ajouter un article (manuel)
               <i class="plus icon"></i>
             </button>
           <% end %>

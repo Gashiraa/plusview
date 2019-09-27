@@ -23,5 +23,11 @@ Rails.application.routes.draw do
   resources :payments
 
   get '/change_locale', to: 'application#change_locale', as: :change_locale
+  get '/projects/project_extra_lines/new_manual', to: 'project_extra_lines#new_manual'
+  get '/projects/project_extra_lines/edit_manual/:id', to: 'project_extra_lines#edit_manual'
+
+  get 'projects/accepted/:id' => 'projects#accepted', as: :accepted
+  get 'invoices/paid/:id' => 'invoices#paid', as: :paid
+
 
 end

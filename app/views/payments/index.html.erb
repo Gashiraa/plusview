@@ -29,7 +29,7 @@
   <tbody>
   <% unless @payments.any? %>
     <tr>
-      <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+      <td class="center aligned" colspan="9"><%= t('no_data_display') %></td>
     </tr>
   <% end %>
   <% @payments.each do |payment| %>

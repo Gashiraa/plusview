@@ -15,7 +15,7 @@ class Project < ApplicationRecord
   has_many :project_extra_lines, dependent: :nullify
   has_many :extra, through: :project_extra_lines
 
-  enum status: [:quotation, :invoiced, :paid]
+  enum status: [:created, :accepted, :invoiced]
   translate_enum :status
 
   def update_totals_project(project)

@@ -14,7 +14,7 @@ class Invoice < ApplicationRecord
 
   def update_invoice_content_on_destroy(invoice)
     invoice.wares.update(status: :assigned_customer, invoice_id: nil)
-    invoice.projects.update(status: :quotation, invoice_id: nil)
+    invoice.projects.update(status: :accepted, invoice_id: nil)
 
     invoice.projects.each do |project|
       project.wares.update(status: :assigned_project)
@@ -40,9 +40,9 @@ class Invoice < ApplicationRecord
   def update_statuses_invoice(invoice)
 
     Project.all
-        .where(status: :invoiced)
+        .where(status: :accepted)
         .where("invoice_id IS NULL")
-        .update(status: :quotation)
+        .update(status: :invoiced)
 
     Ware.all
         .joins(:project)
@@ -69,5 +69,4 @@ class Invoice < ApplicationRecord
       project.services.update(status: :invoiced)
     end
   end
-
 end

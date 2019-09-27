@@ -9,12 +9,14 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type => 'image/png' %>
-
 </head>
+
 <div class="ui inverted attached menu">
   <a class="item" href="/projects" id="logo">
+    <%= image_tag('plusview.png') %>
     <%= company.short_name.upcase %>
   </a>
+
   <div class="menu">
     <% if current_user %>
       <%= content_tag :div, class: "locale", data: {locale: current_user.locale} do %>
@@ -29,9 +31,8 @@
       <a class="violet item" href="/customers"> <%= t('customers').capitalize %> </a>
 
       <a class="brown item" href="/extras"> <%= t('extras').capitalize %> </a>
-
-  </div>
     <% end %>
+  </div>
 
     <div class="right menu">
 
@@ -42,7 +43,7 @@
       <%= link_to(t('logout'), destroy_user_session_path, method: :delete, class: "item logout-button") %>
     </div>
 
-</div>
+    </div>
 
 <% if notice %>
   <div id="notice" class="ui success floating message">

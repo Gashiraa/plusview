@@ -13,7 +13,7 @@
       <% end %>
     </h2>
 
-    <div class="four fields">
+    <div class="three fields">
 
       <div class="field">
         <%= form.label t('customer'), class: '' %>
@@ -31,9 +31,24 @@
         </div>
       </div>
 
+
+    </div>
+
+    <div class="three fields">
+
       <div class="field">
         <%= form.label t('Name') %>
         <%= form.text_field :name, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", :required => true, autocomplete: 'nope' %>
+      </div>
+
+      <div class="field">
+        <%= form.label t('PO').upcase %>
+        <%= form.text_field :po, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
+      </div>
+
+      <div class="field">
+        <%= form.label t('applicant') %>
+        <%= form.text_field :applicant, class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
       </div>
     </div>
 

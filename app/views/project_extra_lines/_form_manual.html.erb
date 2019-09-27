@@ -15,46 +15,40 @@
 
     <div class="three fields">
 
+      <%= form.hidden_field :is_manual, value: true %>
+
+
       <div class="field">
         <%= form.label t('project') %>
         <%= form.collection_select :project_id, Project.all, :id, :name, {:include_blank => true}, {:required => true, diasbled: true, class: 'form-control', id: 'extra_line_form_project'} %>
       </div>
 
       <div class="field">
-        <%= form.label t('category') %>
-        <%= form.select :id, Extra.distinct.pluck(:category), {required: true, class: 'form-control', id: 'extra_line_form_category'} %>
-      </div>
-
-      <div class="field">
         <%= form.label t('extra') %>
-        <%= form.select(:extra_id, Extra.all.collect {|extra| [extra.name, extra.id, {category: extra.category}]}, {}, {class: 'form-control', id: 'extra_edit_select', autocomplete: 'nope'}) %>
+        <%= form.text_field :manual_name, class: 'form-control', id: 'extra_manual_edit_select', autocomplete: 'nope'%>
+      </div>
+      <div class="field">
+        <%= form.label t('unit') %>
+        <%= form.text_field :unit, class: 'form-control', id: 'extra_unit', autocomplete: 'nope'%>
       </div>
 
     </div>
 
-    <div class="four fields">
-
-      <div class="field">
-        <%= form.label t('unit') %>
-        <%= form.select(:id, Extra.all
-            .collect {|extra| [extra.unit, extra.id, {extra: extra.id}]}, {}, {class: 'form-control', id: 'extra_unit', autocomplete: 'nope', :disabled => true}) %>
-      </div>
+    <div class="three fields">
 
       <div class="field">
         <%= form.label t('Quantity') %>
-        <%= form.number_field :quantity, step: :any, class: "form-control", autocomplete: 'nope', id: 'extra_quantity', value: @project_extra_line.quantity ? @project_extra_line.quantity : "1" %>
+        <%= form.text_field :quantity, class: "form-control", autocomplete: 'nope', id: 'extra_quantity', value: @project_extra_line.quantity ? @project_extra_line.quantity : "1" %>
       </div>
 
       <div class="field">
         <%= form.label t('extra_price') %>
-        <%= form.select(:id, Extra.all
-            .collect {|extra| [extra.unit_price, extra.id, {extra: extra.id}]}, {}, {class: 'form-control', id: 'extra_unit_price', autocomplete: 'nope', :disabled => true}) %>
+        <%= form.text_field :manual_price, class: 'form-control', id: 'extra_unit_price', autocomplete: 'nope' %>
       </div>
 
       <div class="field">
         <%= form.label t('tva_rate') %>
-        <%= form.select(:id, Extra.all
-            .collect {|extra| [extra.tva_rate, extra.id, {extra: extra.id}]}, {}, {class: 'form-control', id: 'extra_tva_rate', autocomplete: 'nope', :disabled => true}) %>
+        <%= form.text_field :manual_vat, value: @project_extra_line.manual_vat || '21', class: 'form-control', id: 'extra_tva_rate', autocomplete: 'nope' %>
       </div>
 
     </div>

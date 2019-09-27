@@ -1,6 +1,6 @@
 <%= search_form_for @search do |form| %>
   <div class="ui form">
-    <div class="four fields">
+    <div class="seven fields">
       <div class="two wide field add-button">
         <%= link_to t('create_new_invoice'), new_invoice_path, {class: 'ui teal button', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %>
       </div>
@@ -14,7 +14,27 @@
       </div>
       <div class="field">
         <%= form.label t('status') %>
-        <%= form.select :status_eq, Invoice.statuses.map {|status| [t(status[0]), status[1].to_i, {status: status[0]}]}, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
+        <%= form.select :status_eq, Invoice.statuses.map { |status| [t(status[0]), status[1].to_i, {status: status[0]}] }, {:include_blank => t('all_status')}, {class: 'form-control', id: 'status_sort_select', onchange: 'this.form.submit();'} %>
+      </div>
+      <div class="field">
+        <%= form.label t('from') %>
+        <div class="picker-container">
+          <%= form.text_field :date_gteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off', id: "sortProjectFrom", class: "form-control", onchange: 'this.form.submit();' %>
+        </div>
+      </div>
+      <div class="field">
+        <%= form.label t('to') %>
+        <div class="picker-container">
+          <%= form.text_field :date_lteq, "data-provide" => 'datepicker', "data-date-format" => "dd/mm/yyyy", autocomplete: 'off', id: "sortProjectTo", class: "form-control", onchange: 'this.form.submit();' %>
+        </div>
+      </div>
+      <div class="field invoice-report-total">
+        <h5 class="ui small green compact button">
+          <%= t('total_invoiced') %>
+        </h5>
+        <h3>
+          <%= @invoices.collect {|w| w.valid? ? w.total_gross : 0}.sum %> €
+        </h3>
       </div>
     </div>
   </div>
@@ -47,7 +67,7 @@
   <tbody>
   <% unless @invoices.any? %>
     <tr>
-      <td class="emptyTable" colspan="9">Aucune données à afficher</td>
+      <td class="center aligned" colspan="9"><%= t('no_data_display') %></td>
     </tr>
   <% end %>
   <% @invoices.each do |invoice| %>
@@ -63,7 +83,14 @@
       </td>
       <%= tag.td class: 'center aligned status-cell', status: invoice.status do %>
         <div>
-          <%= invoice.translated_status %>
+          <div class="visible content">
+            <%= invoice.translated_status %>
+          </div>
+          <% if invoice.status == "created" %>
+            <div class="hidden content">
+              <%= link_to "Payé", id: invoice.id, controller: :invoices, action: :paid, method: :get %>
+            </div>
+          <% end %>
         </div>
       <% end %>
       <td><%= number_with_precision invoice.total_gross, :precision => 2 %></td>
@@ -72,7 +99,7 @@
         <%= link_to edit_invoice_path(invoice), remote: true do %>
           <%= image_tag("edit-icon.png", size: "30x30") %>
         <% end %>
-        <%= link_to image_tag("pdf-icon.png", size: "30x30"), invoice_path(invoice.id, :format => :pdf) %>
+        <%= link_to image_tag("pdf-icon.png", size: "30x30"), invoice_path(invoice.id, :format => :pdf), target:"_blank" %>
         <%= link_to invoice, method: :delete, data: {confirm: t('confirm_delete')} do %>
           <%= image_tag("delete-icon.png", size: "30x30") %>
         <% end %>

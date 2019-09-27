@@ -7,7 +7,7 @@ class InvoicesController < ApplicationController
   # GET /invoices.json
   def index
     @search = Invoice.ransack(params[:q])
-    @invoices = @search.result(distinct: true).order(:status).paginate(page: params[:page], per_page: 30)
+    @invoices = @search.result(distinct: true).order(created_at: :desc).paginate(page: params[:page], per_page: 30)
   end
 
   # GET /invoices/1
@@ -26,7 +26,7 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: t('invoice') + "_#{@invoice.display_number}",
+        render pdf: "plusview sprl-facture" + @invoice.id.to_s,
                page_size: 'A4',
                template: 'invoices/show.html.erb',
                layout: 'pdf.html',
@@ -54,13 +54,14 @@ class InvoicesController < ApplicationController
   # POST /invoices.json
   def create
     @invoice = Invoice.new(invoice_params)
+    @invoice.display_number = get_next_invoice_number
     respond_to do |format|
       if @invoice.save
         @invoice.update_statuses_invoice(@invoice)
         @invoice.update_totals_invoice(@invoice, @invoice.projects, @invoice.wares)
-        format.html {redirect_to invoice_path(@invoice.id, :format => :pdf), notice: 'Invoice was successfully created.'}
+        format.html { redirect_to invoice_path(@invoice.id, :format => :pdf), notice: 'Invoice was successfully created.' }
       else
-        format.html {render :new}
+        format.html { render :new }
       end
     end
   end
@@ -72,11 +73,11 @@ class InvoicesController < ApplicationController
       if @invoice.update(invoice_params)
         @invoice.update_statuses_invoice(@invoice)
         @invoice.update_totals_invoice(@invoice, @invoice.projects, @invoice.wares)
-        format.html {redirect_to invoices_url, notice: 'Invoice was successfully updated.'}
-        format.json {render :show, status: :ok, location: @invoice}
+        format.html { redirect_to invoices_url, notice: 'Invoice was successfully updated.' }
+        format.json { render :show, status: :ok, location: @invoice }
       else
-        format.html {render :edit}
-        format.json {render json: @invoice.errors, status: :unprocessable_entity}
+        format.html { render :edit }
+        format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -84,11 +85,25 @@ class InvoicesController < ApplicationController
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy
-    @invoice. update_invoice_content_on_destroy(@invoice)
+    @invoice.update_invoice_content_on_destroy(@invoice)
     @invoice.destroy
     respond_to do |format|
-      format.html {redirect_to invoices_url, notice: 'Invoice was successfully destroyed.'}
-      format.json {head :no_content}
+      format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def paid
+    respond_to do |format|
+      if @invoice.update(status: 1)
+        @invoice.update_statuses_invoice(@invoice)
+        @invoice.update_totals_invoice(@invoice, @invoice.projects, @invoice.wares)
+        format.html { redirect_to request.env["HTTP_REFERER"], notice: t('project_update_success') }
+        format.json { render :show, status: :ok, location: @invoice }
+      else
+        format.html { render :edit }
+        format.json { render json: @invoice.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -104,4 +119,16 @@ class InvoicesController < ApplicationController
     params.require(:invoice).permit(:payment_id, :date, :status, :total, :display_number, :customer_id, ware_ids: [], project_ids: [])
   end
 
+  def get_next_invoice_number
+
+    max_number = Invoice.maximum("display_number") || 0
+    for i in 190056..max_number
+      if Invoice.exists?(display_number: i)
+        next
+      else
+        return i
+      end
+    end
+    return 1 + max_number
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_23_122641) do
+ActiveRecord::Schema.define(version: 2019_09_25_113630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,28 +85,6 @@ ActiveRecord::Schema.define(version: 2019_08_23_122641) do
     t.index ["customer_id"], name: "index_payments_on_customer_id"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.bigint "project_id"
-    t.bigint "invoice_id"
-    t.bigint "customer_id"
-    t.bigint "quotation_id"
-    t.string "name"
-    t.string "comment"
-    t.integer "quantity"
-    t.float "provider_discount"
-    t.float "margin"
-    t.float "unit_price"
-    t.integer "status"
-    t.float "tva_rate"
-    t.float "total_cost"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_products_on_customer_id"
-    t.index ["invoice_id"], name: "index_products_on_invoice_id"
-    t.index ["project_id"], name: "index_products_on_project_id"
-    t.index ["quotation_id"], name: "index_products_on_quotation_id"
-  end
-
   create_table "project_extra_lines", force: :cascade do |t|
     t.bigint "project_id"
     t.bigint "extra_id"
@@ -115,6 +93,11 @@ ActiveRecord::Schema.define(version: 2019_08_23_122641) do
     t.datetime "updated_at", null: false
     t.float "total_gross"
     t.float "total"
+    t.boolean "is_manual"
+    t.string "manual_name"
+    t.float "manual_price"
+    t.string "unit"
+    t.float "manual_vat"
     t.index ["extra_id"], name: "index_project_extra_lines_on_extra_id"
     t.index ["project_id"], name: "index_project_extra_lines_on_project_id"
   end
@@ -133,6 +116,8 @@ ActiveRecord::Schema.define(version: 2019_08_23_122641) do
     t.float "total_gross"
     t.float "total"
     t.date "date"
+    t.string "po"
+    t.string "applicant"
     t.index ["customer_id"], name: "index_projects_on_customer_id"
     t.index ["invoice_id"], name: "index_projects_on_invoice_id"
   end
@@ -211,10 +196,6 @@ ActiveRecord::Schema.define(version: 2019_08_23_122641) do
   add_foreign_key "invoices", "customers"
   add_foreign_key "invoices", "payments"
   add_foreign_key "payments", "customers"
-  add_foreign_key "products", "customers"
-  add_foreign_key "products", "invoices"
-  add_foreign_key "products", "projects"
-  add_foreign_key "products", "quotations"
   add_foreign_key "project_extra_lines", "extras"
   add_foreign_key "project_extra_lines", "projects"
   add_foreign_key "projects", "customers"
