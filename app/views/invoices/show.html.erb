@@ -4,20 +4,25 @@
       <div class="logo">
         <%= wicked_pdf_image_tag "plusview.png" %>
       </div>
-
       <div class="company-info">
         <div>
           <%= @company.name %>
         </div>
-        <span>
+        <div>
+          <%= "BE0693763596" %>
+        </div>
+        <div>
           <%= @company.street %>
-        </span>
-        <br/>
-        <span><%= @company.postcode %> <%= @company.locality %></span>
-        <br/>
-        <span><%= @company.phone %></span>
-        <br/>
-        <span><%= @company.email %></span>
+        </div>
+        <div>
+          <%= @company.postcode %> <%= @company.locality %>
+        </div>
+        <div>
+          <%= @company.phone %>
+        </div>
+        <div>
+          <%= @company.email %>
+        </div>
       </div>
 
     </section>
@@ -106,17 +111,17 @@
                   <% if project_extra_line.is_manual %>
                     <tr>
                       <td class="name-cell"><%= project_extra_line.manual_name %></td>
-                      <td class="quantity-cell"><%= project_extra_line.quantity.to_s + ' ' + project_extra_line.unit %></td>
+                      <td class="quantity-cell"><%= number_to_human(project_extra_line.quantity, strip_insignificant_zeros: true).to_s + ' ' + project_extra_line.unit %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.manual_price, :precision => 2 %></td>
-                      <td class="number-cell"><%= number_with_precision project_extra_line.manual_vat, :precision => 2 %></td>
+                      <td class="number-cell"><%= number_with_precision project_extra_line.tva_rate, :precision => 2 %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
                     </tr>
                   <% else %>
                     <tr>
                       <td class="name-cell"><%= project_extra_line.extra.name %></td>
-                      <td class="quantity-cell"><%= project_extra_line.quantity.to_s + ' ' + project_extra_line.extra.unit %></td>
+                      <td class="quantity-cell"><%= number_to_human(project_extra_line.quantity, strip_insignificant_zeros: true).to_s + ' ' + project_extra_line.extra.unit %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.extra.unit_price, :precision => 2 %></td>
-                      <td class="number-cell"><%= number_with_precision project_extra_line.extra.tva_rate, :precision => 2 %></td>
+                      <td class="number-cell"><%= number_with_precision project_extra_line.tva_rate, :precision => 2 %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
                     </tr>
                   <% end %>
@@ -132,7 +137,7 @@
               <tr class="amount-total">
               <tr data-hide-on-quote="true">
                 <th>Total TVA projet (€)</th>
-                <td><%= number_with_precision (project.total - project.total_gross), :precision => 2 %></td>
+                <td><%= number_with_precision(project.total - project.total_gross, :precision => 2) %></td>
               </tr>
               <th>TOTAL HT PROJET (€)</th>
               <td><%= number_with_precision project.total_gross, :precision => 2 %></td>
@@ -140,7 +145,6 @@
               <tr>
                 <th><%= "TOTAL TTC PROJET (€)" %></th>
                 <td><%= number_with_precision project.total, :precision => 2 %></td>
-
               </tr>
             </table>
           </section>
@@ -169,5 +173,6 @@
       <div class="clearfix"></div>
     </section>
     <div class="clearfix"></div>
+    <b class="tva-note"> <%= @invoice.projects.first.comment %> </b>
   </div>
 </div>

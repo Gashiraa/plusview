@@ -1,9 +1,12 @@
 --A FAIRE--
 
-TVA 0% autoliquidation Autoliquidation, article 21 du code TVA Belge
-Champ autre adresse
-Champs catégorie
-Articles/unité
+--02/10--
+
+adresse facture
+duplication
+Categorie/article
+TVA sur extra_project line
+remarques projet/devis
 
 --23/09--
 Devis :

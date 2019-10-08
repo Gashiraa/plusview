@@ -356,3 +356,4 @@ fr:
   total_invoiced: "Total facturé HTVA pour ce segment"
   quotation_account: "Les paiements se feront au compte CBC :"
   quotation_notice: "Pour plus d'information sur ce devis, vous pouvez nous contacter directement : philippe@plusview.be ou 0476 43 30 04. Nous vous remercions de votre confiance."
+  no_vat: "TVA 0%"

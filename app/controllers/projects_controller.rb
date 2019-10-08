@@ -35,7 +35,6 @@ class ProjectsController < ApplicationController
                        template: 'layouts/pdf_footer_quotation.html.erb'
                    }
                }
-        redirect_to projects_path(@project.id)
       end
     end
   end
@@ -109,6 +108,25 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def duplicate
+    respond_to do |format|
+      @clone = @project.dup
+      @clone.status = 0
+      @clone.date = Date.today
+      @project.project_extra_lines.each do |project_extra_lines|
+        @clone.project_extra_lines.push(project_extra_lines.dup)
+      end
+
+      if @clone.save!
+        format.html { redirect_to project_path(@clone), notice: t('project_update_success') }
+        format.json { render :show, status: :ok, location: @project }
+      else
+        format.html { render :edit }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -118,7 +136,7 @@ class ProjectsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
-    params.require(:project).permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross, :date, :description, :po, :applicant)
+    params.require(:project).permit(:invoice_id, :quotation_id, :customer_id, :name, :status, :wielding, :machining, :karcher, :total, :total_gross, :date, :description, :po, :applicant, :no_vat, :comment)
   end
 
 end

@@ -26,7 +26,7 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "plusview sprl-facture" + @invoice.id.to_s,
+        render pdf: "plusview sprl-facture" + @invoice.display_number.to_s,
                page_size: 'A4',
                template: 'invoices/show.html.erb',
                layout: 'pdf.html',
@@ -122,7 +122,7 @@ class InvoicesController < ApplicationController
   def get_next_invoice_number
 
     max_number = Invoice.maximum("display_number") || 0
-    for i in 190056..max_number
+    for i in 19056..max_number
       if Invoice.exists?(display_number: i)
         next
       else

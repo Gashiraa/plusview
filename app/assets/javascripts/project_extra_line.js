@@ -7,7 +7,7 @@ $(document).on("turbolinks:load", function () {
             language: $('.locale').data('locale')
         });
 
-        $('#extra_edit_select').on('focus load trigger mouseover change', function () {
+        $('#project_extra_line_extra_id').on('focus load trigger mouseover change', function () {
             let extra = this.options[this.selectedIndex].value;
             $("#extra_unit_price > option").each(function () {
                 if (this.getAttribute("extra") === extra) {
@@ -25,38 +25,40 @@ $(document).on("turbolinks:load", function () {
                     this.style.display = "none";
                 }
             });
-            $("#extra_tva_rate > option").each(function () {
-                if (this.getAttribute("extra") === extra) {
-                    this.style.display = "block";
-                    $('#extra_tva_rate').val(extra);
-                } else {
-                    this.style.display = "none";
-                }
-            });
+            // $("#extra_tva_rate > option").each(function () {
+            //     if (this.getAttribute("extra") === extra) {
+            //         this.style.display = "block";
+            //         $('#extra_tva_rate').val(extra);
+            //     } else {
+            //         this.style.display = "none";
+            //     }
+            // });
+            $('#extra_total').trigger('mouseover');
         });
         $('#extra_edit_select').trigger('change');
 
         //Sort extras depending on selected category
         $('#project_extra_line_id').on('load trigger change', function () {
             let category = this.options[this.selectedIndex].text;
-            $("#extra_edit_select > option").each(function () {
+            $("#project_extra_line_extra_id > option").each(function () {
                 if (this.getAttribute("category") === category) {
                     this.style.display = "block";
-                    $('#extra_edit_select').val(this.value);
+                    $('#project_extra_line_extra_id').val(this.value);
                 } else {
                     this.style.display = "none";
                 }
             });
-            $('#extra_edit_select').trigger('change');
+            $('#project_extra_line_extra_id').trigger('change');
+            $('#extra_total').trigger('mouseover');
         });
-        $('#project_extra_line_id').trigger('change');
 
         //Auto-select category on edit form
         {
-            if (document.getElementById("extra_edit_select")) {
-                let e = document.getElementById("extra_edit_select");
+            if (document.getElementById("project_extra_line_extra_id")) {
+                let e = document.getElementById("project_extra_line_extra_id");
                 let category = e.options[e.selectedIndex].getAttribute("category");
-                document.getElementById('project_extra_line_id').value=category;
+                document.getElementById('project_extra_line_id').value = category;
+                $('#project_extra_line_id').trigger('change');
             }
         }
 
@@ -64,13 +66,12 @@ $(document).on("turbolinks:load", function () {
         $('#extra_edit_select,#edit_project_extra_line,#extra_total_gross,#extra_total,#extra_quantity,#extra_tva_rate,#extra_unit_price')
             .on('keyup keypress mouseover change', function () {
                 let quantity = document.getElementById('extra_quantity').value || 0;
-                let tva_rate;
+                let tva_rate = document.getElementById('extra_tva_rate').value || 0;
+
                 let extra_unit_price;
-                if (document.getElementById('extra_tva_rate').options) {
-                    tva_rate = document.getElementById('extra_tva_rate').options[document.getElementById('extra_tva_rate').selectedIndex].text || 0;
+                if (document.getElementById('extra_unit_price').options) {
                     extra_unit_price = document.getElementById('extra_unit_price').options[document.getElementById('extra_unit_price').selectedIndex].text || 0;
                 } else {
-                    tva_rate = document.getElementById('extra_tva_rate').value || 0;
                     extra_unit_price = document.getElementById('extra_unit_price').value || 0;
                 }
                 let extra_total_gross = document.getElementById('extra_total_gross');
@@ -84,8 +85,15 @@ $(document).on("turbolinks:load", function () {
             });
         $('#extra_total_gross').trigger('mouseover');
 
+        //Auto select project
         if ($('#project-id').data('somedata')) {
             $("#extra_line_form_project").val($('#project-id').data('somedata'));
+            $('select[id="extra_line_form_project"]').trigger('change');
+        }
+
+        //Auto change vat to 0
+        if ($('#project-no-vat').data('somedata') === true) {
+            $("#extra_tva_rate").val('0');
             $('select[id="extra_line_form_project"]').trigger('change');
         }
     }

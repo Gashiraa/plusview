@@ -12,15 +12,18 @@
         <div>
           <%= "BE0693763596" %>
         </div>
-        <span>
+        <div>
           <%= @company.street %>
-        </span>
-        <br/>
-        <span><%= @company.postcode %> <%= @company.locality %></span>
-        <br/>
-        <span><%= @company.phone %></span>
-        <br/>
-        <span><%= @company.email %></span>
+        </div>
+        <div>
+          <%= @company.postcode %> <%= @company.locality %>
+        </div>
+        <div>
+          <%= @company.phone %>
+        </div>
+        <div>
+          <%= @company.email %>
+        </div>
       </div>
 
     </section>
@@ -95,7 +98,7 @@
                 <th class="name-cell"><%= t('Name') %></th>
                 <th class="quantity-cell"><%= t('quantity') %></th>
                 <th class="number-cell"><%= t('unit_price') + ' (€)' %></th>
-                <th class="number-cell"><%= t('tva_rate') + ' (%)' %></th>
+                  <th class="number-cell"><%= t('tva_rate') + ' (%)' %></th>
                 <th class="number-cell"><%= t('total_gross') + ' (€)' %></th>
               </tr>
               </thead>
@@ -105,17 +108,17 @@
                 <% if project_extra_line.is_manual %>
                   <tr>
                     <td class="name-cell"><%= project_extra_line.manual_name %></td>
-                    <td class="quantity-cell"><%= project_extra_line.quantity.to_s + ' ' + project_extra_line.unit %></td>
+                    <td class="quantity-cell"><%= number_to_human(project_extra_line.quantity, strip_insignificant_zeros: true).to_s + ' ' + project_extra_line.unit %></td>
                     <td class="number-cell"><%= number_with_precision project_extra_line.manual_price, :precision => 2 %></td>
-                    <td class="number-cell"><%= number_with_precision project_extra_line.manual_vat, :precision => 2 %></td>
+                      <td class="number-cell"><%= number_with_precision project_extra_line.tva_rate, :precision => 2 %></td>
                     <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
                   </tr>
                 <% else %>
                   <tr>
                     <td class="name-cell"><%= project_extra_line.extra.name %></td>
-                    <td class="quantity-cell"><%= project_extra_line.quantity.to_s + ' ' + project_extra_line.extra.unit %></td>
+                    <td class="quantity-cell"><%= number_to_human(project_extra_line.quantity, strip_insignificant_zeros: true).to_s + ' ' + project_extra_line.extra.unit %></td>
                     <td class="number-cell"><%= number_with_precision project_extra_line.extra.unit_price, :precision => 2 %></td>
-                    <td class="number-cell"><%= number_with_precision project_extra_line.extra.tva_rate, :precision => 2 %></td>
+                      <td class="number-cell"><%= number_with_precision project_extra_line.tva_rate, :precision => 2 %></td>
                     <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
                   </tr>
                 <% end %>
@@ -135,30 +138,18 @@
           <th>TOTAL HT (€)</th>
           <td><%= number_with_precision @project.total_gross, :precision => 2 %></td>
         </tr>
-        <tr data-hide-on-quote="true">
-          <th>Total TVA (€)</th>
-          <td><%= # noinspection RubyArgumentParentheses
-                  number_with_precision (@project.total - @project.total_gross), :precision => 2 %></td>
-        </tr>
-        <tr data-hide-on-quote="true">
-          <th>TOTAL TTC (€)</th>
-          <td><%= number_with_precision @project.total, :precision => 2 %></td>
-        </tr>
+          <tr data-hide-on-quote="true">
+            <th>Total TVA (€)</th>
+            <td><%= # noinspection RubyArgumentParentheses
+                    number_with_precision (@project.total - @project.total_gross), :precision => 2 %></td>
+          </tr>
+          <tr data-hide-on-quote="true">
+            <th>TOTAL TTC (€)</th>
+            <td><%= number_with_precision @project.total, :precision => 2 %></td>
+          </tr>
       </table>
       <div class="clearfix"></div>
     </section>
-    <!--    <section id="notes">-->
-    <!--      <h5>-->
-    <!--        Les paiements se feront au compte BNP Fortis : <b>BE47 0015 7715 0480</b>-->
-    <!--      </h5>-->
-    <!--      <p>-->
-    <!--        1) Le montant de la facture est payable dans les 8 jours. </br>-->
-    <!--        2) Toute réclamation devra être formulée au plus tard dans les huit jours de la réception par lettre-->
-    <!--        recommandée.</br>-->
-    <!--        3) En cas de retard de paiement, un intérêt de 1% par mois est dû de plein droit, ainsi qu'une indemnité égale à-->
-    <!--        15% du montant de la facture avec un minimum de 50€, sans sommation ni mise en demeure.</br>-->
-    <!--        4) Pour tous litiges, seuls les tribunaux de Liège sont compétents.-->
-    <!--      </p>-->
-    <!--    </section>-->
+      <b class="tva-note"> <%= @project.comment %> </b>
   </div>
 </div>

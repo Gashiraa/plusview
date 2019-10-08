@@ -94,6 +94,6 @@ class ProjectExtraLinesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_extra_line_params
-    params.require(:project_extra_line).permit(:project_id, :extra_id, :quantity,:total, :total_gross, :manual_name, :manual_price, :manual_vat, :unit, :is_manual)
+    params.require(:project_extra_line).permit(:project_id, :extra_id, :quantity,:total, :total_gross, :manual_name, :manual_price, :tva_rate, :unit, :is_manual)
   end
 end

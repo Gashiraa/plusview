@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_113630) do
+ActiveRecord::Schema.define(version: 2019_10_02_115330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2019_09_25_113630) do
     t.float "manual_price"
     t.string "unit"
     t.float "manual_vat"
+    t.float "tva_rate"
     t.index ["extra_id"], name: "index_project_extra_lines_on_extra_id"
     t.index ["project_id"], name: "index_project_extra_lines_on_project_id"
   end
@@ -118,6 +119,8 @@ ActiveRecord::Schema.define(version: 2019_09_25_113630) do
     t.date "date"
     t.string "po"
     t.string "applicant"
+    t.boolean "no_vat"
+    t.text "comment"
     t.index ["customer_id"], name: "index_projects_on_customer_id"
     t.index ["invoice_id"], name: "index_projects_on_invoice_id"
   end

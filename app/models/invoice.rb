@@ -40,9 +40,9 @@ class Invoice < ApplicationRecord
   def update_statuses_invoice(invoice)
 
     Project.all
-        .where(status: :accepted)
+        .where(status: :invoiced)
         .where("invoice_id IS NULL")
-        .update(status: :invoiced)
+        .update(status: :accepted)
 
     Ware.all
         .joins(:project)

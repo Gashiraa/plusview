@@ -16,6 +16,9 @@ document.addEventListener('turbolinks:before-cache', function () {
 
 $(document).on("turbolinks:load", function () {
 
+
+        $('.ui.checkbox').checkbox({debug: true});
+
         {
             // SELECT2 INITIALISATIONS
             $("#project_sort").select2({

@@ -28,6 +28,9 @@ Rails.application.routes.draw do
 
   get 'projects/accepted/:id' => 'projects#accepted', as: :accepted
   get 'invoices/paid/:id' => 'invoices#paid', as: :paid
+  get 'projects/duplicate/:id' => 'projects#duplicate', as: :duplicate
+  post 'projects/duplicate/:id' => 'projects#duplicate'
+
 
 
 end

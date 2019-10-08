@@ -1,5 +1,6 @@
 <div id="project-id" data-somedata="<%= @project.id %>"></div>
 <div id="project-customer-id" data-somedata="<%= @project.customer.id %>"></div>
+<div id="project-no-vat" data-somedata="<%= @project.no_vat %>"></div>
 
 <div class="flex">
   <div class="ui cards">
@@ -25,6 +26,12 @@
         </div>
         <div class="description">
           <%= @project.description %>
+          <br>
+        </div>
+        <div class="description">
+          <% if (@project.no_vat) %>
+            <b> Pas de TVA </b>
+          <% end %>
           <br>
         </div>
       </div>
@@ -62,7 +69,11 @@
       </div>
       <div class="content">
         <div class="center aligned">
-          <%= button_to project_path(@project, :format => :pdf), :method => :get, form: { target: "_blank" }, class: "ui blue labeled icon button" do %>
+          <%= button_to "Dupliquer le projet", {id: @project.id, action: :duplicate, controller: :projects, :method => :get}, {class: "ui olive button"} %>
+        </div>
+        <br>
+        <div class="center aligned">
+          <%= button_to project_path(@project, :format => :pdf), :method => :get, form: {target: "_blank"}, class: "ui blue labeled icon button" do %>
             Voir le devis
             <i class="file pdf icon"></i>
           <% end %>
@@ -70,7 +81,7 @@
         <br>
         <div class="center aligned">
           <% if @project.invoice %>
-            <%= button_to invoice_path(@project.invoice, :format => :pdf), :method => :get, form: { target: "_blank" }, class: "ui yellow  labeled icon button", :target => "_blank"  do %>
+            <%= button_to invoice_path(@project.invoice, :format => :pdf), :method => :get, form: {target: "_blank"}, class: "ui yellow  labeled icon button", :target => "_blank" do %>
               Voir la facture
               <i class="file pdf icon"></i>
             <% end %>
@@ -127,7 +138,7 @@
               <%= number_with_precision project_extra_line.total, :precision => 2 %>
             </td>
             <td class="buttons-cell center-cell">
-              <%= link_to "project_extra_lines/edit_manual/"+project_extra_line.id.to_s, remote: true do %>
+              <%= link_to "project_extra_lines/edit_manual/" + project_extra_line.id.to_s, remote: true do %>
                 <%= image_tag("edit-icon.png", size: "30x30") %>
               <% end %>
               <%= link_to project_extra_line, method: :delete, data: {confirm: t('confirm_delete')} do %>

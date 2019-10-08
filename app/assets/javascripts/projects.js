@@ -10,4 +10,8 @@ $(document).on("turbolinks:load", function () {
     if ($('#project-id').data('somedata')) {
         $("#invoice_form_projects").val([$('#project-id').data('somedata')]);
     }
+
+    $('.ui.checkbox')
+        .checkbox()
+    ;
 });

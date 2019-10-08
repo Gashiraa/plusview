@@ -48,7 +48,7 @@
 
       <div class="field">
         <%= form.label t('tva_rate') %>
-        <%= form.text_field :manual_vat, value: @project_extra_line.manual_vat || '21', class: 'form-control', id: 'extra_tva_rate', autocomplete: 'nope' %>
+        <%= form.text_field :tva_rate, class: "form-control", autocomplete: 'nope', id: 'extra_tva_rate', value: @project_extra_line.tva_rate ? @project_extra_line.tva_rate : "21" %>
       </div>
 
     </div>

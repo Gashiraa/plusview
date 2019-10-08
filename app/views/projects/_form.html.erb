@@ -21,7 +21,7 @@
       </div>
       <div class="field">
         <%= form.label t('status') %>
-        <%= form.select :status, Project.translated_statuses.map {|status| [status[0], status[1]]}, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
+        <%= form.select :status, Project.translated_statuses.map { |status| [status[0], status[1]] }, {:include_blank => true}, {class: 'form-control', id: 'status_edit_select'} %>
       </div>
 
       <div class="field">
@@ -52,10 +52,22 @@
       </div>
     </div>
 
-    <hr>
     <div class="field">
       <%= form.label t('description') %>
       <%= form.text_area :description, rows: "5", class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
+    </div>
+
+    <div class="ui segment">
+      <div class="field">
+        <%= form.label t('description') %>
+        <%= form.text_area :comment, rows: "5", class: "form-control", onkeyup: "javascript:capitalize(this.id, this.value);", autocomplete: 'nope' %>
+      </div>
+      <div class="field">
+        <div class="ui toggle checkbox">
+          <%= form.check_box :no_vat %>
+          <%= form.label :no_vat, t("no_vat")%>
+        </div>
+      </div>
     </div>
 
     <div class="field">
