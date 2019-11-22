@@ -32,7 +32,7 @@ class InvoicesController < ApplicationController
                layout: 'pdf.html',
                encoding: 'utf8',
                show_as_html: params.key?('debug'),
-               :margin => {:bottom => 35},
+               :margin => {:bottom => 20},
                footer: {
                    html: {
                        template: 'layouts/pdf_footer.html.erb'
@@ -116,13 +116,13 @@ class InvoicesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def invoice_params
-    params.require(:invoice).permit(:payment_id, :date, :status, :total, :display_number, :customer_id, ware_ids: [], project_ids: [])
+    params.require(:invoice).permit(:payment_id, :date, :status, :total, :display_number, :customer_id, :project_ids, ware_ids: [], project_ids: [])
   end
 
   def get_next_invoice_number
 
     max_number = Invoice.maximum("display_number") || 0
-    for i in 19056..max_number
+    for i in 19057..max_number
       if Invoice.exists?(display_number: i)
         next
       else

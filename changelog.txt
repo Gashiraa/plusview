@@ -1,5 +1,8 @@
 --A FAIRE--
 
+Invoice accepté
+
+
 --02/10--
 
 adresse facture
@@ -7,6 +10,19 @@ duplication
 Categorie/article
 TVA sur extra_project line
 remarques projet/devis
+
+Supprimer bouton edition sur index projet
+Rajouter clic sur la ligne
+Afficher commentaires dans facture
+Mettre corbeille à la place de croix
+
+Taux/horaire client préchoisi dans projet
+
+Tri facture par défaut et devis aussi
+Barre facture, Juprelle exemple
+Page break Pire michel
+Quantité décimales sur quantité
+
 
 --23/09--
 Devis :

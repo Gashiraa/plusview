@@ -86,7 +86,7 @@
               <i class="file pdf icon"></i>
             <% end %>
           <% else %>
-            <%= button_to new_invoice_path, :method => :get, :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window', class: "ui yellow button" do %>
+            <%= button_to new_invoice_path, :method => :get, params: {:project => @project.id}, :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window', class: "ui yellow button" do %>
               Facturer
             <% end %>
           <% end %>
@@ -119,7 +119,7 @@
           <td class="center aligned" colspan="9"><%= t('no_data_display') %></td>
         </tr>
       <% end %>
-      <% @project.project_extra_lines.each do |project_extra_line| %>
+      <% @project.project_extra_lines.order(:created_at).each do |project_extra_line| %>
         <% if project_extra_line.is_manual %>
           <tr>
             <td>

@@ -14,4 +14,13 @@ $(document).on("turbolinks:load", function () {
     $('.ui.checkbox')
         .checkbox()
     ;
+
+    $("#project_no_vat").change(function() {
+        if (this.checked) {
+            $("#project_comment").val("Autoliquidation Art 21 § 2 du code TVA belge");
+        }
+     });
+    $('.description-cell')
+        .popup()
+    ;
 });

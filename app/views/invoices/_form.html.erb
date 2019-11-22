@@ -33,17 +33,19 @@
       </div>
     </div>
 
-    <div class="field">
-      <%= form.label t('projects_done').pluralize %>
-      <% if @invoice.id %>
-        <%= form.select(:project_ids, Project.where(status: :accepted)
+    <%= form.hidden_field :project_ids, :value => params[:project] %>
+
+    <!--    <div class="field">
+      <%#= form.label t('projects_done').pluralize %>
+      <%# if @invoice.id %>
+        <%= form.select(:project_ids, Project.where(status: :accepted).or(Project.where(status: :created))
             .or(Project.where(invoice_id: @invoice.id))
             .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'invoice_form_projects', autocomplete: 'nope', :multiple => true}) %>
-      <% else %>
-        <%= form.select(:project_ids, Project.where(status: :accepted)
+      <%# else %>
+        <%= form.select(:project_ids, Project.where(status: :accepted).or(Project.where(status: :created))
             .collect {|project| [project.name, project.id, {customer: project.customer.id}]}, {}, {class: 'form-control', id: 'invoice_form_projects', autocomplete: 'nope', :multiple => true}) %>
-      <% end %>
-    </div>
+      <%# end %>
+    </div>-->
 
     <div class="field centered">
       <%= form.submit t('create'), :class => "ui green button", onclick: "setTimeout(function(){location.reload()}, 3000);", formtarget: "_blank"  %>

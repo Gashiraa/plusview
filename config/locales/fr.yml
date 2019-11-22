@@ -108,6 +108,7 @@ fr:
       quotation: "Devis"
       accepted: "Accepté"
       bin: "Corbeille"
+      canceled: "Annulé"
   activerecord:
     attributes:
       user:
