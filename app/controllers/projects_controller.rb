@@ -113,6 +113,7 @@ class ProjectsController < ApplicationController
       @clone = @project.dup
       @clone.status = 0
       @clone.date = Date.today
+      @clone.invoice_id = nil
       @project.project_extra_lines.each do |project_extra_lines|
         @clone.project_extra_lines.push(project_extra_lines.dup)
       end

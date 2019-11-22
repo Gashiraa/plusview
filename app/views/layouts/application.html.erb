@@ -34,16 +34,16 @@
     <% end %>
   </div>
 
-    <div class="right menu">
+  <div class="right menu">
 
-      <%= link_to t('FR'), {:controller => '/application', :action => 'change_locale', :id => 'fr'}, class: "item" %>
+    <%= link_to t('FR'), {:controller => '/application', :action => 'change_locale', :id => 'fr'}, class: "item" %>
 
-      <%= link_to t('EN'), {:controller => '/application', :action => 'change_locale', :id => 'en'}, class: "item" %>
+    <%= link_to t('EN'), {:controller => '/application', :action => 'change_locale', :id => 'en'}, class: "item" %>
 
-      <%= link_to(t('logout'), destroy_user_session_path, method: :delete, class: "item logout-button") %>
-    </div>
+    <%= link_to(t('logout'), destroy_user_session_path, method: :delete, class: "item logout-button") %>
+  </div>
 
-    </div>
+</div>
 
 <% if notice %>
   <div id="notice" class="ui success floating message">
