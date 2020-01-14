@@ -202,3 +202,10 @@ function capitalize(textboxid, str) {
     }
     document.getElementById(textboxid).value = str;
 }
+
+function replaceComma(id, string) {
+    if (string && string.length >= 1) {
+        str = string.replace(",",".")
+    }
+    document.getElementById(id).value = str;
+}

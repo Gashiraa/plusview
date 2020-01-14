@@ -49,7 +49,6 @@ $(document).on("turbolinks:load", function () {
                 }
             });
             $('#project_extra_line_extra_id').trigger('change');
-            $('#extra_total').trigger('mouseover');
         });
 
         //Auto-select category on edit form
@@ -57,8 +56,11 @@ $(document).on("turbolinks:load", function () {
             if (document.getElementById("project_extra_line_extra_id")) {
                 let e = document.getElementById("project_extra_line_extra_id");
                 let category = e.options[e.selectedIndex].getAttribute("category");
+                let article = e.options[e.selectedIndex].value;
                 document.getElementById('project_extra_line_id').value = category;
                 $('#project_extra_line_id').trigger('change');
+                document.getElementById('project_extra_line_extra_id').value = article;
+                $('#project_extra_line_extra_id').trigger('mouseover');
             }
         }
 

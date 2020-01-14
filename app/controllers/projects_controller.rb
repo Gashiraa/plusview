@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @search = Project.order(id: :desc).ransack(params[:q])
+    @search = Project.order(date: :desc).ransack(params[:q])
     @projects = @search.result(distinct: true).paginate(page: params[:page], per_page: 30)
   end
 

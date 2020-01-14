@@ -27,7 +27,7 @@
 
       <div class="field">
         <%= form.label t('extra') %>
-        <%= form.select(:extra_id, options_for_select(Extra.all.collect { |extra| [extra.name, extra.id, {category: extra.category}] }, selected: @project_extra_line.extra_id), {class: 'form-control', id: 'extra_edit_select', autocomplete: 'nope'}) %>
+        <%= form.select(:extra_id, options_for_select(Extra.all.where(delete_flag: nil).collect { |extra| [extra.name, extra.id, {category: extra.category}] }, selected: @project_extra_line.extra_id), {class: 'form-control', id: 'extra_edit_select', autocomplete: 'nope'}) %>
       </div>
 
     </div>
@@ -37,7 +37,7 @@
       <div class="field">
         <%= form.label t('unit') %>
         <%= form.select(:id, Extra.all
-            .collect { |extra| [extra.unit, extra.id, {extra: extra.id}] }, {}, {class: 'form-control', id: 'extra_unit', autocomplete: 'nope', :disabled => true}) %>
+            .collect { |extra| [extra.unit, extra.id, {extra: extra.id}] }, {}, { class: 'form-control', id: 'extra_unit', autocomplete: 'nope', :disabled => true}) %>
       </div>
 
       <div class="field">
@@ -48,7 +48,7 @@
       <div class="field">
         <%= form.label t('extra_price') %>
         <%= form.select(:id, Extra.all
-            .collect { |extra| [extra.unit_price, extra.id, {extra: extra.id}] }, {}, {class: 'form-control', id: 'extra_unit_price', autocomplete: 'nope', :disabled => true}) %>
+            .collect { |extra| [extra.unit_price, extra.id, {extra: extra.id}] }, {}, {class: 'form-control', onkeyup: "javascript:replaceComma(this.id, this.value);", id: 'extra_unit_price', autocomplete: 'nope', :disabled => true}) %>
       </div>
 
       <div class="field">

@@ -111,7 +111,7 @@
                   <% if project_extra_line.is_manual %>
                     <tr>
                       <td class="name-cell"><%= project_extra_line.manual_name %></td>
-                      <td class="quantity-cell"><%= number_to_human(project_extra_line.quantity, strip_insignificant_zeros: true).to_s + ' ' + project_extra_line.unit %></td>
+                      <td class="quantity-cell"><%= number_with_precision(project_extra_line.quantity, strip_insignificant_zeros: true).to_s + ' ' + project_extra_line.unit %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.manual_price, :precision => 2 %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.tva_rate, :precision => 2 %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>
@@ -119,7 +119,7 @@
                   <% else %>
                     <tr>
                       <td class="name-cell"><%= project_extra_line.extra.name %></td>
-                      <td class="quantity-cell"><%= number_to_human(project_extra_line.quantity, strip_insignificant_zeros: true).to_s + ' ' + project_extra_line.extra.unit %></td>
+                      <td class="quantity-cell"><%= number_with_precision(project_extra_line.quantity, strip_insignificant_zeros: true).to_s + ' ' + project_extra_line.extra.unit %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.extra.unit_price, :precision => 2 %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.tva_rate, :precision => 2 %></td>
                       <td class="number-cell"><%= number_with_precision project_extra_line.total_gross, :precision => 2 %></td>

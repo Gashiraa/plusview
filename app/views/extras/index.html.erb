@@ -36,7 +36,7 @@
       <td class="center aligned" colspan="9"><%= t('no_data_display') %></td>
     </tr>
   <% end %>
-  <% @extras.each do |extra| %>
+  <% @extras.where(delete_flag: nil).each do |extra| %>
     <tr>
       <td>
         <%= extra.name %>
@@ -57,7 +57,7 @@
         <%= link_to edit_extra_path(extra), remote: true do %>
           <%= image_tag("edit-icon.png", size: "30x30") %>
         <% end %>
-        <%= link_to extra, method: :delete, data: {confirm: t('confirm_delete')} do %>
+        <%= link_to extra_path(extra, extra: {delete_flag: true}), method: :put, data: {confirm: t('confirm_delete')} do %>
           <%= image_tag("delete-icon.png", size: "30x30") %>
         <% end %>
       </td>

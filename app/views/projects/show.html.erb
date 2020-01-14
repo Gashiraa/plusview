@@ -164,7 +164,7 @@
               <%= number_with_precision project_extra_line.total, :precision => 2 %>
             </td>
             <td class="buttons-cell center-cell">
-              <%= link_to edit_project_extra_line_path(project_extra_line), remote: true do %>
+              <%= link_to edit_project_extra_line_path(project_extra_line, extra: project_extra_line.id), remote: true do %>
                 <%= image_tag("edit-icon.png", size: "30x30") %>
               <% end %>
               <%= link_to project_extra_line, method: :delete, data: {confirm: t('confirm_delete')} do %>

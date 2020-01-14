@@ -43,7 +43,7 @@
 
       <div class="field">
         <%= form.label t('extra_price') %>
-        <%= form.text_field :manual_price, class: 'form-control', id: 'extra_unit_price', autocomplete: 'nope' %>
+        <%= form.text_field :manual_price, class: 'form-control', onkeyup: "javascript:replaceComma(this.id, this.value);", id: 'extra_unit_price', autocomplete: 'nope' %>
       </div>
 
       <div class="field">
